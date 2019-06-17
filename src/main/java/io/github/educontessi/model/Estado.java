@@ -1,16 +1,19 @@
 package io.github.educontessi.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "pais")
-public class Pais {
+@Table(name = "estado")
+public class Estado {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,8 +28,9 @@ public class Pais {
 	private String sigla;
 
 	@NotNull
-	@Size(min = 2, max = 10)
-	private String bacen;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "pais_id")
+	private Pais pais;
 
 	public Long getId() {
 		return id;
@@ -52,12 +56,12 @@ public class Pais {
 		this.sigla = sigla;
 	}
 
-	public String getBacen() {
-		return bacen;
+	public Pais getPais() {
+		return pais;
 	}
 
-	public void setBacen(String bacen) {
-		this.bacen = bacen;
+	public void setPais(Pais pais) {
+		this.pais = pais;
 	}
 
 }
