@@ -12,28 +12,50 @@ import javax.validation.constraints.Size;
 @Table(name = "pais")
 public class Pais {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-	@NotNull
-	@Size(min = 3, max = 100)
-	private String nome;
+  @NotNull
+  @Size(min = 3, max = 100)
+  private String nome;
 
-	public Long getId() {
-		return id;
-	}
+  @Size(min = 2, max = 10)
+  private String sigla;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+  @Size(min = 2, max = 10)
+  private String bacen;
 
-	public String getNome() {
-		return nome;
-	}
+  public Long getId() {
+    return id;
+  }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public String getNome() {
+    return nome;
+  }
+
+  public void setNome(String nome) {
+    this.nome = nome;
+  }
+
+  public String getSigla() {
+    return sigla;
+  }
+
+  public void setSigla(String sigla) {
+    this.sigla = sigla;
+  }
+
+  public String getBacen() {
+    return bacen;
+  }
+
+  public void setBacen(String bacen) {
+    this.bacen = bacen;
+  }
 
 }
