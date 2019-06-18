@@ -26,8 +26,8 @@ import io.github.educontessi.repository.EstadoRepository;
 import io.github.educontessi.service.EstadoService;
 
 @RestController
-@RequestMapping("/estados")
-public class EstadoResource {
+@RequestMapping("/v1/estados")
+public class EstadoV1Resource {
 
 	@Autowired
 	private EstadoRepository repository;

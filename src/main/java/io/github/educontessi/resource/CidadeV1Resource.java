@@ -21,50 +21,56 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.github.educontessi.event.RecursoCriadoEvent;
-import io.github.educontessi.model.Bairro;
-import io.github.educontessi.repository.BairroRepository;
-import io.github.educontessi.service.BairroService;
+import io.github.educontessi.model.Cidade;
+import io.github.educontessi.repository.CidadeRepository;
+import io.github.educontessi.service.CidadeService;
 
 @RestController
-@RequestMapping("/bairros")
-public class BairroResource {
+@RequestMapping("/v1/cidades")
+public class CidadeV1Resource {
 
 	@Autowired
-	private BairroRepository repository;
+	private CidadeRepository repository;
 
 	@Autowired
-	private BairroService service;
+	private CidadeService service;
 
 	@Autowired
 	private ApplicationEventPublisher publisher;
 
 	@GetMapping
-	public List<Bairro> findAll() {
+	public List<Cidade> findAll() {
 		return repository.findAll();
 	}
 
-	@GetMapping("/cidade/{cidadeId}")
-	public List<Bairro> findByEstadoId(@PathVariable Long cidadeId) {
-		return repository.findByCidadeId(cidadeId);
+	@GetMapping("/estado/{estadoId}")
+	public List<Cidade> findByEstadoId(@PathVariable Long estadoId) {
+		return repository.findByEstadoId(estadoId);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Bairro> findById(@PathVariable Long id) {
-		Optional<Bairro> entity = repository.findById(id);
+	public ResponseEntity<Cidade> findById(@PathVariable Long id) {
+		Optional<Cidade> entity = repository.findById(id);
+		return entity.isPresent() ? ResponseEntity.ok(entity.get()) : ResponseEntity.notFound().build();
+	}
+
+	@GetMapping("/ibge/{ibge}")
+	public ResponseEntity<Cidade> findByIbge(@PathVariable Integer ibge) {
+		Optional<Cidade> entity = repository.findByIbge(ibge);
 		return entity.isPresent() ? ResponseEntity.ok(entity.get()) : ResponseEntity.notFound().build();
 	}
 
 	@PostMapping
-	public ResponseEntity<Bairro> save(@Valid @RequestBody Bairro entity, HttpServletResponse response) {
-		Bairro cidade = repository.save(entity);
+	public ResponseEntity<Cidade> save(@Valid @RequestBody Cidade entity, HttpServletResponse response) {
+		Cidade cidade = repository.save(entity);
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, cidade.getId()));
 		return ResponseEntity.status(HttpStatus.CREATED).body(cidade);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Bairro> update(@PathVariable Long id, @Valid @RequestBody Bairro entity) {
+	public ResponseEntity<Cidade> update(@PathVariable Long id, @Valid @RequestBody Cidade entity) {
 		try {
-			Bairro cidade = service.update(id, entity);
+			Cidade cidade = service.update(id, entity);
 			return ResponseEntity.ok(cidade);
 		} catch (IllegalArgumentException e) {
 			return ResponseEntity.notFound().build();
