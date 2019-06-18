@@ -12,14 +12,14 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * Entidade {@link Estado} para mapear tabela de estados
+ * Entidade {@link Cidade} para mapear tabela de cidades
  * 
  * @author Eduardo Contessi
  *
  */
 @Entity
-@Table(name = "estado")
-public class Estado {
+@Table(name = "cidade")
+public class Cidade {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,13 +30,13 @@ public class Estado {
 	private String nome;
 
 	@NotNull
-	@Size(min = 2, max = 10)
-	private String uf;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "estado_id")
+	private Estado estado;
 
 	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "pais_id")
-	private Pais pais;
+	@Size(min = 7, max = 7)
+	private Integer ibge;
 
 	public Long getId() {
 		return id;
@@ -54,20 +54,20 @@ public class Estado {
 		this.nome = nome;
 	}
 
-	public String getUf() {
-		return uf;
+	public Estado getEstado() {
+		return estado;
 	}
 
-	public void setUf(String uf) {
-		this.uf = uf;
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
 
-	public Pais getPais() {
-		return pais;
+	public Integer getIbge() {
+		return ibge;
 	}
 
-	public void setPais(Pais pais) {
-		this.pais = pais;
+	public void setIbge(Integer ibge) {
+		this.ibge = ibge;
 	}
 
 }

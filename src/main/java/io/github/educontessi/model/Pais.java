@@ -8,6 +8,12 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ * Entidade {@link Pais} para mapear tabela de países
+ * 
+ * @author Eduardo Contessi
+ *
+ */
 @Entity
 @Table(name = "pais")
 public class Pais {
