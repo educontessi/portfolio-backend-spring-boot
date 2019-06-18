@@ -7,23 +7,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import io.github.educontessi.model.Estado;
-import io.github.educontessi.repository.EstadoRepository;
+import io.github.educontessi.model.Bairro;
+import io.github.educontessi.repository.BairroRepository;
 
 @Service
-public class EstadoService {
+public class BairroService {
 
 	@Autowired
-	private EstadoRepository repository;
+	private BairroRepository repository;
 
-	public Estado update(Long id, Estado entity) {
-		Estado saved = findById(id);
+	public Bairro update(Long id, Bairro entity) {
+		Bairro saved = findById(id);
 		BeanUtils.copyProperties(entity, saved, "id");
 		return repository.save(saved);
 	}
 
-	public Estado findById(Long id) {
-		Optional<Estado> entity = repository.findById(id);
+	public Bairro findById(Long id) {
+		Optional<Bairro> entity = repository.findById(id);
 		if (!entity.isPresent()) {
 			throw new EmptyResultDataAccessException(1);
 		}

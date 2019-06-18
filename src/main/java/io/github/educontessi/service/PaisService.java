@@ -17,9 +17,9 @@ public class PaisService {
 	private PaisRepository repository;
 
 	public Pais update(Long id, Pais entity) {
-		Pais pais = findById(id);
-		BeanUtils.copyProperties(entity, pais, "id");
-		return repository.save(pais);
+		Pais saved = findById(id);
+		BeanUtils.copyProperties(entity, saved, "id");
+		return repository.save(saved);
 	}
 
 	public Pais findById(Long id) {

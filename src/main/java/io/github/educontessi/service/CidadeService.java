@@ -17,9 +17,9 @@ public class CidadeService {
 	private CidadeRepository repository;
 
 	public Cidade update(Long id, Cidade entity) {
-		Cidade cidade = findById(id);
-		BeanUtils.copyProperties(entity, cidade, "id");
-		return repository.save(cidade);
+		Cidade saved = findById(id);
+		BeanUtils.copyProperties(entity, saved, "id");
+		return repository.save(saved);
 	}
 
 	public Cidade findById(Long id) {
