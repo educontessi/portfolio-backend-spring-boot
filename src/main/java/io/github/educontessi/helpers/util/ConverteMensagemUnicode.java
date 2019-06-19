@@ -2,7 +2,7 @@ package io.github.educontessi.helpers.util;
 
 public class ConverteMensagemUnicode {
 
-	public static String converteMensagemUnicode(String mensagem) {
+	public String converteMensagemUnicode(String mensagem) {
 		String retorno = "";
 		char[] chars = mensagem.toCharArray();
 
