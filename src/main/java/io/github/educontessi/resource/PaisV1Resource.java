@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.github.educontessi.event.RecursoCriadoEvent;
+import io.github.educontessi.helpers.event.RecursoCriadoEvent;
 import io.github.educontessi.model.Pais;
 import io.github.educontessi.repository.PaisRepository;
 import io.github.educontessi.service.PaisService;

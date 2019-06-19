@@ -1,4 +1,4 @@
-package io.github.educontessi.event;
+package io.github.educontessi.helpers.event;
 
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.ApplicationEvent;

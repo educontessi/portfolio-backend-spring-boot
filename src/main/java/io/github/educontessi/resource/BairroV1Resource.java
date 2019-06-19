@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.github.educontessi.event.RecursoCriadoEvent;
+import io.github.educontessi.helpers.event.RecursoCriadoEvent;
 import io.github.educontessi.model.Bairro;
 import io.github.educontessi.repository.BairroRepository;
 import io.github.educontessi.service.BairroService;

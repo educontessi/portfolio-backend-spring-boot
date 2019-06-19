@@ -1,6 +1,6 @@
-package io.github.educontessi.util.busca_cep;
+package io.github.educontessi.model;
 
-public class ObjetoViaCEP {
+public class ViaCepJson {
 
 	private String cep;
 	private String logradouro;
@@ -82,6 +82,10 @@ public class ObjetoViaCEP {
 
 	public void setGia(String gia) {
 		this.gia = gia;
+	}
+
+	public boolean isValid() {
+		return this != null && getCep() != null && !getCep().isEmpty();
 	}
 
 }

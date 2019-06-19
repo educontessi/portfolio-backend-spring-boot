@@ -1,6 +1,6 @@
-package io.github.educontessi.util;
+package io.github.educontessi.helpers.util;
 
-public class StringUtils {
+public class ConverteMensagemUnicode {
 
 	public static String converteMensagemUnicode(String mensagem) {
 		String retorno = "";

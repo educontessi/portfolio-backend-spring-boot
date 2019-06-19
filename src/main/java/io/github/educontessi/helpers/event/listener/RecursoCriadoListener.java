@@ -1,10 +1,11 @@
-package io.github.educontessi.event.listener;
+package io.github.educontessi.helpers.event.listener;
 
 import java.net.URI;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.ApplicationListener;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import io.github.educontessi.event.RecursoCriadoEvent;
+
+import io.github.educontessi.helpers.event.RecursoCriadoEvent;
 
 public class RecursoCriadoListener implements ApplicationListener<RecursoCriadoEvent> {
 

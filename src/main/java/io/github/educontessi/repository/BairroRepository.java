@@ -11,7 +11,7 @@ import io.github.educontessi.model.Bairro;
 @Repository
 public interface BairroRepository extends JpaRepository<Bairro, Long> {
 
-	public Optional<Bairro> findByNome(String nome);
+	public Optional<Bairro> findByNomeAndCidadeId(String nome, Long cidadeId);
 
 	public List<Bairro> findByCidadeId(Long cidadeId);
 }
