@@ -43,9 +43,10 @@ public class PessoaV1Resource {
 		return repository.findAll();
 	}
 
-	@GetMapping("/cpf/{cpf}")
-	public Optional<Pessoa> findByCpf(@PathVariable String cpfCnpj) {
-		return repository.findByCpfCnpj(cpfCnpj);
+	@GetMapping("/cpf-cnpj/{cpfCnpj}")
+	public ResponseEntity<Pessoa> findByCpf(@PathVariable String cpfCnpj) {
+		Optional<Pessoa> entity = service.findByCpfCnpj(cpfCnpj);
+		return entity.isPresent() ? ResponseEntity.ok(entity.get()) : ResponseEntity.notFound().build();
 	}
 
 	@GetMapping("/{id}")

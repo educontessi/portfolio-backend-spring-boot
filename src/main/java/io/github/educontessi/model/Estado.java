@@ -85,6 +85,7 @@ public class Estado {
 
 	public void setPais(Pais pais) {
 		this.pais = pais;
+		this.paisId = pais.getId();
 	}
 
 }

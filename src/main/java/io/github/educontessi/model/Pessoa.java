@@ -198,6 +198,7 @@ public class Pessoa {
 
 	public void setCidade(Cidade cidade) {
 		this.cidade = cidade;
+		this.cidadeId = cidade.getId();
 	}
 
 	public Long getBairroId() {
@@ -214,6 +215,7 @@ public class Pessoa {
 
 	public void setBairro(Bairro bairro) {
 		this.bairro = bairro;
+		this.bairroId = bairro.getId();
 	}
 
 	public Long getRuaId() {
@@ -230,6 +232,7 @@ public class Pessoa {
 
 	public void setRua(Rua rua) {
 		this.rua = rua;
+		this.ruaId = rua.getId();
 	}
 
 	public String getCep() {

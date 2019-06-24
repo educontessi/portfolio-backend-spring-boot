@@ -1,5 +1,7 @@
 package io.github.educontessi.service;
 
+import static io.github.educontessi.helpers.util.FuncoesString.removeMascaraDeNumeros;
+
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -28,6 +30,14 @@ public class PessoaService {
 			throw new EmptyResultDataAccessException(1);
 		}
 		return entity.get();
+	}
+
+	public Optional<Pessoa> findByCpfCnpj(String cpfCnpj) {
+		Optional<Pessoa> entity = repository.findByCpfCnpj(removeMascaraDeNumeros(cpfCnpj));
+		if (!entity.isPresent()) {
+			throw new EmptyResultDataAccessException(1);
+		}
+		return entity;
 	}
 
 }

@@ -72,6 +72,7 @@ public class Rua {
 
 	public void setCidade(Cidade cidade) {
 		this.cidade = cidade;
+		this.cidadeId = cidade.getId();
 	}
 
 }

@@ -77,6 +77,7 @@ public class Cidade {
 
 	public void setEstado(Estado estado) {
 		this.estado = estado;
+		this.estadoId = estado.getId();
 	}
 
 	public Integer getIbge() {
