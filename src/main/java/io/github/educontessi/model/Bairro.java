@@ -1,5 +1,6 @@
 package io.github.educontessi.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -27,6 +28,7 @@ public class Bairro {
 
 	@NotNull
 	@Size(min = 3, max = 100)
+	@Column(name = "nome")
 	private String nome;
 
 	@NotNull

@@ -1,5 +1,6 @@
 package io.github.educontessi.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -27,11 +28,12 @@ public class Rua {
 
 	@NotNull
 	@Size(min = 3, max = 100)
+	@Column(name = "nome")
 	private String nome;
 
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "cidade_id")
+	@JoinColumn(name = "cidade_id", insertable = false, updatable = false)
 	private Cidade cidade;
 
 	public Long getId() {

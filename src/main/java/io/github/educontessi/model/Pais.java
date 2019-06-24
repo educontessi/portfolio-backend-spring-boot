@@ -1,5 +1,6 @@
 package io.github.educontessi.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,14 +25,17 @@ public class Pais {
 
 	@NotNull
 	@Size(min = 3, max = 100)
+	@Column(name = "nome")
 	private String nome;
 
 	@NotNull
 	@Size(min = 2, max = 10)
+	@Column(name = "sigla")
 	private String sigla;
 
 	@NotNull
 	@Size(min = 2, max = 10)
+	@Column(name = "bacen")
 	private String bacen;
 
 	public Long getId() {

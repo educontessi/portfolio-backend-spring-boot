@@ -1,5 +1,7 @@
 package io.github.educontessi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class ViaCepJson {
 
 	private String cep;
@@ -84,6 +86,7 @@ public class ViaCepJson {
 		this.gia = gia;
 	}
 
+	@JsonIgnore
 	public boolean isValid() {
 		return this != null && getCep() != null && !getCep().isEmpty();
 	}

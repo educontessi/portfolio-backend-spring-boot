@@ -1,5 +1,6 @@
 package io.github.educontessi.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -27,15 +28,17 @@ public class Estado {
 
 	@NotNull
 	@Size(min = 3, max = 100)
+	@Column(name = "nome")
 	private String nome;
 
 	@NotNull
 	@Size(min = 2, max = 10)
+	@Column(name = "uf")
 	private String uf;
 
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "pais_id")
+	@JoinColumn(name = "pais_id", insertable = false, updatable = false)
 	private Pais pais;
 
 	public Long getId() {
