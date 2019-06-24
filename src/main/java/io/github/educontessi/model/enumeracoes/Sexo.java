@@ -2,7 +2,7 @@ package io.github.educontessi.model.enumeracoes;
 
 public enum Sexo {
 
-	M("M", "Masculino"), F("F", "Feminino");
+	MASCULINO("M", "Masculino"), FEMININO("F", "Feminino");
 
 	private String tipo;
 	private String descricao;

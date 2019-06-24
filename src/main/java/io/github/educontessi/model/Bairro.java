@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Entidade {@link Bairro} para mapear tabela de bairros
  * 
@@ -32,8 +34,12 @@ public class Bairro {
 	private String nome;
 
 	@NotNull
+	@Column(name = "cidade_id", insertable = true, updatable = true)
+	private Long cidadeId;
+
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "cidade_id")
+	@JoinColumn(name = "cidade_id", insertable = false, updatable = false)
 	private Cidade cidade;
 
 	public Long getId() {
@@ -50,6 +56,14 @@ public class Bairro {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public Long getCidadeId() {
+		return cidadeId;
+	}
+
+	public void setCidadeId(Long cidadeId) {
+		this.cidadeId = cidadeId;
 	}
 
 	public Cidade getCidade() {

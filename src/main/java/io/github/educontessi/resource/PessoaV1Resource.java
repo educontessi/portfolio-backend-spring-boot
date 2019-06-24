@@ -21,50 +21,50 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.github.educontessi.helpers.event.RecursoCriadoEvent;
-import io.github.educontessi.model.Bairro;
-import io.github.educontessi.repository.BairroRepository;
-import io.github.educontessi.service.BairroService;
+import io.github.educontessi.model.Pessoa;
+import io.github.educontessi.repository.PessoaRepository;
+import io.github.educontessi.service.PessoaService;
 
 @RestController
-@RequestMapping("/v1/bairros")
-public class BairroV1Resource {
+@RequestMapping("/v1/pessoas")
+public class PessoaV1Resource {
 
 	@Autowired
-	private BairroRepository repository;
+	private PessoaRepository repository;
 
 	@Autowired
-	private BairroService service;
+	private PessoaService service;
 
 	@Autowired
 	private ApplicationEventPublisher publisher;
 
 	@GetMapping
-	public List<Bairro> findAll() {
+	public List<Pessoa> findAll() {
 		return repository.findAll();
 	}
 
-	@GetMapping("/cidade/{cidadeId}")
-	public List<Bairro> findByCidadeId(@PathVariable Long cidadeId) {
-		return repository.findByCidadeId(cidadeId);
+	@GetMapping("/cpf/{cpf}")
+	public Optional<Pessoa> findByCpf(@PathVariable String cpfCnpj) {
+		return repository.findByCpfCnpj(cpfCnpj);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Bairro> findById(@PathVariable Long id) {
-		Optional<Bairro> entity = repository.findById(id);
+	public ResponseEntity<Pessoa> findById(@PathVariable Long id) {
+		Optional<Pessoa> entity = repository.findById(id);
 		return entity.isPresent() ? ResponseEntity.ok(entity.get()) : ResponseEntity.notFound().build();
 	}
 
 	@PostMapping
-	public ResponseEntity<Bairro> save(@Valid @RequestBody Bairro entity, HttpServletResponse response) {
-		Bairro cidade = repository.save(entity);
+	public ResponseEntity<Pessoa> save(@Valid @RequestBody Pessoa entity, HttpServletResponse response) {
+		Pessoa cidade = repository.save(entity);
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, cidade.getId()));
 		return ResponseEntity.status(HttpStatus.CREATED).body(cidade);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Bairro> update(@PathVariable Long id, @Valid @RequestBody Bairro entity) {
+	public ResponseEntity<Pessoa> update(@PathVariable Long id, @Valid @RequestBody Pessoa entity) {
 		try {
-			Bairro cidade = service.update(id, entity);
+			Pessoa cidade = service.update(id, entity);
 			return ResponseEntity.ok(cidade);
 		} catch (IllegalArgumentException e) {
 			return ResponseEntity.notFound().build();

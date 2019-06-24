@@ -2,7 +2,7 @@ package io.github.educontessi.model.enumeracoes;
 
 public enum TipoPessoa {
 
-	F("F", "Física"), J("J", "Jurídica");
+	FISICA("F", "Física"), JURIDICA("J", "Jurídica");
 
 	private String tipo;
 	private String descricao;

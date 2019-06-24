@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Entidade {@link Cidade} para mapear tabela de cidades
  * 
@@ -32,7 +34,11 @@ public class Cidade {
 	private String nome;
 
 	@NotNull
-	@ManyToOne(fetch = FetchType.EAGER)
+	@Column(name = "estado_id", insertable = true, updatable = true)
+	private Long estadoId;
+
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "estado_id", insertable = false, updatable = false)
 	private Estado estado;
 
@@ -55,6 +61,14 @@ public class Cidade {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public Long getEstadoId() {
+		return estadoId;
+	}
+
+	public void setEstadoId(Long estadoId) {
+		this.estadoId = estadoId;
 	}
 
 	public Estado getEstado() {

@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Entidade {@link Estado} para mapear tabela de estados
  * 
@@ -37,6 +39,10 @@ public class Estado {
 	private String uf;
 
 	@NotNull
+	@Column(name = "pais_id", insertable = true, updatable = true)
+	private Long paisId;
+
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "pais_id", insertable = false, updatable = false)
 	private Pais pais;
@@ -63,6 +69,14 @@ public class Estado {
 
 	public void setUf(String uf) {
 		this.uf = uf;
+	}
+
+	public Long getPaisId() {
+		return paisId;
+	}
+
+	public void setPaisId(Long paisId) {
+		this.paisId = paisId;
 	}
 
 	public Pais getPais() {
