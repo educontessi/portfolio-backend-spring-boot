@@ -124,7 +124,6 @@ public class BairroTest {
 	}
 
 	private String getMensagemViolacao(ConstraintViolation<Bairro> violacao) {
-		System.out.println(violacao.getMessage().replace("{0}", violacao.getPropertyPath().toString()));
 		return violacao.getMessage().replace("{0}", violacao.getPropertyPath().toString());
 	}
 

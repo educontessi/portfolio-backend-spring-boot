@@ -17,12 +17,12 @@ import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 
 /**
- * Classe de teste para entidade {@link Rua}
+ * Classe de teste para entidade {@link Pessoa}
  * 
  * @author Eduardo Contessi
  *
  */
-public class RuaTest {
+public class PessoaTest {
 
 	private Validator validator;
 
@@ -36,13 +36,13 @@ public class RuaTest {
 	@DisplayName("Deve retornar violações para campos obrigatórios")
 	public void deveRetornarViolacoesParaCamposObrigatorios() {
 		// Arranjos
-		Rua rua = new Rua();
+		Pessoa pessoa = new Pessoa();
 
 		String mensagem1 = "nome é obrigatório(a)";
 		String mensagem2 = "cidadeId é obrigatório(a)";
 
 		// Execução
-		Set<ConstraintViolation<Rua>> violacoes = validator.validate(rua);
+		Set<ConstraintViolation<Pessoa>> violacoes = validator.validate(pessoa);
 
 		// Resultados
 		assertNotNull(violacoes);
@@ -56,14 +56,14 @@ public class RuaTest {
 	@DisplayName("Deve retornar violações para tamanhos mínimos de campos obrigatórios")
 	public void deveRetornarViolacoesParaTamanhosMinimosDeCamposObrigatorios() {
 		// Arranjos
-		Rua rua = new Rua();
-		rua.setNome("BR"); // MINIMO 3
-		rua.setCidadeId(1L);
+		Pessoa pessoa = new Pessoa();
+		pessoa.setNomeRazao("BR"); // MINIMO 3
+		pessoa.setCidadeId(1L);
 
 		String mensagem1 = "nome deve ter o tamanho entre 3 e 100";
 
 		// Execução
-		Set<ConstraintViolation<Rua>> violacoes = validator.validate(rua);
+		Set<ConstraintViolation<Pessoa>> violacoes = validator.validate(pessoa);
 
 		// Resultados
 		assertNotNull(violacoes);
@@ -76,16 +76,16 @@ public class RuaTest {
 	@DisplayName("Deve retornar violações para tamanhos máximos de campos obrigatórios")
 	public void deveRetornarViolacoesParaTamanhosMaximosDeCamposObrigatorios() {
 		// Arranjos
-		Rua rua = new Rua();
-		rua.setNome(
+		Pessoa pessoa = new Pessoa();
+		pessoa.setNomeRazao(
 				"BRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRB"); // MAXIMO
 																															// 100
-		rua.setCidadeId(1L);
+		pessoa.setCidadeId(1L);
 
 		String mensagem1 = "nome deve ter o tamanho entre 3 e 100";
 
 		// Execução
-		Set<ConstraintViolation<Rua>> violacoes = validator.validate(rua);
+		Set<ConstraintViolation<Pessoa>> violacoes = validator.validate(pessoa);
 
 		// Resultados
 		assertNotNull(violacoes);
@@ -99,22 +99,22 @@ public class RuaTest {
 	public void deveSetarCidadeIdQuandoSetarCidade() {
 		// Arranjos
 		Long cidadeId = 1L;
-		Rua rua = new Rua();
+		Pessoa pessoa = new Pessoa();
 		Cidade cidade = new Cidade();
 		cidade.setId(cidadeId);
 
 		// Execução
-		rua.setCidade(cidade);
+		pessoa.setCidade(cidade);
 
 		// Resultados
-		assertNotNull(rua.getCidadeId());
-		assertEquals(cidadeId, rua.getCidadeId());
-		assertEquals(cidadeId, rua.getCidade().getId());
+		assertNotNull(pessoa.getCidadeId());
+		assertEquals(cidadeId, pessoa.getCidadeId());
+		assertEquals(cidadeId, pessoa.getCidade().getId());
 	}
 
-	private boolean verificaMensagem(Set<ConstraintViolation<Rua>> violacoes, String mensagemComparar) {
+	private boolean verificaMensagem(Set<ConstraintViolation<Pessoa>> violacoes, String mensagemComparar) {
 		boolean retorno = false;
-		for (ConstraintViolation<Rua> violacao : violacoes) {
+		for (ConstraintViolation<Pessoa> violacao : violacoes) {
 			if (getMensagemViolacao(violacao).equals(mensagemComparar)) {
 				retorno = true;
 				break;
@@ -123,7 +123,8 @@ public class RuaTest {
 		return retorno;
 	}
 
-	private String getMensagemViolacao(ConstraintViolation<Rua> violacao) {
+	private String getMensagemViolacao(ConstraintViolation<Pessoa> violacao) {
+		System.out.println(violacao.getMessage().replace("{0}", violacao.getPropertyPath().toString()));
 		return violacao.getMessage().replace("{0}", violacao.getPropertyPath().toString());
 	}
 
