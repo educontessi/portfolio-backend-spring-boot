@@ -25,11 +25,13 @@ import org.junit.jupiter.api.DisplayName;
 public class BairroTest {
 
 	private Validator validator;
+	private VerificaMensagemBeanValidation<Bairro> verificaMensagemBeanValidation;
 
 	@Before
 	public void setUp() {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();
+		verificaMensagemBeanValidation = new VerificaMensagemBeanValidation<>();
 	}
 
 	@Test
@@ -48,8 +50,8 @@ public class BairroTest {
 		assertNotNull(violacoes);
 		assertFalse(violacoes.isEmpty());
 		assertEquals(2, violacoes.size());
-		assertTrue(verificaMensagem(violacoes, mensagem1));
-		assertTrue(verificaMensagem(violacoes, mensagem2));
+		assertTrue(verificaMensagemBeanValidation.verificaMensagem(violacoes, mensagem1));
+		assertTrue(verificaMensagemBeanValidation.verificaMensagem(violacoes, mensagem2));
 	}
 
 	@Test
@@ -69,7 +71,7 @@ public class BairroTest {
 		assertNotNull(violacoes);
 		assertFalse(violacoes.isEmpty());
 		assertEquals(1, violacoes.size());
-		assertTrue(verificaMensagem(violacoes, mensagem1));
+		assertTrue(verificaMensagemBeanValidation.verificaMensagem(violacoes, mensagem1));
 	}
 
 	@Test
@@ -91,7 +93,7 @@ public class BairroTest {
 		assertNotNull(violacoes);
 		assertFalse(violacoes.isEmpty());
 		assertEquals(1, violacoes.size());
-		assertTrue(verificaMensagem(violacoes, mensagem1));
+		assertTrue(verificaMensagemBeanValidation.verificaMensagem(violacoes, mensagem1));
 	}
 
 	@DisplayName("Deve setar cidadeId quando setar o cidade")
@@ -110,21 +112,6 @@ public class BairroTest {
 		assertNotNull(bairro.getCidadeId());
 		assertEquals(cidadeId, bairro.getCidadeId());
 		assertEquals(cidadeId, bairro.getCidade().getId());
-	}
-
-	private boolean verificaMensagem(Set<ConstraintViolation<Bairro>> violacoes, String mensagemComparar) {
-		boolean retorno = false;
-		for (ConstraintViolation<Bairro> violacao : violacoes) {
-			if (getMensagemViolacao(violacao).equals(mensagemComparar)) {
-				retorno = true;
-				break;
-			}
-		}
-		return retorno;
-	}
-
-	private String getMensagemViolacao(ConstraintViolation<Bairro> violacao) {
-		return violacao.getMessage().replace("{0}", violacao.getPropertyPath().toString());
 	}
 
 }

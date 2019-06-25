@@ -25,11 +25,13 @@ import org.junit.jupiter.api.DisplayName;
 public class EstadoTest {
 
 	private Validator validator;
+	private VerificaMensagemBeanValidation<Estado> verificaMensagemBeanValidation;
 
 	@Before
 	public void setUp() {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();
+		verificaMensagemBeanValidation = new VerificaMensagemBeanValidation<>();
 	}
 
 	@Test
@@ -49,9 +51,9 @@ public class EstadoTest {
 		assertNotNull(violacoes);
 		assertFalse(violacoes.isEmpty());
 		assertEquals(3, violacoes.size());
-		assertTrue(verificaMensagem(violacoes, mensagem1));
-		assertTrue(verificaMensagem(violacoes, mensagem2));
-		assertTrue(verificaMensagem(violacoes, mensagem3));
+		assertTrue(verificaMensagemBeanValidation.verificaMensagem(violacoes, mensagem1));
+		assertTrue(verificaMensagemBeanValidation.verificaMensagem(violacoes, mensagem2));
+		assertTrue(verificaMensagemBeanValidation.verificaMensagem(violacoes, mensagem3));
 	}
 
 	@Test
@@ -73,8 +75,8 @@ public class EstadoTest {
 		assertNotNull(violacoes);
 		assertFalse(violacoes.isEmpty());
 		assertEquals(2, violacoes.size());
-		assertTrue(verificaMensagem(violacoes, mensagem1));
-		assertTrue(verificaMensagem(violacoes, mensagem2));
+		assertTrue(verificaMensagemBeanValidation.verificaMensagem(violacoes, mensagem1));
+		assertTrue(verificaMensagemBeanValidation.verificaMensagem(violacoes, mensagem2));
 	}
 
 	@Test
@@ -98,8 +100,8 @@ public class EstadoTest {
 		assertNotNull(violacoes);
 		assertFalse(violacoes.isEmpty());
 		assertEquals(2, violacoes.size());
-		assertTrue(verificaMensagem(violacoes, mensagem1));
-		assertTrue(verificaMensagem(violacoes, mensagem2));
+		assertTrue(verificaMensagemBeanValidation.verificaMensagem(violacoes, mensagem1));
+		assertTrue(verificaMensagemBeanValidation.verificaMensagem(violacoes, mensagem2));
 	}
 
 	@DisplayName("Deve setar paisId quando setar o pais")
@@ -118,21 +120,6 @@ public class EstadoTest {
 		assertNotNull(estado.getPaisId());
 		assertEquals(paisId, estado.getPaisId());
 		assertEquals(paisId, estado.getPais().getId());
-	}
-
-	private boolean verificaMensagem(Set<ConstraintViolation<Estado>> violacoes, String mensagemComparar) {
-		boolean retorno = false;
-		for (ConstraintViolation<Estado> violacao : violacoes) {
-			if (getMensagemViolacao(violacao).equals(mensagemComparar)) {
-				retorno = true;
-				break;
-			}
-		}
-		return retorno;
-	}
-
-	private String getMensagemViolacao(ConstraintViolation<Estado> violacao) {
-		return violacao.getMessage().replace("{0}", violacao.getPropertyPath().toString());
 	}
 
 }

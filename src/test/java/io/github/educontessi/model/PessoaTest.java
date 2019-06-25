@@ -1,5 +1,6 @@
 package io.github.educontessi.model;
 
+import static io.github.educontessi.helpers.util.FuncoesString.adicionaMascara;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -16,6 +17,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 
+import io.github.educontessi.helpers.util.TipoMascara;
+import io.github.educontessi.model.enumeracoes.Status;
+import io.github.educontessi.model.enumeracoes.TipoPessoa;
+
 /**
  * Classe de teste para entidade {@link Pessoa}
  * 
@@ -25,11 +30,17 @@ import org.junit.jupiter.api.DisplayName;
 public class PessoaTest {
 
 	private Validator validator;
+	private VerificaMensagemBeanValidation<Pessoa> verificaMensagemBeanValidation;
+
+	private final String CPF = "34654886524";
+	private final String CNPJ = "05702348000144";
+	private final String CEP = "88888888";
 
 	@Before
 	public void setUp() {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();
+		verificaMensagemBeanValidation = new VerificaMensagemBeanValidation<>();
 	}
 
 	@Test
@@ -38,8 +49,10 @@ public class PessoaTest {
 		// Arranjos
 		Pessoa pessoa = new Pessoa();
 
-		String mensagem1 = "nome é obrigatório(a)";
-		String mensagem2 = "cidadeId é obrigatório(a)";
+		String mensagem1 = "nomeRazao é obrigatório(a)";
+		String mensagem2 = "tipoPessoa é obrigatório(a)";
+		String mensagem3 = "cpfCnpj é obrigatório(a)";
+		String mensagem4 = "status é obrigatório(a)";
 
 		// Execução
 		Set<ConstraintViolation<Pessoa>> violacoes = validator.validate(pessoa);
@@ -47,20 +60,22 @@ public class PessoaTest {
 		// Resultados
 		assertNotNull(violacoes);
 		assertFalse(violacoes.isEmpty());
-		assertEquals(2, violacoes.size());
-		assertTrue(verificaMensagem(violacoes, mensagem1));
-		assertTrue(verificaMensagem(violacoes, mensagem2));
+		assertEquals(4, violacoes.size());
+		assertTrue(verificaMensagemBeanValidation.verificaMensagem(violacoes, mensagem1));
+		assertTrue(verificaMensagemBeanValidation.verificaMensagem(violacoes, mensagem2));
+		assertTrue(verificaMensagemBeanValidation.verificaMensagem(violacoes, mensagem3));
+		assertTrue(verificaMensagemBeanValidation.verificaMensagem(violacoes, mensagem4));
 	}
 
 	@Test
 	@DisplayName("Deve retornar violações para tamanhos mínimos de campos obrigatórios")
 	public void deveRetornarViolacoesParaTamanhosMinimosDeCamposObrigatorios() {
 		// Arranjos
-		Pessoa pessoa = new Pessoa();
-		pessoa.setNomeRazao("BR"); // MINIMO 3
+		Pessoa pessoa = getPessoaFisica();
+		pessoa.setNomeRazao("BR");
 		pessoa.setCidadeId(1L);
 
-		String mensagem1 = "nome deve ter o tamanho entre 3 e 100";
+		String mensagem1 = "nomeRazao deve ter o tamanho entre 3 e 100";
 
 		// Execução
 		Set<ConstraintViolation<Pessoa>> violacoes = validator.validate(pessoa);
@@ -69,20 +84,18 @@ public class PessoaTest {
 		assertNotNull(violacoes);
 		assertFalse(violacoes.isEmpty());
 		assertEquals(1, violacoes.size());
-		assertTrue(verificaMensagem(violacoes, mensagem1));
+		assertTrue(verificaMensagemBeanValidation.verificaMensagem(violacoes, mensagem1));
 	}
 
 	@Test
 	@DisplayName("Deve retornar violações para tamanhos máximos de campos obrigatórios")
 	public void deveRetornarViolacoesParaTamanhosMaximosDeCamposObrigatorios() {
 		// Arranjos
-		Pessoa pessoa = new Pessoa();
+		Pessoa pessoa = getPessoaFisica();
 		pessoa.setNomeRazao(
-				"BRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRB"); // MAXIMO
-																															// 100
-		pessoa.setCidadeId(1L);
+				"BRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRB");
 
-		String mensagem1 = "nome deve ter o tamanho entre 3 e 100";
+		String mensagem1 = "nomeRazao deve ter o tamanho entre 3 e 100";
 
 		// Execução
 		Set<ConstraintViolation<Pessoa>> violacoes = validator.validate(pessoa);
@@ -91,7 +104,88 @@ public class PessoaTest {
 		assertNotNull(violacoes);
 		assertFalse(violacoes.isEmpty());
 		assertEquals(1, violacoes.size());
-		assertTrue(verificaMensagem(violacoes, mensagem1));
+		assertTrue(verificaMensagemBeanValidation.verificaMensagem(violacoes, mensagem1));
+	}
+
+	@DisplayName("Deve deve retornar cpf com máscara")
+	@Test
+	public void deveRetornarCpfComMascara() {
+		// Arranjos
+		Pessoa pessoa = null;
+
+		// Execução
+		pessoa = getPessoaFisica();
+
+		// Resultados
+		assertNotNull(pessoa.getCpfCnpj());
+		assertEquals(TipoPessoa.FISICA, pessoa.getTipoPessoa());
+		assertEquals(pessoa.getCpfCnpj(), adicionaMascara(TipoMascara.CPF, this.CPF));
+	}
+
+	@DisplayName("Deve deve retornar cnpj com máscara")
+	@Test
+	public void deveRetornarCnpjComMascara() {
+		// Arranjos
+		Pessoa pessoa = null;
+
+		// Execução
+		pessoa = getPessoaJuridica();
+
+		// Resultados
+		assertNotNull(pessoa.getCpfCnpj());
+		assertEquals(TipoPessoa.JURIDICA, pessoa.getTipoPessoa());
+		assertEquals(pessoa.getCpfCnpj(), adicionaMascara(TipoMascara.CNPJ, this.CNPJ));
+	}
+
+	@DisplayName("Deve deve retornar cep com máscara")
+	@Test
+	public void deveRetornarCepComMascara() {
+		// Arranjos
+		Pessoa pessoa = null;
+
+		// Execução
+		pessoa = getPessoaJuridica();
+
+		// Resultados
+		assertNotNull(pessoa.getCep());
+		assertEquals(TipoPessoa.JURIDICA, pessoa.getTipoPessoa());
+		assertEquals(pessoa.getCep(), adicionaMascara(TipoMascara.CEP, this.CEP));
+	}
+
+	@DisplayName("Deve setar bairroId quando setar o bairro")
+	@Test
+	public void deveSetarBairroIdQuandoSetarBairro() {
+		// Arranjos
+		Long bairroId = 1L;
+		Pessoa pessoa = getPessoaFisica();
+		Bairro bairro = new Bairro();
+		bairro.setId(bairroId);
+
+		// Execução
+		pessoa.setBairro(bairro);
+
+		// Resultados
+		assertNotNull(pessoa.getBairroId());
+		assertEquals(bairroId, pessoa.getBairroId());
+		assertEquals(bairroId, pessoa.getBairro().getId());
+	}
+
+	@DisplayName("Deve setar ruaId quando setar a rua")
+	@Test
+	public void deveSetarRuaIdQuandoSetarRua() {
+		// Arranjos
+		Long ruaId = 1L;
+		Pessoa pessoa = getPessoaFisica();
+		Rua rua = new Rua();
+		rua.setId(ruaId);
+
+		// Execução
+		pessoa.setRua(rua);
+
+		// Resultados
+		assertNotNull(pessoa.getRuaId());
+		assertEquals(ruaId, pessoa.getRuaId());
+		assertEquals(ruaId, pessoa.getRua().getId());
 	}
 
 	@DisplayName("Deve setar cidadeId quando setar o cidade")
@@ -99,7 +193,7 @@ public class PessoaTest {
 	public void deveSetarCidadeIdQuandoSetarCidade() {
 		// Arranjos
 		Long cidadeId = 1L;
-		Pessoa pessoa = new Pessoa();
+		Pessoa pessoa = getPessoaFisica();
 		Cidade cidade = new Cidade();
 		cidade.setId(cidadeId);
 
@@ -112,20 +206,22 @@ public class PessoaTest {
 		assertEquals(cidadeId, pessoa.getCidade().getId());
 	}
 
-	private boolean verificaMensagem(Set<ConstraintViolation<Pessoa>> violacoes, String mensagemComparar) {
-		boolean retorno = false;
-		for (ConstraintViolation<Pessoa> violacao : violacoes) {
-			if (getMensagemViolacao(violacao).equals(mensagemComparar)) {
-				retorno = true;
-				break;
-			}
-		}
-		return retorno;
+	private Pessoa getPessoaFisica() {
+		Pessoa pessoa = new Pessoa();
+		pessoa.setTipoPessoa(TipoPessoa.FISICA);
+		pessoa.setStatus(Status.ATIVO);
+		pessoa.setCpfCnpj(this.CPF);
+		pessoa.setCep(this.CEP);
+		return pessoa;
 	}
 
-	private String getMensagemViolacao(ConstraintViolation<Pessoa> violacao) {
-		System.out.println(violacao.getMessage().replace("{0}", violacao.getPropertyPath().toString()));
-		return violacao.getMessage().replace("{0}", violacao.getPropertyPath().toString());
+	private Pessoa getPessoaJuridica() {
+		Pessoa pessoa = new Pessoa();
+		pessoa.setTipoPessoa(TipoPessoa.JURIDICA);
+		pessoa.setStatus(Status.ATIVO);
+		pessoa.setCpfCnpj(this.CNPJ);
+		pessoa.setCep(this.CEP);
+		return pessoa;
 	}
 
 }

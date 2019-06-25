@@ -63,7 +63,6 @@ public class Pessoa {
 	@Column(name = "rg_ie")
 	private String rgIe;
 
-	@NotNull
 	@Column(name = "cidade_id", insertable = true, updatable = true)
 	private Long cidadeId;
 
@@ -72,7 +71,6 @@ public class Pessoa {
 	@JoinColumn(name = "cidade_id", insertable = false, updatable = false)
 	private Cidade cidade;
 
-	@NotNull
 	@Column(name = "bairro_id", insertable = true, updatable = true)
 	private Long bairroId;
 
@@ -81,7 +79,6 @@ public class Pessoa {
 	@JoinColumn(name = "bairro_id", insertable = false, updatable = false)
 	private Bairro bairro;
 
-	@NotNull
 	@Column(name = "rua_id", insertable = true, updatable = true)
 	private Long ruaId;
 
