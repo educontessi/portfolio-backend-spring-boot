@@ -31,10 +31,7 @@ public class EstadoRepositoryIntegrationTest {
 	@Test
 	public void deveBuscarPorUf() {
 		// Arranjos
-		Estado entity = new Estado();
-		entity.setNome("Integration Test");
-		entity.setPaisId(1L);
-		entity.setUf("UF");
+		Estado entity = getEstado();
 		repository.save(entity);
 
 		// Execução
@@ -53,14 +50,20 @@ public class EstadoRepositoryIntegrationTest {
 	@Test
 	public void deveListarEstadosPorPais() {
 		// Arranjos
+		Long idBrasil = 1L;
 
 		// Execução
-		List<Estado> estados = repository.findByPaisId(1L);
+		List<Estado> estados = repository.findByPaisId(idBrasil);
 
 		// Resultados
 		assertNotNull(estados);
 		assertFalse(estados.isEmpty());
 		assertTrue(estados.size() == 27);
+		verificaEstadosBrasileiros(estados);
+		verificaSeOsEstadosPertenceAoPaisDoFiltro(idBrasil, estados);
+	}
+
+	private void verificaEstadosBrasileiros(List<Estado> estados) {
 		assertTrue(verificaEstados(estados, "AC"));
 		assertTrue(verificaEstados(estados, "AL"));
 		assertTrue(verificaEstados(estados, "AP"));
@@ -88,7 +91,12 @@ public class EstadoRepositoryIntegrationTest {
 		assertTrue(verificaEstados(estados, "SP"));
 		assertTrue(verificaEstados(estados, "SE"));
 		assertTrue(verificaEstados(estados, "TO"));
+	}
 
+	private void verificaSeOsEstadosPertenceAoPaisDoFiltro(Long idBrasil, List<Estado> estados) {
+		for (Estado estado : estados) {
+			assertTrue(estado.getPaisId().equals(idBrasil));
+		}
 	}
 
 	private boolean verificaEstados(List<Estado> estados, String uf) {
@@ -102,5 +110,13 @@ public class EstadoRepositoryIntegrationTest {
 		}
 
 		return retorno;
+	}
+
+	private Estado getEstado() {
+		Estado entity = new Estado();
+		entity.setNome("Integration Test");
+		entity.setPaisId(1L);
+		entity.setUf("UF");
+		return entity;
 	}
 }
