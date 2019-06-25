@@ -17,12 +17,12 @@ import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 
 /**
- * Classe de teste para entidade {@link Pais}
+ * Classe de teste para entidade {@link Rua}
  * 
  * @author Eduardo Contessi
  *
  */
-public class PaisTest {
+public class RuaTest {
 
 	private Validator validator;
 
@@ -36,79 +36,85 @@ public class PaisTest {
 	@DisplayName("Deve retornar violações para campos obrigatórios")
 	public void deveRetornarViolacoesParaCamposObrigatorios() {
 		// Arranjos
-		Pais pais = new Pais();
+		Rua rua = new Rua();
 
 		String mensagem1 = "nome é obrigatório(a)";
-		String mensagem2 = "bacen é obrigatório(a)";
-		String mensagem3 = "sigla é obrigatório(a)";
+		String mensagem2 = "cidadeId é obrigatório(a)";
 
 		// Execução
-		Set<ConstraintViolation<Pais>> violacoes = validator.validate(pais);
+		Set<ConstraintViolation<Rua>> violacoes = validator.validate(rua);
 
 		// Resultados
 		assertNotNull(violacoes);
 		assertFalse(violacoes.isEmpty());
-		assertEquals(3, violacoes.size());
+		assertEquals(2, violacoes.size());
 		assertTrue(verificaMensagem(violacoes, mensagem1));
 		assertTrue(verificaMensagem(violacoes, mensagem2));
-		assertTrue(verificaMensagem(violacoes, mensagem3));
 	}
 
 	@Test
 	@DisplayName("Deve retornar violações para tamanhos mínimos de campos obrigatórios")
 	public void deveRetornarViolacoesParaTamanhosMinimosDeCamposObrigatorios() {
 		// Arranjos
-		Pais pais = new Pais();
-		pais.setNome("BR"); // MINIMO 3
-		pais.setSigla("B"); // MINIMO 2
-		pais.setBacen("B"); // MINIMO 2
+		Rua rua = new Rua();
+		rua.setNome("BR"); // MINIMO 3
+		rua.setCidadeId(1L);
 
 		String mensagem1 = "nome deve ter o tamanho entre 3 e 100";
-		String mensagem2 = "bacen deve ter o tamanho entre 2 e 10";
-		String mensagem3 = "sigla deve ter o tamanho entre 2 e 10";
 
 		// Execução
-		Set<ConstraintViolation<Pais>> violacoes = validator.validate(pais);
+		Set<ConstraintViolation<Rua>> violacoes = validator.validate(rua);
 
 		// Resultados
 		assertNotNull(violacoes);
 		assertFalse(violacoes.isEmpty());
-		assertEquals(3, violacoes.size());
+		assertEquals(1, violacoes.size());
 		assertTrue(verificaMensagem(violacoes, mensagem1));
-		assertTrue(verificaMensagem(violacoes, mensagem2));
-		assertTrue(verificaMensagem(violacoes, mensagem3));
 	}
 
 	@Test
 	@DisplayName("Deve retornar violações para tamanhos máximos de campos obrigatórios")
 	public void deveRetornarViolacoesParaTamanhosMaximosDeCamposObrigatorios() {
 		// Arranjos
-		Pais pais = new Pais();
-		pais.setNome(
+		Rua rua = new Rua();
+		rua.setNome(
 				"BRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRBRB"); // MAXIMO
 																															// 100
-		pais.setSigla("BRBRBRBRBRB"); // MAXIMO 10
-		pais.setBacen("BRBRBRBRBRB"); // MAXIMO 10
+		rua.setCidadeId(1L);
 
 		String mensagem1 = "nome deve ter o tamanho entre 3 e 100";
-		String mensagem2 = "bacen deve ter o tamanho entre 2 e 10";
-		String mensagem3 = "sigla deve ter o tamanho entre 2 e 10";
 
 		// Execução
-		Set<ConstraintViolation<Pais>> violacoes = validator.validate(pais);
+		Set<ConstraintViolation<Rua>> violacoes = validator.validate(rua);
 
 		// Resultados
 		assertNotNull(violacoes);
 		assertFalse(violacoes.isEmpty());
-		assertEquals(3, violacoes.size());
+		assertEquals(1, violacoes.size());
 		assertTrue(verificaMensagem(violacoes, mensagem1));
-		assertTrue(verificaMensagem(violacoes, mensagem2));
-		assertTrue(verificaMensagem(violacoes, mensagem3));
 	}
 
-	private boolean verificaMensagem(Set<ConstraintViolation<Pais>> violacoes, String mensagemComparar) {
+	@DisplayName("Deve setar cidadeId quando setar o cidade")
+	@Test
+	public void deveSetarCidadeIdQuandoSetarCidade() {
+		// Arranjos
+		Long cidadeId = 1L;
+		Rua rua = new Rua();
+		Cidade cidade = new Cidade();
+		cidade.setId(cidadeId);
+
+		// Execução
+		rua.setCidade(cidade);
+
+		// Resultados
+		assertNotNull(rua.getCidadeId());
+		assertEquals(cidadeId, rua.getCidadeId());
+		assertEquals(cidadeId, rua.getCidade().getId());
+	}
+
+	private boolean verificaMensagem(Set<ConstraintViolation<Rua>> violacoes, String mensagemComparar) {
 		boolean retorno = false;
-		for (ConstraintViolation<Pais> violacao : violacoes) {
+		for (ConstraintViolation<Rua> violacao : violacoes) {
 			if (getMensagemViolacao(violacao).equals(mensagemComparar)) {
 				retorno = true;
 				break;
@@ -117,7 +123,9 @@ public class PaisTest {
 		return retorno;
 	}
 
-	private String getMensagemViolacao(ConstraintViolation<Pais> violacao) {
+	private String getMensagemViolacao(ConstraintViolation<Rua> violacao) {
+		System.out.println(violacao.getMessage().replace("{0}", violacao.getPropertyPath().toString()));
 		return violacao.getMessage().replace("{0}", violacao.getPropertyPath().toString());
 	}
+
 }

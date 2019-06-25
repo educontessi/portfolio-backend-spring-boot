@@ -43,7 +43,6 @@ public class Cidade {
 	private Estado estado;
 
 	@NotNull
-	@Size(min = 7, max = 7)
 	@Column(name = "ibge")
 	private Integer ibge;
 
