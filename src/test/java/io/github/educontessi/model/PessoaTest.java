@@ -206,6 +206,47 @@ public class PessoaTest {
 		assertEquals(cidadeId, pessoa.getCidade().getId());
 	}
 
+	@Test
+	public void deveRetornarViolacoesParaEmailInvalido() {
+		// Arranjos
+		Pessoa pessoa = getPessoaFisica();
+		pessoa.setNomeRazao("Teste");
+		pessoa.setEmail("teste");
+
+		String mensagem1 = "não é um endereço de e-mail";
+
+		// Execução
+		Set<ConstraintViolation<Pessoa>> violacoes = validator.validate(pessoa);
+
+		// Resultados
+		assertNotNull(violacoes);
+		assertFalse(violacoes.isEmpty());
+		assertEquals(1, violacoes.size());
+		assertTrue(verificaMensagemBeanValidation.verificaMensagem(violacoes, mensagem1));
+	}
+
+	@Test
+	public void deveRetornarViolacoesParaTamanhoMaximoDoEmail() {
+		// Arranjos
+		Pessoa pessoa = getPessoaFisica();
+		pessoa.setNomeRazao("Teste");
+		pessoa.setEmail(
+				" contact-admin-hello-webmaster-info-services-peter-crazy-but-oh-so-ubber-cool-english-alphabet-loverer-abcdefghijklmnopqrstuvwxyz@please-try-to.send-me-an-email-if-you-can-possibly-begin-to-remember-this-coz.this-is-the-longest-email-address-known-to-man-but-to-be-honest.this-is-such-a-stupidly-long-sub-domain-it-could-go-on-forever.pacraig.com");
+
+		String mensagem1 = "não é um endereço de e-mail";
+		String mensagem2 = "E-mail não pode exceder mais que 100";
+
+		// Execução
+		Set<ConstraintViolation<Pessoa>> violacoes = validator.validate(pessoa);
+
+		// Resultados
+		assertNotNull(violacoes);
+		assertFalse(violacoes.isEmpty());
+		assertEquals(2, violacoes.size());
+		assertTrue(verificaMensagemBeanValidation.verificaMensagem(violacoes, mensagem1));
+		assertTrue(verificaMensagemBeanValidation.verificaMensagem(violacoes, mensagem2));
+	}
+
 	private Pessoa getPessoaFisica() {
 		Pessoa pessoa = new Pessoa();
 		pessoa.setTipoPessoa(TipoPessoa.FISICA);
