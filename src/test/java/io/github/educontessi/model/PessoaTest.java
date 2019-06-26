@@ -1,10 +1,10 @@
 package io.github.educontessi.model;
 
 import static io.github.educontessi.helpers.util.FuncoesString.adicionaMascara;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Set;
 
@@ -13,8 +13,9 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import io.github.educontessi.helpers.util.TipoMascara;
 import io.github.educontessi.model.enumeracoes.Status;
@@ -26,6 +27,7 @@ import io.github.educontessi.model.enumeracoes.TipoPessoa;
  * @author Eduardo Contessi
  *
  */
+@SpringBootTest
 public class PessoaTest {
 
 	private Validator validator;
@@ -35,7 +37,7 @@ public class PessoaTest {
 	private final String CNPJ = "05702348000144";
 	private final String CEP = "88888888";
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();

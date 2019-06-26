@@ -1,9 +1,10 @@
 package io.github.educontessi.model;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 /**
  * Classe de teste para entidade {@link ViaCepResposta}
@@ -11,9 +12,10 @@ import org.junit.Test;
  * @author Eduardo Contessi
  *
  */
+@SpringBootTest
 public class ViaCepRespostaTest {
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 
 	}

@@ -1,9 +1,9 @@
 package io.github.educontessi.model;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Set;
 
@@ -12,8 +12,9 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 /**
  * Classe de teste para entidade {@link Rua}
@@ -21,12 +22,13 @@ import org.junit.Test;
  * @author Eduardo Contessi
  *
  */
+@SpringBootTest
 public class RuaTest {
 
 	private Validator validator;
 	private VerificaMensagemBeanValidation<Rua> verificaMensagemBeanValidation;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();
