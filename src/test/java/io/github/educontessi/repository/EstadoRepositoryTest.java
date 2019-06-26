@@ -17,9 +17,15 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import io.github.educontessi.model.Estado;
 
+/**
+ * Classe de teste para entidade {@link EstadoRepository}
+ * 
+ * @author Eduardo Contessi
+ *
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class EstadoRepositoryIntegrationTest {
+public class EstadoRepositoryTest {
 
 	@Autowired
 	private EstadoRepository repository;
