@@ -10,10 +10,8 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import io.github.educontessi.model.Estado;
 
@@ -23,7 +21,6 @@ import io.github.educontessi.model.Estado;
  * @author Eduardo Contessi
  *
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class EstadoRepositoryTest {
 
