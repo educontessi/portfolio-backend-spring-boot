@@ -44,7 +44,7 @@ public class ViaCepService {
 	public ViaCepResposta buscaEnderecoPorCep(String cep) {
 		ViaCepJson viaCepJson = requisicaoViaCep(cep);
 		ViaCepResposta resposta = null;
-		if (viaCepJson.isValid()) {
+		if (viaCepJson != null && viaCepJson.isValid()) {
 			resposta = new ViaCepResposta();
 			resposta.setCep(viaCepJson.getCep());
 			resposta.setEstado(getEstado(viaCepJson));

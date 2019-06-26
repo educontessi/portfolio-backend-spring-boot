@@ -1,5 +1,7 @@
 package io.github.educontessi.model;
 
+import static io.github.educontessi.helpers.util.FuncoesString.removeMascaraDeNumeros;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class ViaCepJson {
@@ -19,7 +21,7 @@ public class ViaCepJson {
 	}
 
 	public void setCep(String cep) {
-		this.cep = cep;
+		this.cep = removeMascaraDeNumeros(cep);
 	}
 
 	public String getLogradouro() {
@@ -88,7 +90,7 @@ public class ViaCepJson {
 
 	@JsonIgnore
 	public boolean isValid() {
-		return this != null && getCep() != null && !getCep().isEmpty();
+		return getCep() != null && !getCep().isEmpty() && getCep().length() == 8;
 	}
 
 }

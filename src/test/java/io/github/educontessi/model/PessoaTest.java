@@ -15,7 +15,6 @@ import javax.validation.ValidatorFactory;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.DisplayName;
 
 import io.github.educontessi.helpers.util.TipoMascara;
 import io.github.educontessi.model.enumeracoes.Status;
@@ -44,7 +43,6 @@ public class PessoaTest {
 	}
 
 	@Test
-	@DisplayName("Deve retornar violações para campos obrigatórios")
 	public void deveRetornarViolacoesParaCamposObrigatorios() {
 		// Arranjos
 		Pessoa pessoa = new Pessoa();
@@ -68,7 +66,6 @@ public class PessoaTest {
 	}
 
 	@Test
-	@DisplayName("Deve retornar violações para tamanhos mínimos de campos obrigatórios")
 	public void deveRetornarViolacoesParaTamanhosMinimosDeCamposObrigatorios() {
 		// Arranjos
 		Pessoa pessoa = getPessoaFisica();
@@ -88,7 +85,6 @@ public class PessoaTest {
 	}
 
 	@Test
-	@DisplayName("Deve retornar violações para tamanhos máximos de campos obrigatórios")
 	public void deveRetornarViolacoesParaTamanhosMaximosDeCamposObrigatorios() {
 		// Arranjos
 		Pessoa pessoa = getPessoaFisica();
@@ -107,7 +103,34 @@ public class PessoaTest {
 		assertTrue(verificaMensagemBeanValidation.verificaMensagem(violacoes, mensagem1));
 	}
 
-	@DisplayName("Deve deve retornar cpf com máscara")
+	@Test
+	public void deveRetornarTipoDaMascaraCpf() {
+		// Arranjos
+		Pessoa pessoa = getPessoaFisica();
+
+		// Execução
+		TipoMascara tipoMascara = pessoa.getTipoMascara();
+
+		// Resultados
+		assertNotNull(tipoMascara);
+		assertEquals(TipoPessoa.FISICA, pessoa.getTipoPessoa());
+		assertEquals(tipoMascara, TipoMascara.CPF);
+	}
+
+	@Test
+	public void deveRetornarTipoDaMascaraCnpj() {
+		// Arranjos
+		Pessoa pessoa = getPessoaJuridica();
+
+		// Execução
+		TipoMascara tipoMascara = pessoa.getTipoMascara();
+
+		// Resultados
+		assertNotNull(tipoMascara);
+		assertEquals(TipoPessoa.JURIDICA, pessoa.getTipoPessoa());
+		assertEquals(tipoMascara, TipoMascara.CNPJ);
+	}
+
 	@Test
 	public void deveRetornarCpfComMascara() {
 		// Arranjos
@@ -122,7 +145,6 @@ public class PessoaTest {
 		assertEquals(pessoa.getCpfCnpj(), adicionaMascara(TipoMascara.CPF, this.CPF));
 	}
 
-	@DisplayName("Deve deve retornar cnpj com máscara")
 	@Test
 	public void deveRetornarCnpjComMascara() {
 		// Arranjos
@@ -137,7 +159,6 @@ public class PessoaTest {
 		assertEquals(pessoa.getCpfCnpj(), adicionaMascara(TipoMascara.CNPJ, this.CNPJ));
 	}
 
-	@DisplayName("Deve deve retornar cep com máscara")
 	@Test
 	public void deveRetornarCepComMascara() {
 		// Arranjos
@@ -152,7 +173,6 @@ public class PessoaTest {
 		assertEquals(pessoa.getCep(), adicionaMascara(TipoMascara.CEP, this.CEP));
 	}
 
-	@DisplayName("Deve setar bairroId quando setar o bairro")
 	@Test
 	public void deveSetarBairroIdQuandoSetarBairro() {
 		// Arranjos
@@ -170,7 +190,6 @@ public class PessoaTest {
 		assertEquals(bairroId, pessoa.getBairro().getId());
 	}
 
-	@DisplayName("Deve setar ruaId quando setar a rua")
 	@Test
 	public void deveSetarRuaIdQuandoSetarRua() {
 		// Arranjos
@@ -188,7 +207,6 @@ public class PessoaTest {
 		assertEquals(ruaId, pessoa.getRua().getId());
 	}
 
-	@DisplayName("Deve setar cidadeId quando setar o cidade")
 	@Test
 	public void deveSetarCidadeIdQuandoSetarCidade() {
 		// Arranjos

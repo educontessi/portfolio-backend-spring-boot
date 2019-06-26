@@ -20,7 +20,7 @@ public class ViaCepV1Resource {
 	@GetMapping("/{cep}")
 	public ResponseEntity<ViaCepResposta> findById(@PathVariable String cep) {
 		ViaCepResposta entity = service.buscaEnderecoPorCep(cep);
-		return entity.isValid() ? ResponseEntity.ok(entity) : ResponseEntity.notFound().build();
+		return (entity != null && entity.isValid()) ? ResponseEntity.ok(entity) : ResponseEntity.notFound().build();
 	}
 
 }

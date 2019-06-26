@@ -4,6 +4,12 @@ import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 
+/**
+ * Classe de teste usada para verificar as mensagens do Bean Validation
+ * 
+ * @author Eduardo Contessi
+ *
+ */
 public class VerificaMensagemBeanValidation<T> {
 
 	public boolean verificaMensagem(Set<ConstraintViolation<T>> violacoes, String mensagemComparar) {

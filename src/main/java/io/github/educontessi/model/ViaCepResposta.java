@@ -1,6 +1,11 @@
 package io.github.educontessi.model;
 
+import static io.github.educontessi.helpers.util.FuncoesString.adicionaMascara;
+import static io.github.educontessi.helpers.util.FuncoesString.removeMascaraDeNumeros;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import io.github.educontessi.helpers.util.TipoMascara;
 
 public class ViaCepResposta {
 
@@ -11,11 +16,11 @@ public class ViaCepResposta {
 	private Estado estado;
 
 	public String getCep() {
-		return cep;
+		return adicionaMascara(TipoMascara.CEP, cep);
 	}
 
 	public void setCep(String cep) {
-		this.cep = cep;
+		this.cep = removeMascaraDeNumeros(cep);
 	}
 
 	public Rua getRua() {
@@ -52,6 +57,6 @@ public class ViaCepResposta {
 
 	@JsonIgnore
 	public boolean isValid() {
-		return this != null && getCep() != null && !getCep().isEmpty();
+		return getCep() != null && !getCep().isEmpty() && getCep().length() == 9;
 	}
 }

@@ -305,7 +305,7 @@ public class Pessoa {
 	}
 
 	@JsonIgnore
-	private TipoMascara getTipoMascara() {
+	protected TipoMascara getTipoMascara() {
 		return tipoPessoa.equals(TipoPessoa.FISICA) ? TipoMascara.CPF : TipoMascara.CNPJ;
 	}
 
