@@ -1,5 +1,7 @@
 package io.github.educontessi.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -18,11 +20,11 @@ public class BairroService {
 
 	public Bairro update(Long id, Bairro entity) {
 		Bairro saved = findById(id);
-		BeanUtils.copyProperties(entity, saved, "id");
+		BeanUtils.copyProperties(entity, saved, getIgnoreProperties());
 		return repository.save(saved);
 	}
 
-	public Bairro findById(Long id) {
+	private Bairro findById(Long id) {
 		Optional<Bairro> entity = repository.findById(id);
 		if (!entity.isPresent()) {
 			throw new EmptyResultDataAccessException(1);
@@ -30,4 +32,11 @@ public class BairroService {
 		return entity.get();
 	}
 
+	protected String[] getIgnoreProperties() {
+		List<String> list = new ArrayList<>();
+		list.add("id");
+		list.add("cidade");
+
+		return (String[]) list.toArray(new String[0]);
+	}
 }
