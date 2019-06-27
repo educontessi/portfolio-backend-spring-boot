@@ -32,7 +32,7 @@ public class EstadoRepositoryTest {
 	}
 
 	@Test
-	public void deveBuscarPorUf() {
+	public void deveBuscarEstadoPorUf() {
 		// Arranjos
 		Estado entity = getEstado();
 		repository.save(entity);
@@ -62,57 +62,13 @@ public class EstadoRepositoryTest {
 		assertNotNull(estados);
 		assertFalse(estados.isEmpty());
 		assertTrue(estados.size() == 27);
-		verificaEstadosBrasileiros(estados);
-		verificaSeOsEstadosPertenceAoPaisDoFiltro(idBrasil, estados);
+		verificaSeTodosEstadosPertenceAoPais(idBrasil, estados);
 	}
 
-	private void verificaEstadosBrasileiros(List<Estado> estados) {
-		assertTrue(verificaEstados(estados, "AC"));
-		assertTrue(verificaEstados(estados, "AL"));
-		assertTrue(verificaEstados(estados, "AP"));
-		assertTrue(verificaEstados(estados, "AM"));
-		assertTrue(verificaEstados(estados, "BA"));
-		assertTrue(verificaEstados(estados, "CE"));
-		assertTrue(verificaEstados(estados, "DF"));
-		assertTrue(verificaEstados(estados, "ES"));
-		assertTrue(verificaEstados(estados, "GO"));
-		assertTrue(verificaEstados(estados, "MA"));
-		assertTrue(verificaEstados(estados, "MT"));
-		assertTrue(verificaEstados(estados, "MS"));
-		assertTrue(verificaEstados(estados, "MG"));
-		assertTrue(verificaEstados(estados, "PA"));
-		assertTrue(verificaEstados(estados, "PB"));
-		assertTrue(verificaEstados(estados, "PR"));
-		assertTrue(verificaEstados(estados, "PE"));
-		assertTrue(verificaEstados(estados, "PI"));
-		assertTrue(verificaEstados(estados, "RJ"));
-		assertTrue(verificaEstados(estados, "RN"));
-		assertTrue(verificaEstados(estados, "RS"));
-		assertTrue(verificaEstados(estados, "RO"));
-		assertTrue(verificaEstados(estados, "RR"));
-		assertTrue(verificaEstados(estados, "SC"));
-		assertTrue(verificaEstados(estados, "SP"));
-		assertTrue(verificaEstados(estados, "SE"));
-		assertTrue(verificaEstados(estados, "TO"));
-	}
-
-	private void verificaSeOsEstadosPertenceAoPaisDoFiltro(Long idBrasil, List<Estado> estados) {
+	private void verificaSeTodosEstadosPertenceAoPais(Long idBrasil, List<Estado> estados) {
 		for (Estado estado : estados) {
 			assertTrue(estado.getPaisId().equals(idBrasil));
 		}
-	}
-
-	private boolean verificaEstados(List<Estado> estados, String uf) {
-		boolean retorno = false;
-
-		for (Estado estado : estados) {
-			if (estado.getUf().equals(uf)) {
-				retorno = true;
-				break;
-			}
-		}
-
-		return retorno;
 	}
 
 	private Estado getEstado() {
