@@ -2,10 +2,10 @@ package io.github.educontessi.helpers.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.mockito.InjectMocks;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
@@ -17,8 +17,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class ConverteMensagemUnicodeTest {
 
-	@InjectMocks
 	private ConverteMensagemUnicode converteMensagemUnicode;
+
+	@BeforeEach
+	public void setUp() {
+		converteMensagemUnicode = new ConverteMensagemUnicode();
+	}
 
 	// @formatter:off
 	@DisplayName("Deve converter a mensagem para unicode")
