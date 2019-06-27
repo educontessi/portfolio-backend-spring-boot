@@ -1,5 +1,8 @@
 package io.github.educontessi.service;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -7,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import io.github.educontessi.model.ViaCepJson;
 import io.github.educontessi.repository.BairroRepository;
 import io.github.educontessi.repository.CidadeRepository;
 import io.github.educontessi.repository.EstadoRepository;
@@ -39,11 +43,30 @@ public class ViaCepServiceTest {
 	@BeforeEach
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
+		mockViaCepJson();
+	}
+
+	private void mockViaCepJson() {
+		when(service.requisicaoViaCep(any())).thenReturn(getViaCepJson());
 	}
 
 	@Test
 	public void deveAtualizarPais() {
 
+	}
+
+	private ViaCepJson getViaCepJson() {
+		ViaCepJson viaCepJson = new ViaCepJson();
+		viaCepJson.setCep("01001-000");
+		viaCepJson.setLogradouro("Praça da Sé");
+		viaCepJson.setComplemento("lado ímpar");
+		viaCepJson.setBairro("Sé");
+		viaCepJson.setLocalidade("São Paulo");
+		viaCepJson.setUf("SP");
+		viaCepJson.setUnidade("");
+		viaCepJson.setIbge("3550308");
+		viaCepJson.setGia("1004");
+		return viaCepJson;
 	}
 
 }

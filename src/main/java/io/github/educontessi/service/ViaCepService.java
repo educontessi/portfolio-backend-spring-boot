@@ -42,8 +42,8 @@ public class ViaCepService {
 	private EstadoRepository estadoRepository;
 
 	public ViaCepResposta buscaEnderecoPorCep(String cep) {
-		ViaCepJson viaCepJson = requisicaoViaCep(cep);
 		ViaCepResposta resposta = null;
+		ViaCepJson viaCepJson = requisicaoViaCep(cep);
 		if (viaCepJson != null && viaCepJson.isValid()) {
 			resposta = new ViaCepResposta();
 			resposta.setCep(viaCepJson.getCep());
