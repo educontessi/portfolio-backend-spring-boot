@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class PortfolioBackendSpringBootApplication {
 
 	public static void main(String[] args) {
+		// mvnw spring-boot:run
 		SpringApplication.run(PortfolioBackendSpringBootApplication.class, args);
 	}
 
