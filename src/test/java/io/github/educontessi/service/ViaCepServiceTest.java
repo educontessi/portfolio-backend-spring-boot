@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -213,7 +212,6 @@ public class ViaCepServiceTest {
 		estadoMock.setUf(uf);
 
 		doReturn(Optional.empty()).when(cidadeRepository).findByIbge(ibge);
-		doNothing().when(service).incluirCidade(any(), any());
 
 		// Execução
 		Cidade cidade = serviceSpy.getCidade(resultado, estadoMock);
@@ -222,6 +220,7 @@ public class ViaCepServiceTest {
 		assertNotNull(cidade);
 		assertEquals(ibge, cidade.getIbge());
 		verify(cidadeRepository, times(1)).findByIbge(ibge);
+		verify(cidadeRepository, times(1)).save(any());
 		verify(serviceSpy, times(1)).incluirCidade(any(), any());
 	}
 
