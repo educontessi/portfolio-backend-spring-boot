@@ -21,8 +21,10 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import io.github.educontessi.model.Bairro;
 import io.github.educontessi.model.Cidade;
 import io.github.educontessi.model.Estado;
+import io.github.educontessi.model.Rua;
 import io.github.educontessi.model.ViaCepJson;
 import io.github.educontessi.repository.BairroRepository;
 import io.github.educontessi.repository.CidadeRepository;
@@ -219,9 +221,108 @@ public class ViaCepServiceTest {
 		// Resultados
 		assertNotNull(cidade);
 		assertEquals(ibge, cidade.getIbge());
+		assertEquals(resultado.getLocalidade(), cidade.getNome());
 		verify(cidadeRepository, times(1)).findByIbge(ibge);
 		verify(cidadeRepository, times(1)).save(any());
 		verify(serviceSpy, times(1)).incluirCidade(any(), any());
+	}
+
+	@Test
+	public void deveRetornarBairro() {
+		// Arranjos
+		Long cidadeId = 1L;
+		ViaCepJson resultado = getViaCepJson();
+
+		Bairro bairroMock = new Bairro();
+		bairroMock.setNome(resultado.getBairro());
+		bairroMock.setCidadeId(cidadeId);
+
+		Cidade cidade = new Cidade();
+		cidade.setId(cidadeId);
+
+		doReturn(Optional.of(bairroMock)).when(bairroRepository).findByNomeAndCidadeId(resultado.getBairro(), cidadeId);
+
+		// Execução
+		Bairro bairro = service.getBairro(resultado, cidade);
+
+		// Resultados
+		assertNotNull(bairro);
+		assertEquals(cidadeId, bairro.getCidadeId());
+		assertEquals(resultado.getBairro(), bairro.getNome());
+		verify(bairroRepository, times(1)).findByNomeAndCidadeId(resultado.getBairro(), cidadeId);
+	}
+
+	@Test
+	public void deveIncluirUmNovoBairro() {
+		// Arranjos
+		ViaCepService serviceSpy = Mockito.spy(service);
+		Long cidadeId = 1L;
+		ViaCepJson resultado = getViaCepJson();
+
+		Cidade cidade = new Cidade();
+		cidade.setId(cidadeId);
+
+		doReturn(Optional.empty()).when(bairroRepository).findByNomeAndCidadeId(resultado.getBairro(), cidadeId);
+
+		// Execução
+		Bairro bairro = serviceSpy.getBairro(resultado, cidade);
+
+		// Resultados
+		assertNotNull(bairro);
+		assertEquals(cidadeId, bairro.getCidadeId());
+		assertEquals(resultado.getBairro(), bairro.getNome());
+		verify(bairroRepository, times(1)).findByNomeAndCidadeId(resultado.getBairro(), cidadeId);
+		verify(bairroRepository, times(1)).save(any());
+		verify(serviceSpy, times(1)).incluirBairro(any(), any());
+	}
+
+	@Test
+	public void deveRetornarRua() {
+		// Arranjos
+		Long cidadeId = 1L;
+		ViaCepJson resultado = getViaCepJson();
+
+		Rua ruaMock = new Rua();
+		ruaMock.setNome(resultado.getLogradouro());
+		ruaMock.setCidadeId(cidadeId);
+
+		Cidade cidade = new Cidade();
+		cidade.setId(cidadeId);
+
+		doReturn(Optional.of(ruaMock)).when(ruaRepository).findByNomeAndCidadeId(resultado.getLogradouro(), cidadeId);
+
+		// Execução
+		Rua rua = service.getRua(resultado, cidade);
+
+		// Resultados
+		assertNotNull(rua);
+		assertEquals(cidadeId, rua.getCidadeId());
+		assertEquals(resultado.getLogradouro(), rua.getNome());
+		verify(ruaRepository, times(1)).findByNomeAndCidadeId(any(), any());
+	}
+
+	@Test
+	public void deveIncluirUmaNovaRua() {
+		// Arranjos
+		ViaCepService serviceSpy = Mockito.spy(service);
+		Long cidadeId = 1L;
+		ViaCepJson resultado = getViaCepJson();
+
+		Cidade cidade = new Cidade();
+		cidade.setId(cidadeId);
+
+		doReturn(Optional.empty()).when(ruaRepository).findByNomeAndCidadeId(resultado.getLogradouro(), cidadeId);
+
+		// Execução
+		Rua rua = serviceSpy.getRua(resultado, cidade);
+
+		// Resultados
+		assertNotNull(rua);
+		assertEquals(cidadeId, rua.getCidadeId());
+		assertEquals(resultado.getLogradouro(), rua.getNome());
+		verify(ruaRepository, times(1)).findByNomeAndCidadeId(any(), any());
+		verify(ruaRepository, times(1)).save(any());
+		verify(serviceSpy, times(1)).incluirRua(any(), any());
 	}
 
 	private ViaCepJson getViaCepJson() {
