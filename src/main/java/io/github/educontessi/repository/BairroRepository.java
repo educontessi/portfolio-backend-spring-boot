@@ -14,4 +14,5 @@ public interface BairroRepository extends JpaRepository<Bairro, Long> {
 	public Optional<Bairro> findByNomeAndCidadeId(String nome, Long cidadeId);
 
 	public List<Bairro> findByCidadeId(Long cidadeId);
+
 }

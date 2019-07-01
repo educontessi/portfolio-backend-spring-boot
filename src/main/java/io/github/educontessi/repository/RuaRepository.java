@@ -14,4 +14,5 @@ public interface RuaRepository extends JpaRepository<Rua, Long> {
 	public Optional<Rua> findByNomeAndCidadeId(String nome, Long cidadeId);
 
 	public List<Rua> findByCidadeId(Long cidadeId);
+
 }
