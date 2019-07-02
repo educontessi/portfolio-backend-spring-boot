@@ -10,7 +10,7 @@ public class FuncoesString {
 		return adicionaMascara(mascara.getMascara(), value);
 	}
 
-	public static String adicionaMascara(String mascara, Object value) {
+	private static String adicionaMascara(String mascara, Object value) {
 		MaskFormatter mask;
 		try {
 			mask = new MaskFormatter(mascara);
@@ -23,6 +23,9 @@ public class FuncoesString {
 	}
 
 	public static String removeMascaraDeNumeros(String value) {
+		if (value == null) {
+			return value;
+		}
 		return value.replaceAll("[^0123456789]", "");
 	}
 
