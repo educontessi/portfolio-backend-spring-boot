@@ -8,6 +8,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.github.educontessi.helpers.event.RecursoCriadoEvent;
 import io.github.educontessi.model.Pessoa;
 import io.github.educontessi.repository.PessoaRepository;
+import io.github.educontessi.repository.filter.PessoaFilter;
 import io.github.educontessi.service.PessoaService;
 
 @RestController
@@ -41,6 +44,11 @@ public class PessoaV1Resource {
 	@GetMapping
 	public List<Pessoa> findAll() {
 		return repository.findAll();
+	}
+
+	@GetMapping("search")
+	public Page<Pessoa> pesquisar(PessoaFilter pessoaFilter, Pageable pageable) {
+		return repository.filtrar(pessoaFilter, pageable);
 	}
 
 	@GetMapping("/cpf-cnpj/{cpfCnpj}")
