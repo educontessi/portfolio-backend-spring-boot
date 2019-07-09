@@ -6,6 +6,8 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
@@ -29,6 +31,8 @@ import io.github.educontessi.service.BairroService;
 @RequestMapping("/v1/bairros")
 public class BairroV1Resource {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(BairroV1Resource.class);
+
 	@Autowired
 	private BairroRepository repository;
 
@@ -45,6 +49,7 @@ public class BairroV1Resource {
 
 	@GetMapping("/cidade/{cidadeId}")
 	public List<Bairro> findByCidadeId(@PathVariable Long cidadeId) {
+		LOGGER.info("Buscar por cidadeId: {}", cidadeId);
 		return repository.findByCidadeId(cidadeId);
 	}
 
