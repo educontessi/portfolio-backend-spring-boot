@@ -37,7 +37,7 @@ public class FuncoesString {
 	 * @param nome = nome da pessoa
 	 * @return nome formatado
 	 */
-	public static String formatarNomePessoa(String nome) {
+	public static String formatarNome(String nome) {
 		nome = nome.toLowerCase().trim();
 		nome = nome.replaceAll("\\s+", " ");
 		String[] palavas = nome.split(" ");

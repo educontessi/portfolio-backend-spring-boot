@@ -1,7 +1,7 @@
 package io.github.educontessi.helpers.util;
 
 import static io.github.educontessi.helpers.util.FuncoesString.adicionaMascara;
-import static io.github.educontessi.helpers.util.FuncoesString.formatarNomePessoa;
+import static io.github.educontessi.helpers.util.FuncoesString.formatarNome;
 import static io.github.educontessi.helpers.util.FuncoesString.removeMascaraDeNumeros;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -141,8 +141,8 @@ public class FuncoesStringTest {
 				"Pedro De OLIVEIRA E Oliveira, Pedro de Oliveira e Oliveira"
 			}
 	)
-	public void deveFormatarNomeDaPEssoa(String nome, String esperado) {
-		nome = formatarNomePessoa(nome);
+	public void deveFormatarNome(String nome, String esperado) {
+		nome = formatarNome(nome);
 		assertEquals(esperado, nome);
 	}
 	// @formatter:on
