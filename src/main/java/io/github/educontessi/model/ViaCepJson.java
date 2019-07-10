@@ -90,7 +90,7 @@ public class ViaCepJson {
 
 	@JsonIgnore
 	public boolean isValid() {
-		return getCep() != null && !getCep().isEmpty() && getCep().length() == 8;
+		return getCep() != null && !getCep().isEmpty() && removeMascaraDeNumeros(getCep()).length() == 8;
 	}
 
 }

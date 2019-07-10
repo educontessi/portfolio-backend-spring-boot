@@ -1,6 +1,7 @@
 package io.github.educontessi.helpers.util;
 
 import static io.github.educontessi.helpers.util.FuncoesString.adicionaMascara;
+import static io.github.educontessi.helpers.util.FuncoesString.formatarNomePessoa;
 import static io.github.educontessi.helpers.util.FuncoesString.removeMascaraDeNumeros;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -8,6 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.boot.test.context.SpringBootTest;
 
 /**
@@ -125,4 +128,22 @@ public class FuncoesStringTest {
 		assertNotNull(exception);
 		assertEquals(resultadoEsperado, exception.getMessage());
 	}
+
+	// @formatter:off
+	@ParameterizedTest
+	@CsvSource(
+			{ 
+				"JOÃO DA SILVA, João da Silva", 
+				"PEDRO das Quebrada, Pedro das Quebrada",
+				"JOÃO DE OLIVEIRA, João de Oliveira",
+				"JOÃO Do Nascimento, João do Nascimento",
+				"Pedro Dos PATOS    , Pedro dos Patos",
+				"Pedro De OLIVEIRA E Oliveira, Pedro de Oliveira e Oliveira"
+			}
+	)
+	public void deveFormatarNomeDaPEssoa(String nome, String esperado) {
+		nome = formatarNomePessoa(nome);
+		assertEquals(esperado, nome);
+	}
+	// @formatter:on
 }
