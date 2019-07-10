@@ -1,5 +1,7 @@
 package io.github.educontessi.model;
 
+import static io.github.educontessi.helpers.util.FuncoesString.formatarNome;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -59,7 +61,7 @@ public class Cidade {
 	}
 
 	public void setNome(String nome) {
-		this.nome = nome;
+		this.nome = formatarNome(nome);
 	}
 
 	public Long getEstadoId() {

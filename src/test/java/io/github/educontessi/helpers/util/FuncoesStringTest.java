@@ -129,6 +129,21 @@ public class FuncoesStringTest {
 		assertEquals(resultadoEsperado, exception.getMessage());
 	}
 
+	@Test
+	public void deveLancarExcecaoQuandoFormatarNomeInvalido() {
+		// Arranjos
+		String resultadoEsperado = "java.lang.Exception: Nome Inválido";
+
+		// Execução
+		RuntimeException exception = assertThrows(RuntimeException.class, () -> {
+			formatarNome("Alta FLORESTA d'o'este");
+		});
+
+		// Resultados
+		assertNotNull(exception);
+		assertEquals(resultadoEsperado, exception.getMessage());
+	}
+
 	// @formatter:off
 	@ParameterizedTest
 	@CsvSource(
@@ -138,7 +153,8 @@ public class FuncoesStringTest {
 				"JOÃO DE OLIVEIRA, João de Oliveira",
 				"JOÃO Do Nascimento, João do Nascimento",
 				"Pedro Dos PATOS    , Pedro dos Patos",
-				"Pedro De OLIVEIRA E Oliveira, Pedro de Oliveira e Oliveira"
+				"Pedro De OLIVEIRA E Oliveira, Pedro de Oliveira e Oliveira",
+				"Alta FLORESTA d'oeste, Alta Floresta D'Oeste"
 			}
 	)
 	public void deveFormatarNome(String nome, String esperado) {

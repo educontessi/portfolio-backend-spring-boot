@@ -1,6 +1,7 @@
 package io.github.educontessi.model;
 
 import static io.github.educontessi.helpers.util.FuncoesString.adicionaMascara;
+import static io.github.educontessi.helpers.util.FuncoesString.formatarNome;
 import static io.github.educontessi.helpers.util.FuncoesString.removeMascaraDeNumeros;
 
 import java.time.LocalDate;
@@ -146,7 +147,7 @@ public class Pessoa {
 	}
 
 	public void setNomeRazao(String nomeRazao) {
-		this.nomeRazao = nomeRazao;
+		this.nomeRazao = formatarNome(nomeRazao);
 	}
 
 	public LocalDate getDataCadastro() {

@@ -38,15 +38,29 @@ public class FuncoesString {
 	 * @return nome formatado
 	 */
 	public static String formatarNome(String nome) {
-		nome = nome.toLowerCase().trim();
-		nome = nome.replaceAll("\\s+", " ");
-		String[] palavas = nome.split(" ");
-
 		StringBuilder builder = new StringBuilder();
-		for (String palavra : palavas) {
-			builder.append(verificaPreposicaoNome(palavra) ? palavra : StringUtils.capitalize(palavra)).append(" ");
+		try {
+			nome = nome.toLowerCase().trim();
+			nome = nome.replaceAll("\\s+", " ");
+			String[] palavras = nome.split(" ");
+
+			for (String palavra : palavras) {
+
+				String[] palavrasDMudo = palavra.split("'"); // D'Oeste / D'Água
+				if (palavrasDMudo.length == 1) {
+					builder.append(verificaPreposicaoNome(palavra) ? palavra : StringUtils.capitalize(palavra))
+							.append(" ");
+				} else if (palavrasDMudo.length == 2) {
+					builder.append(StringUtils.capitalize(palavrasDMudo[0])).append("'");
+					builder.append(StringUtils.capitalize(palavrasDMudo[1]));
+				} else {
+					throw new Exception("Nome Inválido");
+				}
+			}
+			return builder.toString().trim();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
 		}
-		return builder.toString().trim();
 	}
 
 	private static boolean verificaPreposicaoNome(String palavra) {
