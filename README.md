@@ -18,7 +18,7 @@ Projeto usado para colocar em prática meus conhecimentos nas tecnologias:
 
 2) Importe o projeto em sua IDE
 
-3) Altere o usuario e senha para que o projeto possa acessar o banco mysql. Atual: `user=usuario, password=usuario
+3) Altere o usuario e senha para que o projeto possa acessar o banco mysql. Atual: `user=usuario, password=usuario`
 
 3) Acesse a pasta do projeto: `cd {{seuWorkspace}}/portfolio-backend-spring-boot`
 
