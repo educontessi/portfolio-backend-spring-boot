@@ -7,6 +7,7 @@ CREATE TABLE `cidade` (
 	`ultima_atualizacao` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
 	PRIMARY KEY (`id`),
 	INDEX `FK_cidade_estado` (`estado_id`),
+	INDEX `ibge` (`ibge`),
 	CONSTRAINT `FK_cidade_estado` FOREIGN KEY (`estado_id`) REFERENCES `estado` (`id`)
 )
 COLLATE='utf8mb4_0900_ai_ci'
