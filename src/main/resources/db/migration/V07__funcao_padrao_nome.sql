@@ -30,6 +30,13 @@ BEGIN
       SET i = i+1; 
     END; 
   END WHILE; 
+  
+  SET s = REPLACE(s,' De ',' de ');
+  SET s = REPLACE(s,' Da ',' da ');
+  SET s = REPLACE(s,' Do ',' do ');
+  SET s = REPLACE(s,' Das ',' das ');
+  SET s = REPLACE(s,' Dos ',' dos ');
+  
   RETURN s; 
 END; 
 | 
