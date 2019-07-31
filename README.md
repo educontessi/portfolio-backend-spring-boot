@@ -24,7 +24,7 @@ Projeto usado para colocar em prática meus conhecimentos nas tecnologias:
 
 4) Inicie a aplicação: `mvnw spring-boot:run`
 
-5) Acesse: http://localhost:9000/portfolio/swagger-ui.html para visualizar os endpoints
+5) Acesse: http://localhost:9000/api/portfolio/swagger-ui.html para visualizar os endpoints
 
 ## Rodando os testes unitários
 
