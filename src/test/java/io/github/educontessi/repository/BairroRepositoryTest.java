@@ -1,7 +1,6 @@
 package io.github.educontessi.repository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -56,17 +55,16 @@ public class BairroRepositoryTest {
 		Long idCidade = 4330L;
 
 		// Execução
-		List<Bairro> cidades = repository.findByCidadeId(idCidade);
+		List<Bairro> bairros = repository.findByCidadeId(idCidade);
 
 		// Resultados
-		assertNotNull(cidades);
-		assertFalse(cidades.isEmpty());
-		verificaSeTodasBairrosPertenceAoCidade(idCidade, cidades);
+		assertNotNull(bairros);
+		verificaSeTodasBairrosPertenceAoCidade(idCidade, bairros);
 	}
 
-	private void verificaSeTodasBairrosPertenceAoCidade(Long idCidade, List<Bairro> cidades) {
-		for (Bairro cidade : cidades) {
-			assertTrue(cidade.getCidadeId().equals(idCidade));
+	private void verificaSeTodasBairrosPertenceAoCidade(Long idCidade, List<Bairro> bairros) {
+		for (Bairro bairro : bairros) {
+			assertTrue(bairro.getCidadeId().equals(idCidade));
 		}
 	}
 
