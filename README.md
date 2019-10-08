@@ -23,8 +23,7 @@ Projeto usado para colocar em prática meus conhecimentos nas tecnologias:
   * Altere as propriedades informado o usuário e senha do seu banco de dados: 
     - spring.datasource.username=usuario
     - spring.datasource.password=usuario
-    Atual: `username=usuario, password=usuario`
-
+    
 4) Acesse a pasta do projeto: `cd {{seuWorkspace}}/portfolio-backend-spring-boot`
 
 5) Inicie a aplicação: `mvnw spring-boot:run`
