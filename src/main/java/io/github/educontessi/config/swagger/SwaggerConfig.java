@@ -15,7 +15,7 @@ public class SwaggerConfig {
 
 	@Bean
 	public Docket api() {
-		// http://localhost:8080/portfolio/swagger-ui.html
+		// http://localhost:9000/api/portfolio/swagger-ui.html
 
 		// @formatter:off
 		return new Docket(DocumentationType.SWAGGER_2)

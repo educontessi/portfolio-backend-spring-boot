@@ -22,47 +22,46 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.github.educontessi.helpers.event.RecursoCriadoEvent;
 import io.github.educontessi.model.Cidade;
-import io.github.educontessi.repository.CidadeRepository;
 import io.github.educontessi.service.CidadeService;
 
 @RestController
 @RequestMapping("/v1/cidades")
 public class CidadeV1Resource {
 
-	@Autowired
-	private CidadeRepository repository;
-
-	@Autowired
 	private CidadeService service;
+	private ApplicationEventPublisher publisher;
 
 	@Autowired
-	private ApplicationEventPublisher publisher;
+	public CidadeV1Resource(CidadeService service, ApplicationEventPublisher publisher) {
+		this.service = service;
+		this.publisher = publisher;
+	}
 
 	@GetMapping
 	public List<Cidade> findAll() {
-		return repository.findAll();
+		return service.findAll();
 	}
 
 	@GetMapping("/estado/{estadoId}")
 	public List<Cidade> findByEstadoId(@PathVariable Long estadoId) {
-		return repository.findByEstadoId(estadoId);
+		return service.findByEstadoId(estadoId);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Cidade> findById(@PathVariable Long id) {
-		Optional<Cidade> entity = repository.findById(id);
+		Optional<Cidade> entity = service.findById(id);
 		return entity.isPresent() ? ResponseEntity.ok(entity.get()) : ResponseEntity.notFound().build();
 	}
 
 	@GetMapping("/ibge/{ibge}")
 	public ResponseEntity<Cidade> findByIbge(@PathVariable Integer ibge) {
-		Optional<Cidade> entity = repository.findByIbge(ibge);
+		Optional<Cidade> entity = service.findByIbge(ibge);
 		return entity.isPresent() ? ResponseEntity.ok(entity.get()) : ResponseEntity.notFound().build();
 	}
 
 	@PostMapping
 	public ResponseEntity<Cidade> save(@Valid @RequestBody Cidade entity, HttpServletResponse response) {
-		Cidade cidade = repository.save(entity);
+		Cidade cidade = service.save(entity);
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, cidade.getId()));
 		return ResponseEntity.status(HttpStatus.CREATED).body(cidade);
 	}
@@ -80,7 +79,7 @@ public class CidadeV1Resource {
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable Long id) {
-		repository.deleteById(id);
+		service.delete(id);
 	}
 
 }

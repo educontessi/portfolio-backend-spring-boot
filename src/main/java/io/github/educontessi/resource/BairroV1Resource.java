@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.github.educontessi.helpers.event.RecursoCriadoEvent;
 import io.github.educontessi.model.Bairro;
-import io.github.educontessi.repository.BairroRepository;
 import io.github.educontessi.service.BairroService;
 
 @RestController
@@ -32,38 +31,37 @@ import io.github.educontessi.service.BairroService;
 public class BairroV1Resource {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(BairroV1Resource.class);
-
-	@Autowired
-	private BairroRepository repository;
-
-	@Autowired
 	private BairroService service;
+	private ApplicationEventPublisher publisher;
 
 	@Autowired
-	private ApplicationEventPublisher publisher;
+	public BairroV1Resource(BairroService service, ApplicationEventPublisher publisher) {
+		this.service = service;
+		this.publisher = publisher;
+	}
 
 	@GetMapping
 	public List<Bairro> findAll() {
-		return repository.findAll();
+		return service.findAll();
 	}
 
 	@GetMapping("/cidade/{cidadeId}")
 	public List<Bairro> findByCidadeId(@PathVariable Long cidadeId) {
 		LOGGER.info("Buscar por cidadeId: {}", cidadeId);
-		return repository.findByCidadeId(cidadeId);
+		return service.findByCidadeId(cidadeId);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Bairro> findById(@PathVariable Long id) {
-		Optional<Bairro> entity = repository.findById(id);
+		Optional<Bairro> entity = service.findById(id);
 		return entity.isPresent() ? ResponseEntity.ok(entity.get()) : ResponseEntity.notFound().build();
 	}
 
 	@PostMapping
 	public ResponseEntity<Bairro> save(@Valid @RequestBody Bairro entity, HttpServletResponse response) {
-		Bairro cidade = repository.save(entity);
-		publisher.publishEvent(new RecursoCriadoEvent(this, response, cidade.getId()));
-		return ResponseEntity.status(HttpStatus.CREATED).body(cidade);
+		Bairro bairro = service.save(entity);
+		publisher.publishEvent(new RecursoCriadoEvent(this, response, bairro.getId()));
+		return ResponseEntity.status(HttpStatus.CREATED).body(bairro);
 	}
 
 	@PutMapping("/{id}")
@@ -79,7 +77,7 @@ public class BairroV1Resource {
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable Long id) {
-		repository.deleteById(id);
+		service.delete(id);
 	}
 
 }

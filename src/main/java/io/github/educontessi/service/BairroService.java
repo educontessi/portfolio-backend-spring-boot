@@ -15,21 +15,41 @@ import io.github.educontessi.repository.BairroRepository;
 @Service
 public class BairroService {
 
-	@Autowired
 	private BairroRepository repository;
 
+	@Autowired
+	public BairroService(BairroRepository repository) {
+		this.repository = repository;
+	}
+
+	public List<Bairro> findAll() {
+		return repository.findAll();
+	}
+
+	public List<Bairro> findByCidadeId(Long cidadeId) {
+		return repository.findByCidadeId(cidadeId);
+	}
+
+	public Bairro save(Bairro entity) {
+		return repository.save(entity);
+	}
+
+	public void delete(Long id) {
+		repository.deleteById(id);
+	}
+
 	public Bairro update(Long id, Bairro entity) {
-		Bairro saved = findById(id);
+		Optional<Bairro> optionalSaved = findById(id);
+		if (!optionalSaved.isPresent()) {
+			throw new EmptyResultDataAccessException(1);
+		}
+		Bairro saved = optionalSaved.get();
 		BeanUtils.copyProperties(entity, saved, getIgnoreProperties());
 		return repository.save(saved);
 	}
 
-	private Bairro findById(Long id) {
-		Optional<Bairro> entity = repository.findById(id);
-		if (!entity.isPresent()) {
-			throw new EmptyResultDataAccessException(1);
-		}
-		return entity.get();
+	public Optional<Bairro> findById(Long id) {
+		return repository.findById(id);
 	}
 
 	protected String[] getIgnoreProperties() {

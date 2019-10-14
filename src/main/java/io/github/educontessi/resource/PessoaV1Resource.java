@@ -32,14 +32,16 @@ import io.github.educontessi.service.PessoaService;
 @RequestMapping("/v1/pessoas")
 public class PessoaV1Resource {
 
-	@Autowired
 	private PessoaRepository repository;
-
-	@Autowired
 	private PessoaService service;
+	private ApplicationEventPublisher publisher;
 
 	@Autowired
-	private ApplicationEventPublisher publisher;
+	public PessoaV1Resource(PessoaRepository repository, PessoaService service, ApplicationEventPublisher publisher) {
+		this.repository = repository;
+		this.service = service;
+		this.publisher = publisher;
+	}
 
 	@GetMapping
 	public List<Pessoa> findAll() {

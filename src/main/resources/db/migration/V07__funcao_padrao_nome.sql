@@ -37,7 +37,7 @@ BEGIN
   SET s = REPLACE(s,' Das ',' das ');
   SET s = REPLACE(s,' Dos ',' dos ');
   
-  RETURN s; 
+  RETURN REPLACE(REPLACE(REPLACE(s,' ','<>'),'><',''),'<>',' '); 
 END; 
 | 
 DELIMITER ; 

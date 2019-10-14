@@ -29,14 +29,16 @@ import io.github.educontessi.service.RuaService;
 @RequestMapping("/v1/ruas")
 public class RuaV1Resource {
 
-	@Autowired
 	private RuaRepository repository;
-
-	@Autowired
 	private RuaService service;
-
-	@Autowired
 	private ApplicationEventPublisher publisher;
+	
+	@Autowired
+	public RuaV1Resource(RuaRepository repository, RuaService service, ApplicationEventPublisher publisher) {
+		this.repository = repository;
+		this.service = service;
+		this.publisher = publisher;
+	}
 
 	@GetMapping
 	public List<Rua> findAll() {

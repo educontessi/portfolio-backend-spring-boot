@@ -29,15 +29,17 @@ import io.github.educontessi.service.PaisService;
 @RequestMapping("/v1/paises")
 public class PaisV1Resource {
 
-	@Autowired
 	private PaisRepository repository;
-
-	@Autowired
 	private PaisService service;
-
-	@Autowired
 	private ApplicationEventPublisher publisher;
 
+	@Autowired
+	public PaisV1Resource(PaisRepository repository, PaisService service, ApplicationEventPublisher publisher) {
+		this.repository = repository;
+		this.service = service;
+		this.publisher = publisher;
+	}
+	
 	@GetMapping
 	public List<Pais> findAll() {
 		return repository.findAll();

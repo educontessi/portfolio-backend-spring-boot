@@ -14,8 +14,12 @@ import io.github.educontessi.service.ViaCepService;
 @RequestMapping("/v1/busca-cep")
 public class ViaCepV1Resource {
 
-	@Autowired
 	private ViaCepService service;
+
+	@Autowired
+	public ViaCepV1Resource(ViaCepService service) {
+		this.service = service;
+	}
 
 	@GetMapping("/{cep}")
 	public ResponseEntity<ViaCepResposta> findById(@PathVariable String cep) {

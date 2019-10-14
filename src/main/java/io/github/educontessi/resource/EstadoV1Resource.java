@@ -29,14 +29,16 @@ import io.github.educontessi.service.EstadoService;
 @RequestMapping("/v1/estados")
 public class EstadoV1Resource {
 
-	@Autowired
 	private EstadoRepository repository;
-
-	@Autowired
 	private EstadoService service;
+	private ApplicationEventPublisher publisher;
 
 	@Autowired
-	private ApplicationEventPublisher publisher;
+	public EstadoV1Resource(EstadoRepository repository, EstadoService service, ApplicationEventPublisher publisher) {
+		this.repository = repository;
+		this.service = service;
+		this.publisher = publisher;
+	}
 
 	@GetMapping
 	public List<Estado> findAll() {
