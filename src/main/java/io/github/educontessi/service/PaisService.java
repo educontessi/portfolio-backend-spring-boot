@@ -15,7 +15,7 @@ import io.github.educontessi.repository.PaisRepository;
 @Service
 public class PaisService {
 
-	private PaisRepository repository;
+	private final PaisRepository repository;
 
 	@Autowired
 	public PaisService(PaisRepository repository) {

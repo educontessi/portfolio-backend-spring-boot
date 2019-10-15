@@ -15,7 +15,7 @@ import io.github.educontessi.repository.BairroRepository;
 @Service
 public class BairroService {
 
-	private BairroRepository repository;
+	private final BairroRepository repository;
 
 	@Autowired
 	public BairroService(BairroRepository repository) {

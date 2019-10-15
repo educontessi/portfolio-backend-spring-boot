@@ -28,8 +28,8 @@ import io.github.educontessi.service.PaisService;
 @RequestMapping("/v1/paises")
 public class PaisV1Resource {
 
-	private PaisService service;
-	private ApplicationEventPublisher publisher;
+	private final PaisService service;
+	private final ApplicationEventPublisher publisher;
 
 	@Autowired
 	public PaisV1Resource(PaisService service, ApplicationEventPublisher publisher) {

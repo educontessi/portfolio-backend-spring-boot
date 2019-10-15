@@ -16,7 +16,7 @@ import io.github.educontessi.repository.CidadeRepository;
 @Service
 public class CidadeService {
 
-	private CidadeRepository repository;
+	private final CidadeRepository repository;
 
 	@Autowired
 	public CidadeService(CidadeRepository repository) {

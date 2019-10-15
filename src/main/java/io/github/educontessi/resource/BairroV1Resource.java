@@ -31,8 +31,8 @@ import io.github.educontessi.service.BairroService;
 public class BairroV1Resource {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(BairroV1Resource.class);
-	private BairroService service;
-	private ApplicationEventPublisher publisher;
+	private final BairroService service;
+	private final ApplicationEventPublisher publisher;
 
 	@Autowired
 	public BairroV1Resource(BairroService service, ApplicationEventPublisher publisher) {

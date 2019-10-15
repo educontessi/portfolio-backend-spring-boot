@@ -31,8 +31,8 @@ import io.github.educontessi.service.PessoaService;
 @RequestMapping("/v1/pessoas")
 public class PessoaV1Resource {
 
-	private PessoaService service;
-	private ApplicationEventPublisher publisher;
+	private final PessoaService service;
+	private final ApplicationEventPublisher publisher;
 
 	@Autowired
 	public PessoaV1Resource(PessoaService service, ApplicationEventPublisher publisher) {

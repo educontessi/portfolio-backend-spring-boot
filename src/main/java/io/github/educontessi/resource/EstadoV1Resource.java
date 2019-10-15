@@ -28,8 +28,8 @@ import io.github.educontessi.service.EstadoService;
 @RequestMapping("/v1/estados")
 public class EstadoV1Resource {
 
-	private EstadoService service;
-	private ApplicationEventPublisher publisher;
+	private final EstadoService service;
+	private final ApplicationEventPublisher publisher;
 
 	@Autowired
 	public EstadoV1Resource(EstadoService service, ApplicationEventPublisher publisher) {

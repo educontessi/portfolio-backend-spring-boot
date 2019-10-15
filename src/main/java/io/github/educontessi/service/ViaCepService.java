@@ -35,10 +35,10 @@ public class ViaCepService {
 
 	private final String URI = "http://viacep.com.br/ws/#CEP#/json/";
 
-	private RuaRepository ruaRepository;
-	private BairroRepository bairroRepository;
-	private CidadeRepository cidadeRepository;
-	private EstadoRepository estadoRepository;
+	private final RuaRepository ruaRepository;
+	private final BairroRepository bairroRepository;
+	private final CidadeRepository cidadeRepository;
+	private final EstadoRepository estadoRepository;
 
 	@Autowired
 	public ViaCepService(RuaRepository ruaRepository, BairroRepository bairroRepository,

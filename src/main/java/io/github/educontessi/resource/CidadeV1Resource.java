@@ -28,8 +28,8 @@ import io.github.educontessi.service.CidadeService;
 @RequestMapping("/v1/cidades")
 public class CidadeV1Resource {
 
-	private CidadeService service;
-	private ApplicationEventPublisher publisher;
+	private final CidadeService service;
+	private final ApplicationEventPublisher publisher;
 
 	@Autowired
 	public CidadeV1Resource(CidadeService service, ApplicationEventPublisher publisher) {

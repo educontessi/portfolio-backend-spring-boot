@@ -15,7 +15,7 @@ import io.github.educontessi.repository.EstadoRepository;
 @Service
 public class EstadoService {
 
-	private EstadoRepository repository;
+	private final EstadoRepository repository;
 
 	@Autowired
 	public EstadoService(EstadoRepository repository) {

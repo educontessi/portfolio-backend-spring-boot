@@ -20,7 +20,7 @@ import io.github.educontessi.repository.filter.PessoaFilter;
 @Service
 public class PessoaService {
 
-	private PessoaRepository repository;
+	private final PessoaRepository repository;
 
 	@Autowired
 	public PessoaService(PessoaRepository repository) {

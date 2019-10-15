@@ -28,8 +28,8 @@ import io.github.educontessi.service.RuaService;
 @RequestMapping("/v1/ruas")
 public class RuaV1Resource {
 
-	private RuaService service;
-	private ApplicationEventPublisher publisher;
+	private final RuaService service;
+	private final ApplicationEventPublisher publisher;
 
 	@Autowired
 	public RuaV1Resource(RuaService service, ApplicationEventPublisher publisher) {

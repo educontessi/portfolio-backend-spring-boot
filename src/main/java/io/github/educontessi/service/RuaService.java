@@ -15,7 +15,7 @@ import io.github.educontessi.repository.RuaRepository;
 @Service
 public class RuaService {
 
-	private RuaRepository repository;
+	private final RuaRepository repository;
 
 	@Autowired
 	public RuaService(RuaRepository repository) {
