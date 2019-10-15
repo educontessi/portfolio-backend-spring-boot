@@ -22,43 +22,40 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.github.educontessi.helpers.event.RecursoCriadoEvent;
 import io.github.educontessi.model.Rua;
-import io.github.educontessi.repository.RuaRepository;
 import io.github.educontessi.service.RuaService;
 
 @RestController
 @RequestMapping("/v1/ruas")
 public class RuaV1Resource {
 
-	private RuaRepository repository;
 	private RuaService service;
 	private ApplicationEventPublisher publisher;
-	
+
 	@Autowired
-	public RuaV1Resource(RuaRepository repository, RuaService service, ApplicationEventPublisher publisher) {
-		this.repository = repository;
+	public RuaV1Resource(RuaService service, ApplicationEventPublisher publisher) {
 		this.service = service;
 		this.publisher = publisher;
 	}
 
 	@GetMapping
 	public List<Rua> findAll() {
-		return repository.findAll();
+		return service.findAll();
 	}
 
 	@GetMapping("/cidade/{cidadeId}")
-	public List<Rua> findByEstadoId(@PathVariable Long cidadeId) {
-		return repository.findByCidadeId(cidadeId);
+	public List<Rua> findByCidadeId(@PathVariable Long cidadeId) {
+		return service.findByCidadeId(cidadeId);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Rua> findById(@PathVariable Long id) {
-		Optional<Rua> entity = repository.findById(id);
+		Optional<Rua> entity = service.findById(id);
 		return entity.isPresent() ? ResponseEntity.ok(entity.get()) : ResponseEntity.notFound().build();
 	}
 
 	@PostMapping
 	public ResponseEntity<Rua> save(@Valid @RequestBody Rua entity, HttpServletResponse response) {
-		Rua cidade = repository.save(entity);
+		Rua cidade = service.save(entity);
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, cidade.getId()));
 		return ResponseEntity.status(HttpStatus.CREATED).body(cidade);
 	}
@@ -76,7 +73,7 @@ public class RuaV1Resource {
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable Long id) {
-		repository.deleteById(id);
+		service.delete(id);
 	}
 
 }

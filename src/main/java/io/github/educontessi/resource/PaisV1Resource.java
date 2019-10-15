@@ -22,38 +22,35 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.github.educontessi.helpers.event.RecursoCriadoEvent;
 import io.github.educontessi.model.Pais;
-import io.github.educontessi.repository.PaisRepository;
 import io.github.educontessi.service.PaisService;
 
 @RestController
 @RequestMapping("/v1/paises")
 public class PaisV1Resource {
 
-	private PaisRepository repository;
 	private PaisService service;
 	private ApplicationEventPublisher publisher;
 
 	@Autowired
-	public PaisV1Resource(PaisRepository repository, PaisService service, ApplicationEventPublisher publisher) {
-		this.repository = repository;
+	public PaisV1Resource(PaisService service, ApplicationEventPublisher publisher) {
 		this.service = service;
 		this.publisher = publisher;
 	}
-	
+
 	@GetMapping
 	public List<Pais> findAll() {
-		return repository.findAll();
+		return service.findAll();
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Pais> findById(@PathVariable Long id) {
-		Optional<Pais> categoria = repository.findById(id);
+		Optional<Pais> categoria = service.findById(id);
 		return categoria.isPresent() ? ResponseEntity.ok(categoria.get()) : ResponseEntity.notFound().build();
 	}
 
 	@PostMapping
 	public ResponseEntity<Pais> save(@Valid @RequestBody Pais entity, HttpServletResponse response) {
-		Pais pais = repository.save(entity);
+		Pais pais = service.save(entity);
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, pais.getId()));
 		return ResponseEntity.status(HttpStatus.CREATED).body(pais);
 	}
@@ -71,7 +68,7 @@ public class PaisV1Resource {
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable Long id) {
-		repository.deleteById(id);
+		service.delete(id);
 	}
 
 }

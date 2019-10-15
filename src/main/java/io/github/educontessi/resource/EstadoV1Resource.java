@@ -22,49 +22,46 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.github.educontessi.helpers.event.RecursoCriadoEvent;
 import io.github.educontessi.model.Estado;
-import io.github.educontessi.repository.EstadoRepository;
 import io.github.educontessi.service.EstadoService;
 
 @RestController
 @RequestMapping("/v1/estados")
 public class EstadoV1Resource {
 
-	private EstadoRepository repository;
 	private EstadoService service;
 	private ApplicationEventPublisher publisher;
 
 	@Autowired
-	public EstadoV1Resource(EstadoRepository repository, EstadoService service, ApplicationEventPublisher publisher) {
-		this.repository = repository;
+	public EstadoV1Resource(EstadoService service, ApplicationEventPublisher publisher) {
 		this.service = service;
 		this.publisher = publisher;
 	}
 
 	@GetMapping
 	public List<Estado> findAll() {
-		return repository.findAll();
+		return service.findAll();
 	}
 
 	@GetMapping("/pais/{paisId}")
 	public List<Estado> findByPaisId(@PathVariable Long paisId) {
-		return repository.findByPaisId(paisId);
+		return service.findByPaisId(paisId);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Estado> findById(@PathVariable Long id) {
-		Optional<Estado> entity = repository.findById(id);
+		Optional<Estado> entity = service.findById(id);
 		return entity.isPresent() ? ResponseEntity.ok(entity.get()) : ResponseEntity.notFound().build();
 	}
 
 	@GetMapping("/uf/{uf}")
 	public ResponseEntity<Estado> findByUf(@PathVariable String uf) {
-		Optional<Estado> entity = repository.findByUf(uf);
+		Optional<Estado> entity = service.findByUf(uf);
 		return entity.isPresent() ? ResponseEntity.ok(entity.get()) : ResponseEntity.notFound().build();
 	}
 
 	@PostMapping
 	public ResponseEntity<Estado> save(@Valid @RequestBody Estado entity, HttpServletResponse response) {
-		Estado estado = repository.save(entity);
+		Estado estado = service.save(entity);
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, estado.getId()));
 		return ResponseEntity.status(HttpStatus.CREATED).body(estado);
 	}
@@ -82,7 +79,7 @@ public class EstadoV1Resource {
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable Long id) {
-		repository.deleteById(id);
+		service.delete(id);
 	}
 
 }

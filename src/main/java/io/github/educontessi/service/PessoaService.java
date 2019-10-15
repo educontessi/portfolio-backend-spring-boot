@@ -9,21 +9,30 @@ import java.util.Optional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import io.github.educontessi.model.Pessoa;
 import io.github.educontessi.repository.PessoaRepository;
+import io.github.educontessi.repository.filter.PessoaFilter;
 
 @Service
 public class PessoaService {
 
-	@Autowired
 	private PessoaRepository repository;
 
-	public Pessoa update(Long id, Pessoa entity) {
-		Pessoa saved = findById(id);
-		BeanUtils.copyProperties(entity, saved, getIgnoreProperties());
-		return repository.save(saved);
+	@Autowired
+	public PessoaService(PessoaRepository repository) {
+		this.repository = repository;
+	}
+
+	public List<Pessoa> findAll() {
+		return repository.findAll();
+	}
+
+	public Page<Pessoa> pesquisar(PessoaFilter pessoaFilter, Pageable pageable) {
+		return repository.filtrar(pessoaFilter, pageable);
 	}
 
 	public Optional<Pessoa> findByCpfCnpj(String cpfCnpj) {
@@ -34,12 +43,26 @@ public class PessoaService {
 		return entity;
 	}
 
-	private Pessoa findById(Long id) {
-		Optional<Pessoa> entity = repository.findById(id);
-		if (!entity.isPresent()) {
+	public Pessoa save(Pessoa entity) {
+		return repository.save(entity);
+	}
+
+	public void delete(Long id) {
+		repository.deleteById(id);
+	}
+
+	public Pessoa update(Long id, Pessoa entity) {
+		Optional<Pessoa> optionalSaved = findById(id);
+		if (!optionalSaved.isPresent()) {
 			throw new EmptyResultDataAccessException(1);
 		}
-		return entity.get();
+		Pessoa saved = optionalSaved.get();
+		BeanUtils.copyProperties(entity, saved, getIgnoreProperties());
+		return repository.save(saved);
+	}
+
+	public Optional<Pessoa> findById(Long id) {
+		return repository.findById(id);
 	}
 
 	protected String[] getIgnoreProperties() {

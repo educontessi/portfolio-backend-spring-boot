@@ -15,21 +15,41 @@ import io.github.educontessi.repository.RuaRepository;
 @Service
 public class RuaService {
 
-	@Autowired
 	private RuaRepository repository;
 
+	@Autowired
+	public RuaService(RuaRepository repository) {
+		this.repository = repository;
+	}
+
+	public List<Rua> findAll() {
+		return repository.findAll();
+	}
+
+	public List<Rua> findByCidadeId(Long cidadeId) {
+		return repository.findByCidadeId(cidadeId);
+	}
+
+	public Rua save(Rua entity) {
+		return repository.save(entity);
+	}
+
+	public void delete(Long id) {
+		repository.deleteById(id);
+	}
+
 	public Rua update(Long id, Rua entity) {
-		Rua saved = findById(id);
+		Optional<Rua> optionalSaved = findById(id);
+		if (!optionalSaved.isPresent()) {
+			throw new EmptyResultDataAccessException(1);
+		}
+		Rua saved = optionalSaved.get();
 		BeanUtils.copyProperties(entity, saved, getIgnoreProperties());
 		return repository.save(saved);
 	}
 
-	private Rua findById(Long id) {
-		Optional<Rua> entity = repository.findById(id);
-		if (!entity.isPresent()) {
-			throw new EmptyResultDataAccessException(1);
-		}
-		return entity.get();
+	public Optional<Rua> findById(Long id) {
+		return repository.findById(id);
 	}
 
 	protected String[] getIgnoreProperties() {

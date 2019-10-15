@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.github.educontessi.helpers.event.RecursoCriadoEvent;
 import io.github.educontessi.model.Pessoa;
-import io.github.educontessi.repository.PessoaRepository;
 import io.github.educontessi.repository.filter.PessoaFilter;
 import io.github.educontessi.service.PessoaService;
 
@@ -32,25 +31,23 @@ import io.github.educontessi.service.PessoaService;
 @RequestMapping("/v1/pessoas")
 public class PessoaV1Resource {
 
-	private PessoaRepository repository;
 	private PessoaService service;
 	private ApplicationEventPublisher publisher;
 
 	@Autowired
-	public PessoaV1Resource(PessoaRepository repository, PessoaService service, ApplicationEventPublisher publisher) {
-		this.repository = repository;
+	public PessoaV1Resource(PessoaService service, ApplicationEventPublisher publisher) {
 		this.service = service;
 		this.publisher = publisher;
 	}
 
 	@GetMapping
 	public List<Pessoa> findAll() {
-		return repository.findAll();
+		return service.findAll();
 	}
 
-	@GetMapping("search")
+	@GetMapping("pesquisar")
 	public Page<Pessoa> pesquisar(PessoaFilter pessoaFilter, Pageable pageable) {
-		return repository.filtrar(pessoaFilter, pageable);
+		return service.pesquisar(pessoaFilter, pageable);
 	}
 
 	@GetMapping("/cpf-cnpj/{cpfCnpj}")
@@ -61,13 +58,13 @@ public class PessoaV1Resource {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Pessoa> findById(@PathVariable Long id) {
-		Optional<Pessoa> entity = repository.findById(id);
+		Optional<Pessoa> entity = service.findById(id);
 		return entity.isPresent() ? ResponseEntity.ok(entity.get()) : ResponseEntity.notFound().build();
 	}
 
 	@PostMapping
 	public ResponseEntity<Pessoa> save(@Valid @RequestBody Pessoa entity, HttpServletResponse response) {
-		Pessoa cidade = repository.save(entity);
+		Pessoa cidade = service.save(entity);
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, cidade.getId()));
 		return ResponseEntity.status(HttpStatus.CREATED).body(cidade);
 	}
@@ -85,7 +82,7 @@ public class PessoaV1Resource {
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable Long id) {
-		repository.deleteById(id);
+		service.delete(id);
 	}
 
 }

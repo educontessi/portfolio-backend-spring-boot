@@ -15,21 +15,45 @@ import io.github.educontessi.repository.EstadoRepository;
 @Service
 public class EstadoService {
 
-	@Autowired
 	private EstadoRepository repository;
 
+	@Autowired
+	public EstadoService(EstadoRepository repository) {
+		this.repository = repository;
+	}
+
+	public List<Estado> findAll() {
+		return repository.findAll();
+	}
+
+	public List<Estado> findByPaisId(Long paisId) {
+		return repository.findByPaisId(paisId);
+	}
+
+	public Optional<Estado> findByUf(String uf) {
+		return repository.findByUf(uf);
+	}
+
+	public Estado save(Estado entity) {
+		return repository.save(entity);
+	}
+
+	public void delete(Long id) {
+		repository.deleteById(id);
+	}
+
 	public Estado update(Long id, Estado entity) {
-		Estado saved = findById(id);
+		Optional<Estado> optionalSaved = findById(id);
+		if (!optionalSaved.isPresent()) {
+			throw new EmptyResultDataAccessException(1);
+		}
+		Estado saved = optionalSaved.get();
 		BeanUtils.copyProperties(entity, saved, getIgnoreProperties());
 		return repository.save(saved);
 	}
 
-	private Estado findById(Long id) {
-		Optional<Estado> entity = repository.findById(id);
-		if (!entity.isPresent()) {
-			throw new EmptyResultDataAccessException(1);
-		}
-		return entity.get();
+	public Optional<Estado> findById(Long id) {
+		return repository.findById(id);
 	}
 
 	protected String[] getIgnoreProperties() {

@@ -15,21 +15,37 @@ import io.github.educontessi.repository.PaisRepository;
 @Service
 public class PaisService {
 
-	@Autowired
 	private PaisRepository repository;
 
+	@Autowired
+	public PaisService(PaisRepository repository) {
+		this.repository = repository;
+	}
+
+	public List<Pais> findAll() {
+		return repository.findAll();
+	}
+
 	public Pais update(Long id, Pais entity) {
-		Pais saved = findById(id);
+		Optional<Pais> optionalSaved = findById(id);
+		if (!optionalSaved.isPresent()) {
+			throw new EmptyResultDataAccessException(1);
+		}
+		Pais saved = optionalSaved.get();
 		BeanUtils.copyProperties(entity, saved, getIgnoreProperties());
 		return repository.save(saved);
 	}
 
-	private Pais findById(Long id) {
-		Optional<Pais> entity = repository.findById(id);
-		if (!entity.isPresent()) {
-			throw new EmptyResultDataAccessException(1);
-		}
-		return entity.get();
+	public Optional<Pais> findById(Long id) {
+		return repository.findById(id);
+	}
+
+	public Pais save(Pais entity) {
+		return repository.save(entity);
+	}
+
+	public void delete(Long id) {
+		repository.deleteById(id);
 	}
 
 	protected String[] getIgnoreProperties() {
