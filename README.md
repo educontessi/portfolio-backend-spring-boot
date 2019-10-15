@@ -35,3 +35,14 @@ Projeto usado para colocar em prática meus conhecimentos nas tecnologias:
 1) Acesse a pasta do projeto: `cd {{seuWorkspace}}/portfolio-backend-spring-boot`
 
 2) Rode o comando: `mvnw test`
+
+
+## Gerando o Javadoc
+
+1) Acesse a pasta do projeto: `cd {{seuWorkspace}}/portfolio-backend-spring-boot`
+
+2) Rode o comando: `mvnw javadoc:javadoc`
+
+3) Acesse a pasta: `cd {{seuWorkspace}}/portfolio-backend-spring-boot/target/site/apidocs`
+
+4) Abra o arquivo `index.html`
