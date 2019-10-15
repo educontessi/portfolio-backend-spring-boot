@@ -17,9 +17,9 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
- * Entidade {@link Estado} para mapear tabela de estados
+ * Entidade {@link Estado} para manipiular tabela de estados
  * 
- * @author Eduardo Contessi
+ * @author Eduardo Possamai Contessi
  *
  */
 @Entity

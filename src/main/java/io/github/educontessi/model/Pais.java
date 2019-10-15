@@ -12,9 +12,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
- * Entidade {@link Pais} para mapear tabela de países
+ * Entidade {@link Pais} para manipiular tabela de países
  * 
- * @author Eduardo Contessi
+ * @author Eduardo Possamai Contessi
  *
  */
 @Entity

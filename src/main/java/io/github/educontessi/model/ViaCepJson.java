@@ -4,6 +4,12 @@ import static io.github.educontessi.helpers.util.FuncoesString.removeMascaraDeNu
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+/**
+ * Entidade {@link ViaCepJson} para obter resposta da API de consulta de CEP
+ * 
+ * @author Eduardo Possamai Contessi
+ *
+ */
 public class ViaCepJson {
 
 	private String cep;

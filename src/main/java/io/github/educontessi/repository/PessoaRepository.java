@@ -8,6 +8,12 @@ import org.springframework.stereotype.Repository;
 import io.github.educontessi.model.Pessoa;
 import io.github.educontessi.repository.pessoa.PessoaRepositoryQuery;
 
+/**
+ * Repository para {@link Pessoa}
+ * 
+ * @author Eduardo Possamai Contessi
+ *
+ */
 @Repository
 public interface PessoaRepository extends JpaRepository<Pessoa, Long>, PessoaRepositoryQuery {
 

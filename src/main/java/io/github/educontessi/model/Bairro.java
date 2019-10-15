@@ -17,9 +17,9 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
- * Entidade {@link Bairro} para mapear tabela de bairros
+ * Entidade {@link Bairro} para manipiular tabela de bairros
  * 
- * @author Eduardo Contessi
+ * @author Eduardo Possamai Contessi
  *
  */
 @Entity

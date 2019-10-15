@@ -8,6 +8,12 @@ import org.springframework.stereotype.Repository;
 
 import io.github.educontessi.model.Rua;
 
+/**
+ * Repository para {@link Rua}
+ * 
+ * @author Eduardo Possamai Contessi
+ *
+ */
 @Repository
 public interface RuaRepository extends JpaRepository<Rua, Long> {
 

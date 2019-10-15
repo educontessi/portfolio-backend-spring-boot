@@ -17,9 +17,9 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
- * Entidade {@link Rua} para mapear tabela de ruas
+ * Entidade {@link Rua} para manipiular tabela de ruas
  * 
- * @author Eduardo Contessi
+ * @author Eduardo Possamai Contessi
  *
  */
 @Entity

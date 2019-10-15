@@ -17,9 +17,9 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
- * Entidade {@link Cidade} para mapear tabela de cidades
+ * Entidade {@link Cidade} para manipiular tabela de cidades
  * 
- * @author Eduardo Contessi
+ * @author Eduardo Possamai Contessi
  *
  */
 @Entity

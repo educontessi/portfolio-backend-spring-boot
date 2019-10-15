@@ -7,6 +7,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.github.educontessi.helpers.util.TipoMascara;
 
+/**
+ * Entidade {@link ViaCepResposta} para retornar a responta ao endpoint de
+ * consulta de CEP
+ * 
+ * @author Eduardo Possamai Contessi
+ *
+ */
 public class ViaCepResposta {
 
 	private String cep;

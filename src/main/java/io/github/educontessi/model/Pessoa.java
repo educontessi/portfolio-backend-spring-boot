@@ -28,6 +28,12 @@ import io.github.educontessi.model.enumeracoes.Sexo;
 import io.github.educontessi.model.enumeracoes.Status;
 import io.github.educontessi.model.enumeracoes.TipoPessoa;
 
+/**
+ * Entidade {@link Pessoa} para manipiular tabela de pessoas
+ * 
+ * @author Eduardo Possamai Contessi
+ *
+ */
 @Entity
 @Table(name = "pessoa")
 public class Pessoa {

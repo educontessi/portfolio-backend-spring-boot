@@ -1,5 +1,13 @@
 package io.github.educontessi.model.enumeracoes;
 
+import io.github.educontessi.model.Pessoa;
+
+/**
+ * Enum {@link Sexo} para diferenciar o tipo de sexo da entidade {@link Pessoa}
+ * 
+ * @author Eduardo Possamai Contessi
+ *
+ */
 public enum Sexo {
 
 	MASCULINO("M", "Masculino"), FEMININO("F", "Feminino");

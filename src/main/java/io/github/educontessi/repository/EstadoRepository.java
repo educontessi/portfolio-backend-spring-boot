@@ -8,6 +8,12 @@ import org.springframework.stereotype.Repository;
 
 import io.github.educontessi.model.Estado;
 
+/**
+ * Repository para {@link Estado}
+ * 
+ * @author Eduardo Possamai Contessi
+ *
+ */
 @Repository
 public interface EstadoRepository extends JpaRepository<Estado, Long> {
 
