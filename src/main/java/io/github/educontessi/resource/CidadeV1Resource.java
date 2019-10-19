@@ -24,6 +24,12 @@ import io.github.educontessi.helpers.event.RecursoCriadoEvent;
 import io.github.educontessi.model.Cidade;
 import io.github.educontessi.service.CidadeService;
 
+/**
+ * Endpoints para {@link Cidade}
+ * 
+ * @author Eduardo Possamai Contessi
+ *
+ */
 @RestController
 @RequestMapping("/v1/cidades")
 public class CidadeV1Resource {

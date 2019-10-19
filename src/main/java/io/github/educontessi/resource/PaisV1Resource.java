@@ -24,6 +24,12 @@ import io.github.educontessi.helpers.event.RecursoCriadoEvent;
 import io.github.educontessi.model.Pais;
 import io.github.educontessi.service.PaisService;
 
+/**
+ * Endpoints para {@link Pais}
+ * 
+ * @author Eduardo Possamai Contessi
+ *
+ */
 @RestController
 @RequestMapping("/v1/paises")
 public class PaisV1Resource {

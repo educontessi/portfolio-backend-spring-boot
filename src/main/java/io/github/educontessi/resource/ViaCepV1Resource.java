@@ -10,6 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 import io.github.educontessi.model.ViaCepResposta;
 import io.github.educontessi.service.ViaCepService;
 
+/**
+ * Endpoints para busca de cadastros por CEP
+ * 
+ * @author Eduardo Possamai Contessi
+ *
+ */
 @RestController
 @RequestMapping("/v1/busca-cep")
 public class ViaCepV1Resource {

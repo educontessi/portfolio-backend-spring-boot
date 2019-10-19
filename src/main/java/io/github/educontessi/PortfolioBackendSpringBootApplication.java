@@ -7,6 +7,12 @@ import javax.annotation.PostConstruct;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * Main Application
+ * 
+ * @author Eduardo Possamai Contessi
+ *
+ */
 @SpringBootApplication
 public class PortfolioBackendSpringBootApplication {
 

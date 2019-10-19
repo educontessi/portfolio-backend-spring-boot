@@ -24,6 +24,12 @@ import io.github.educontessi.helpers.event.RecursoCriadoEvent;
 import io.github.educontessi.model.Rua;
 import io.github.educontessi.service.RuaService;
 
+/**
+ * Endpoints para {@link Rua}
+ * 
+ * @author Eduardo Possamai Contessi
+ *
+ */
 @RestController
 @RequestMapping("/v1/ruas")
 public class RuaV1Resource {

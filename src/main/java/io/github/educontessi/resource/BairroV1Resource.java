@@ -26,6 +26,12 @@ import io.github.educontessi.helpers.event.RecursoCriadoEvent;
 import io.github.educontessi.model.Bairro;
 import io.github.educontessi.service.BairroService;
 
+/**
+ * Endpoints para {@link Bairro}
+ * 
+ * @author Eduardo Possamai Contessi
+ *
+ */
 @RestController
 @RequestMapping("/v1/bairros")
 public class BairroV1Resource {

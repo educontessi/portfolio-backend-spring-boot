@@ -1,5 +1,11 @@
 package io.github.educontessi.helpers.util;
 
+/**
+ * Classe usada para mostrar qual o tipo de máscara usar
+ * 
+ * @author Eduardo Possamai Contessi
+ *
+ */
 public enum TipoMascara {
 
 	CPF("###.###.###-##"), CNPJ("##.###.###/####-##"), CEP("#####-###");

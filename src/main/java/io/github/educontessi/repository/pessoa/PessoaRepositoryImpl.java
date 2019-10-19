@@ -19,6 +19,12 @@ import org.springframework.util.StringUtils;
 import io.github.educontessi.model.Pessoa;
 import io.github.educontessi.repository.filter.PessoaFilter;
 
+/**
+ * Implementação da interface {@link PessoaRepositoryQuery}
+ * 
+ * @author Eduardo Possamai Contessi
+ *
+ */
 public class PessoaRepositoryImpl implements PessoaRepositoryQuery {
 
 	@PersistenceContext

@@ -24,6 +24,12 @@ import io.github.educontessi.helpers.event.RecursoCriadoEvent;
 import io.github.educontessi.model.Estado;
 import io.github.educontessi.service.EstadoService;
 
+/**
+ * Endpoints para {@link Estado}
+ * 
+ * @author Eduardo Possamai Contessi
+ *
+ */
 @RestController
 @RequestMapping("/v1/estados")
 public class EstadoV1Resource {

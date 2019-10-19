@@ -6,6 +6,12 @@ import javax.swing.text.MaskFormatter;
 
 import org.apache.commons.lang3.StringUtils;
 
+/**
+ * Classe para manipulação de String
+ * 
+ * @author Eduardo Possamai Contessi
+ *
+ */
 public class FuncoesString {
 
 	public static String adicionaMascara(TipoMascara mascara, Object value) {

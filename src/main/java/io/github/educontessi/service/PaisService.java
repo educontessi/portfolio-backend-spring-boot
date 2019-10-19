@@ -12,6 +12,12 @@ import org.springframework.stereotype.Service;
 import io.github.educontessi.model.Pais;
 import io.github.educontessi.repository.PaisRepository;
 
+/**
+ * Service para {@link Pais}
+ * 
+ * @author Eduardo Possamai Contessi
+ *
+ */
 @Service
 public class PaisService {
 

@@ -27,6 +27,12 @@ import io.github.educontessi.model.Pessoa;
 import io.github.educontessi.repository.filter.PessoaFilter;
 import io.github.educontessi.service.PessoaService;
 
+/**
+ * Endpoints para {@link Pessoa}
+ * 
+ * @author Eduardo Possamai Contessi
+ *
+ */
 @RestController
 @RequestMapping("/v1/pessoas")
 public class PessoaV1Resource {

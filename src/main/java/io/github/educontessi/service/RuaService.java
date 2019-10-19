@@ -12,6 +12,12 @@ import org.springframework.stereotype.Service;
 import io.github.educontessi.model.Rua;
 import io.github.educontessi.repository.RuaRepository;
 
+/**
+ * Service para {@link Rua}
+ * 
+ * @author Eduardo Possamai Contessi
+ *
+ */
 @Service
 public class RuaService {
 

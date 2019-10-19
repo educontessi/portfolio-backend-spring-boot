@@ -4,6 +4,14 @@ import java.time.LocalDate;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import io.github.educontessi.model.Pessoa;
+
+/**
+ * Classe usada para filtro de {@link Pessoa}
+ * 
+ * @author Eduardo Possamai Contessi
+ *
+ */
 public class PessoaFilter {
 
 	public static final String NOME_RAZAO = "nomeRazao";

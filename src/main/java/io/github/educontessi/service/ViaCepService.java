@@ -30,6 +30,12 @@ import io.github.educontessi.repository.CidadeRepository;
 import io.github.educontessi.repository.EstadoRepository;
 import io.github.educontessi.repository.RuaRepository;
 
+/**
+ * Service para busca de cadastros por CEP
+ * 
+ * @author Eduardo Possamai Contessi
+ *
+ */
 @Service
 public class ViaCepService {
 

@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import io.github.educontessi.model.Cidade;
 import io.github.educontessi.repository.CidadeRepository;
 
+/**
+ * Service para {@link Cidade}
+ * 
+ * @author Eduardo Possamai Contessi
+ *
+ */
 @Service
 public class CidadeService {
 

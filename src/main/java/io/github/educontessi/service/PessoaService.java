@@ -17,6 +17,12 @@ import io.github.educontessi.model.Pessoa;
 import io.github.educontessi.repository.PessoaRepository;
 import io.github.educontessi.repository.filter.PessoaFilter;
 
+/**
+ * Service para {@link Pessoa}
+ * 
+ * @author Eduardo Possamai Contessi
+ *
+ */
 @Service
 public class PessoaService {
 
