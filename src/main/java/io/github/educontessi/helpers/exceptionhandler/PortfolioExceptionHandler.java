@@ -31,12 +31,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class PortfolioExceptionHandler extends ResponseEntityExceptionHandler {
 
-	private MessageSource messageSource;
-
 	@Autowired
-	public PortfolioExceptionHandler(MessageSource messageSource) {
-		this.messageSource = messageSource;
-	}
+	private MessageSource messageSource;
 
 	@Override
 	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,

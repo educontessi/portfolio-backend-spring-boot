@@ -21,12 +21,8 @@ import io.github.educontessi.repository.RuaRepository;
 @Service
 public class RuaService {
 
-	private final RuaRepository repository;
-
 	@Autowired
-	public RuaService(RuaRepository repository) {
-		this.repository = repository;
-	}
+	private RuaRepository repository;
 
 	public List<Rua> findAll() {
 		return repository.findAll();

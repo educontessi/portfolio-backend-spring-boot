@@ -21,12 +21,8 @@ import io.github.educontessi.repository.EstadoRepository;
 @Service
 public class EstadoService {
 
-	private final EstadoRepository repository;
-
 	@Autowired
-	public EstadoService(EstadoRepository repository) {
-		this.repository = repository;
-	}
+	private EstadoRepository repository;
 
 	public List<Estado> findAll() {
 		return repository.findAll();

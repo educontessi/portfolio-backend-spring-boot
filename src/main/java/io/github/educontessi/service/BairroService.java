@@ -21,12 +21,8 @@ import io.github.educontessi.repository.BairroRepository;
 @Service
 public class BairroService {
 
-	private final BairroRepository repository;
-
 	@Autowired
-	public BairroService(BairroRepository repository) {
-		this.repository = repository;
-	}
+	private BairroRepository repository;
 
 	public List<Bairro> findAll() {
 		return repository.findAll();

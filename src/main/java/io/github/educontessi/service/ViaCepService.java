@@ -41,19 +41,17 @@ public class ViaCepService {
 
 	private final String URI = "http://viacep.com.br/ws/#CEP#/json/";
 
-	private final RuaRepository ruaRepository;
-	private final BairroRepository bairroRepository;
-	private final CidadeRepository cidadeRepository;
-	private final EstadoRepository estadoRepository;
+	@Autowired
+	private RuaRepository ruaRepository;
 
 	@Autowired
-	public ViaCepService(RuaRepository ruaRepository, BairroRepository bairroRepository,
-			CidadeRepository cidadeRepository, EstadoRepository estadoRepository) {
-		this.ruaRepository = ruaRepository;
-		this.bairroRepository = bairroRepository;
-		this.cidadeRepository = cidadeRepository;
-		this.estadoRepository = estadoRepository;
-	}
+	private BairroRepository bairroRepository;
+
+	@Autowired
+	private CidadeRepository cidadeRepository;
+
+	@Autowired
+	private EstadoRepository estadoRepository;
 
 	public ViaCepResposta buscaEnderecoPorCep(String cep) {
 		ViaCepResposta resposta = null;

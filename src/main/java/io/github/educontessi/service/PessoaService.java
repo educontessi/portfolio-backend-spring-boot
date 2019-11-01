@@ -26,12 +26,8 @@ import io.github.educontessi.repository.filter.PessoaFilter;
 @Service
 public class PessoaService {
 
-	private final PessoaRepository repository;
-
 	@Autowired
-	public PessoaService(PessoaRepository repository) {
-		this.repository = repository;
-	}
+	private PessoaRepository repository;
 
 	public List<Pessoa> findAll() {
 		return repository.findAll();

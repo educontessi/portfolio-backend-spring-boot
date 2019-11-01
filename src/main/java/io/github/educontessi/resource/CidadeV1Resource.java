@@ -34,14 +34,11 @@ import io.github.educontessi.service.CidadeService;
 @RequestMapping("/v1/cidades")
 public class CidadeV1Resource {
 
-	private final CidadeService service;
-	private final ApplicationEventPublisher publisher;
+	@Autowired
+	private CidadeService service;
 
 	@Autowired
-	public CidadeV1Resource(CidadeService service, ApplicationEventPublisher publisher) {
-		this.service = service;
-		this.publisher = publisher;
-	}
+	private ApplicationEventPublisher publisher;
 
 	@GetMapping
 	public List<Cidade> findAll() {

@@ -21,12 +21,8 @@ import io.github.educontessi.repository.PaisRepository;
 @Service
 public class PaisService {
 
-	private final PaisRepository repository;
-
 	@Autowired
-	public PaisService(PaisRepository repository) {
-		this.repository = repository;
-	}
+	private PaisRepository repository;
 
 	public List<Pais> findAll() {
 		return repository.findAll();

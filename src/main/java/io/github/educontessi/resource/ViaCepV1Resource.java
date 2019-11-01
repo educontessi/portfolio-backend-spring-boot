@@ -20,12 +20,8 @@ import io.github.educontessi.service.ViaCepService;
 @RequestMapping("/v1/busca-cep")
 public class ViaCepV1Resource {
 
-	private final ViaCepService service;
-
 	@Autowired
-	public ViaCepV1Resource(ViaCepService service) {
-		this.service = service;
-	}
+	private ViaCepService service;
 
 	@GetMapping("/{cep}")
 	public ResponseEntity<ViaCepResposta> findById(@PathVariable String cep) {

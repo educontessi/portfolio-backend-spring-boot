@@ -34,14 +34,11 @@ import io.github.educontessi.service.PaisService;
 @RequestMapping("/v1/paises")
 public class PaisV1Resource {
 
-	private final PaisService service;
-	private final ApplicationEventPublisher publisher;
+	@Autowired
+	private PaisService service;
 
 	@Autowired
-	public PaisV1Resource(PaisService service, ApplicationEventPublisher publisher) {
-		this.service = service;
-		this.publisher = publisher;
-	}
+	private ApplicationEventPublisher publisher;
 
 	@GetMapping
 	public List<Pais> findAll() {

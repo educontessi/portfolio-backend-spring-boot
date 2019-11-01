@@ -37,14 +37,12 @@ import io.github.educontessi.service.BairroService;
 public class BairroV1Resource {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(BairroV1Resource.class);
-	private final BairroService service;
-	private final ApplicationEventPublisher publisher;
 
 	@Autowired
-	public BairroV1Resource(BairroService service, ApplicationEventPublisher publisher) {
-		this.service = service;
-		this.publisher = publisher;
-	}
+	private BairroService service;
+
+	@Autowired
+	private ApplicationEventPublisher publisher;
 
 	@GetMapping
 	public List<Bairro> findAll() {

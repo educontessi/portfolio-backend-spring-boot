@@ -22,12 +22,8 @@ import io.github.educontessi.repository.CidadeRepository;
 @Service
 public class CidadeService {
 
-	private final CidadeRepository repository;
-
 	@Autowired
-	public CidadeService(CidadeRepository repository) {
-		this.repository = repository;
-	}
+	private CidadeRepository repository;
 
 	public List<Cidade> findAll() {
 		return repository.findAll();

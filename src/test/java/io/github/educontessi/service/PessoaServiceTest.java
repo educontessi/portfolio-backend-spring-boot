@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -54,14 +55,16 @@ public class PessoaServiceTest {
 	public void deveAtualizarPessoa() {
 		// Arranjos
 		PessoaService serviceSpy = Mockito.spy(service);
-		Pessoa entity = getPessoa().get();
+		Optional<Pessoa> optional = getPessoa();
+		Pessoa entity = optional.get();
+		doReturn(optional).when(serviceSpy).findById(this.id);
 
 		// Execução
 		serviceSpy.update(this.id, entity);
 
 		// Resultados
-		verify(serviceSpy, times(1)).update(any(), any());
-		verify(repository, times(1)).findById(any());
+		verify(serviceSpy, times(1)).update(this.id, entity);
+		verify(serviceSpy, times(1)).findById(this.id);
 	}
 
 	@Test
