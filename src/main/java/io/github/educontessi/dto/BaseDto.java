@@ -2,18 +2,21 @@ package io.github.educontessi.dto;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.MappedSuperclass;
+
+@MappedSuperclass
 public abstract class BaseDto {
 
-	protected String id;
+	protected Long id;
 	protected String apiVersion;
 	protected LocalDateTime created;
 	protected LocalDateTime changed;
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
