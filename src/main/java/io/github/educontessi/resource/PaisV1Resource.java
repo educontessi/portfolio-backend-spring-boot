@@ -1,7 +1,9 @@
 package io.github.educontessi.resource;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -20,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.github.educontessi.dataconverter.PaisV1DataConverter;
+import io.github.educontessi.dto.PaisV1Dto;
 import io.github.educontessi.helpers.event.RecursoCriadoEvent;
 import io.github.educontessi.model.Pais;
 import io.github.educontessi.service.PaisService;
@@ -40,9 +44,16 @@ public class PaisV1Resource {
 	@Autowired
 	private ApplicationEventPublisher publisher;
 
+	@Autowired(required = true)
+	private PaisV1DataConverter converter;
+
 	@GetMapping
-	public List<Pais> findAll() {
-		return service.findAll();
+	public List<PaisV1Dto> findAll() {
+		List<Pais> lista = service.findAll();
+		List<PaisV1Dto> listaDto = new ArrayList<>();
+		listaDto.addAll(lista.stream().map(x -> converter.convertToDto(x)).collect(Collectors.toList()));
+
+		return listaDto;
 	}
 
 	@GetMapping("/{id}")
