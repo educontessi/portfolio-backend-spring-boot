@@ -9,13 +9,17 @@ import org.springframework.http.ResponseEntity;
 
 import io.github.educontessi.helpers.event.RecursoCriadoEvent;
 
-public abstract class BaseResource<E> {
+public abstract class BaseResource {
 
 	@Autowired
 	private ApplicationEventPublisher publisher;
 
-	protected ResponseEntity<E> created(Long id, HttpServletResponse response, E body) {
+	protected ResponseEntity<Object> created(Long id, HttpServletResponse response, Object body) {
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, id));
 		return ResponseEntity.status(HttpStatus.CREATED).body(body);
+	}
+
+	protected ResponseEntity<Object> ok(Object body) {
+		return ResponseEntity.ok(body);
 	}
 }

@@ -5,6 +5,7 @@ import java.net.URI;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.context.ApplicationListener;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import io.github.educontessi.helpers.event.RecursoCriadoEvent;
@@ -16,6 +17,7 @@ import io.github.educontessi.helpers.event.RecursoCriadoEvent;
  * @author Eduardo Possamai Contessi
  *
  */
+@Component
 public class RecursoCriadoListener implements ApplicationListener<RecursoCriadoEvent> {
 
 	@Override

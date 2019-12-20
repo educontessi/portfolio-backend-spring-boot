@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.github.educontessi.dataconverter.PaisV1DataConverter;
 import io.github.educontessi.dto.PaisV1Dto;
-import io.github.educontessi.helpers.event.RecursoCriadoEvent;
 import io.github.educontessi.model.Pais;
 import io.github.educontessi.service.PaisService;
 
@@ -36,13 +34,10 @@ import io.github.educontessi.service.PaisService;
  */
 @RestController
 @RequestMapping("/v1/paises")
-public class PaisV1Resource {
+public class PaisV1Resource extends BaseResource {
 
 	@Autowired
 	private PaisService service;
-
-	@Autowired
-	private ApplicationEventPublisher publisher;
 
 	@Autowired(required = true)
 	private PaisV1DataConverter converter;
@@ -57,23 +52,27 @@ public class PaisV1Resource {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Pais> findById(@PathVariable Long id) {
+	public ResponseEntity<PaisV1Dto> findById(@PathVariable Long id) {
 		Optional<Pais> categoria = service.findById(id);
-		return categoria.isPresent() ? ResponseEntity.ok(categoria.get()) : ResponseEntity.notFound().build();
+		return categoria.isPresent() ? ResponseEntity.ok(converter.convertToDto(categoria.get()))
+				: ResponseEntity.notFound().build();
 	}
 
 	@PostMapping
-	public ResponseEntity<Pais> save(@Valid @RequestBody Pais entity, HttpServletResponse response) {
-		Pais pais = service.save(entity);
-		publisher.publishEvent(new RecursoCriadoEvent(this, response, pais.getId()));
-		return ResponseEntity.status(HttpStatus.CREATED).body(pais);
+	public ResponseEntity<Object> save(@Valid @RequestBody PaisV1Dto dto, HttpServletResponse response) {
+		Pais entity = new Pais();
+		converter.copyToEntity(entity, dto);
+		entity = service.save(entity);
+
+		converter.convertToDto(dto, entity);
+		return created(entity.getId(), response, dto);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Pais> update(@PathVariable Long id, @Valid @RequestBody Pais entity) {
+	public ResponseEntity<Object> update(@PathVariable Long id, @Valid @RequestBody Pais entity) {
 		try {
 			Pais pais = service.update(id, entity);
-			return ResponseEntity.ok(pais);
+			return ok(pais);
 		} catch (IllegalArgumentException e) {
 			return ResponseEntity.notFound().build();
 		}

@@ -11,15 +11,15 @@ import io.github.educontessi.model.converters.LocalDateTimeToDateConverter;
 @MappedSuperclass
 public abstract class BaseEntity {
 
-	@Column(name = "create_date", insertable = true, updatable = false)
+	@Column(name = "create_date", insertable = false, updatable = false)
 	@Convert(converter = LocalDateTimeToDateConverter.class)
 	protected LocalDateTime created;
 
-	@Column(name = "changed", insertable = false, updatable = true)
+	@Column(name = "changed", insertable = false, updatable = false)
 	@Convert(converter = LocalDateTimeToDateConverter.class)
 	protected LocalDateTime changed;
 
-	@Column(name = "deleted", insertable = false, updatable = true)
+	@Column(name = "deleted", columnDefinition = "tinyint(1) default 1", insertable = false, updatable = true)
 	protected boolean deleted;
 
 	@Column(name = "delete_date", insertable = false, updatable = true)
@@ -48,6 +48,7 @@ public abstract class BaseEntity {
 
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
+		this.setDeletedDate(this.deleted ? LocalDateTime.now() : null);
 	}
 
 	public LocalDateTime getDeletedDate() {
