@@ -18,7 +18,7 @@ import javax.validation.constraints.Size;
  *
  */
 @Entity
-@Table(name = "pais")
+@Table(name = "pais_view")
 public class Pais extends BaseEntity {
 
 	@Id
