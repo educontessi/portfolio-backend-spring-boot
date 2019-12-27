@@ -27,7 +27,7 @@ import io.github.educontessi.repository.PessoaRepository;
 /**
  * Classe de teste para entidade {@link PessoaService}
  * 
- * @author Eduardo Contessi
+ * @author Eduardo Possamai Contessi
  *
  */
 @SpringBootTest

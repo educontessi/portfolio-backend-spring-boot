@@ -7,7 +7,7 @@ import javax.validation.ConstraintViolation;
 /**
  * Classe de teste usada para verificar as mensagens do Bean Validation
  * 
- * @author Eduardo Contessi
+ * @author Eduardo Possamai Contessi
  *
  */
 public class VerificaMensagemBeanValidation<T> {

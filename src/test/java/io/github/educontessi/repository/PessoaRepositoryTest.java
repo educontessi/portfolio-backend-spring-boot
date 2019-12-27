@@ -19,7 +19,7 @@ import io.github.educontessi.model.enumeracoes.TipoPessoa;
 /**
  * Classe de teste para entidade {@link PessoaRepository}
  * 
- * @author Eduardo Contessi
+ * @author Eduardo Possamai Contessi
  *
  */
 @SpringBootTest

@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 /**
  * Classe de teste para entidade {@link ConverteMensagemUnicode}
  * 
- * @author Eduardo Contessi
+ * @author Eduardo Possamai Contessi
  *
  */
 @SpringBootTest
@@ -27,13 +27,8 @@ public class ConverteMensagemUnicodeTest {
 	// @formatter:off
 	@DisplayName("Deve converter a mensagem para unicode")
 	@ParameterizedTest
-	@CsvSource(
-			{ 
-				"Mensagem inválida, Mensagem inv\\u00e1lida", 
-				"Recurso não encontrado, Recurso n\\u00e3o encontrado",
-				"Operação não permitida, Opera\\u00e7\\u00e3o n\\u00e3o permitida"
-			}
-	)
+	@CsvSource({ "Mensagem inválida, Mensagem inv\\u00e1lida", "Recurso não encontrado, Recurso n\\u00e3o encontrado",
+			"Operação não permitida, Opera\\u00e7\\u00e3o n\\u00e3o permitida" })
 	public void deveConverterMensagemParaUnicode(String mensagem, String esperado) {
 		mensagem = converteMensagemUnicode.converteMensagemUnicode(mensagem);
 		assertEquals(esperado, mensagem);

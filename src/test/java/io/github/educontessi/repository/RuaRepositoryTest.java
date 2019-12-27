@@ -17,7 +17,7 @@ import io.github.educontessi.model.Rua;
 /**
  * Classe de teste para entidade {@link RuaRepository}
  * 
- * @author Eduardo Contessi
+ * @author Eduardo Possamai Contessi
  *
  */
 @SpringBootTest

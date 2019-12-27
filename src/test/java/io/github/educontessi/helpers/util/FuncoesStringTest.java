@@ -16,7 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 /**
  * Classe de teste para entidade {@link FuncoesString}
  * 
- * @author Eduardo Contessi
+ * @author Eduardo Possamai Contessi
  *
  */
 @SpringBootTest
@@ -146,17 +146,10 @@ public class FuncoesStringTest {
 
 	// @formatter:off
 	@ParameterizedTest
-	@CsvSource(
-			{ 
-				"JOÃO DA SILVA, João da Silva", 
-				"PEDRO das Quebrada, Pedro das Quebrada",
-				"JOÃO DE OLIVEIRA, João de Oliveira",
-				"JOÃO Do Nascimento, João do Nascimento",
-				"Pedro Dos PATOS    , Pedro dos Patos",
-				"Pedro De OLIVEIRA E Oliveira, Pedro de Oliveira e Oliveira",
-				"Alta FLORESTA d'oeste, Alta Floresta D'Oeste"
-			}
-	)
+	@CsvSource({ "JOÃO DA SILVA, João da Silva", "PEDRO das Quebrada, Pedro das Quebrada",
+			"JOÃO DE OLIVEIRA, João de Oliveira", "JOÃO Do Nascimento, João do Nascimento",
+			"Pedro Dos PATOS    , Pedro dos Patos", "Pedro De OLIVEIRA E Oliveira, Pedro de Oliveira e Oliveira",
+			"Alta FLORESTA d'oeste, Alta Floresta D'Oeste" })
 	public void deveFormatarNome(String nome, String esperado) {
 		nome = formatarNome(nome);
 		assertEquals(esperado, nome);

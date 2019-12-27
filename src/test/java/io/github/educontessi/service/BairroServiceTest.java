@@ -25,7 +25,7 @@ import io.github.educontessi.repository.BairroRepository;
 /**
  * Classe de teste para entidade {@link BairroService}
  * 
- * @author Eduardo Contessi
+ * @author Eduardo Possamai Contessi
  *
  */
 @SpringBootTest

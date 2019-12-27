@@ -25,7 +25,7 @@ import io.github.educontessi.repository.EstadoRepository;
 /**
  * Classe de teste para entidade {@link EstadoService}
  * 
- * @author Eduardo Contessi
+ * @author Eduardo Possamai Contessi
  *
  */
 @SpringBootTest

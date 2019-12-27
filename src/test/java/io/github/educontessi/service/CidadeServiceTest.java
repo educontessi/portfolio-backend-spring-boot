@@ -25,7 +25,7 @@ import io.github.educontessi.repository.CidadeRepository;
 /**
  * Classe de teste para entidade {@link CidadeService}
  * 
- * @author Eduardo Contessi
+ * @author Eduardo Possamai Contessi
  *
  */
 @SpringBootTest

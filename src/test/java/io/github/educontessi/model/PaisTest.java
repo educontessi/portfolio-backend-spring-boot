@@ -19,7 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 /**
  * Classe de teste para entidade {@link Pais}
  * 
- * @author Eduardo Contessi
+ * @author Eduardo Possamai Contessi
  *
  */
 @SpringBootTest
