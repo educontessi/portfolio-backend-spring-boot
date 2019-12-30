@@ -30,9 +30,7 @@ public class PaisService {
 
 	public Pais update(Long id, Pais entity) {
 		Optional<Pais> optionalSaved = findById(id);
-		if (!optionalSaved.isPresent()) {
-			throw new EmptyResultDataAccessException(1);
-		}
+		isPresent(optionalSaved);
 		Pais saved = optionalSaved.get();
 		BeanUtils.copyProperties(entity, saved, getIgnoreProperties());
 		return repository.save(saved);
@@ -47,7 +45,12 @@ public class PaisService {
 	}
 
 	public void delete(Long id) {
-		repository.deleteById(id);
+		Optional<Pais> optionalSaved = findById(id);
+		isPresent(optionalSaved);
+
+		Pais saved = optionalSaved.get();
+		saved.setDeleted(true);
+		repository.save(saved);
 	}
 
 	protected String[] getIgnoreProperties() {
@@ -57,4 +60,9 @@ public class PaisService {
 		return (String[]) list.toArray(new String[0]);
 	}
 
+	protected void isPresent(Optional<Pais> optionalSaved) {
+		if (!optionalSaved.isPresent()) {
+			throw new EmptyResultDataAccessException(1);
+		}
+	}
 }
