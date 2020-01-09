@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import io.github.educontessi.model.Pais;
 import io.github.educontessi.repository.PaisRepository;
+import io.github.educontessi.validator.DeletePaisValidator;
 
 /**
  * Service para {@link Pais}
@@ -23,6 +24,9 @@ public class PaisService {
 
 	@Autowired
 	private PaisRepository repository;
+
+	@Autowired
+	private DeletePaisValidator deletePaisValidator;
 
 	public List<Pais> findAll() {
 		return repository.findAll();
@@ -49,8 +53,14 @@ public class PaisService {
 		isPresent(optionalSaved);
 
 		Pais saved = optionalSaved.get();
+		validarExclusao(saved);
 		saved.setDeleted(true);
 		repository.save(saved);
+	}
+
+	protected void validarExclusao(Pais saved) {
+		deletePaisValidator.setPais(saved);
+		deletePaisValidator.validate();
 	}
 
 	protected String[] getIgnoreProperties() {
