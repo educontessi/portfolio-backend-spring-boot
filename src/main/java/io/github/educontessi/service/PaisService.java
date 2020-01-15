@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import io.github.educontessi.model.Pais;
 import io.github.educontessi.repository.PaisRepository;
-import io.github.educontessi.validator.DeletePaisValidator;
+import io.github.educontessi.service.validator.DeletePaisValidator;
 
 /**
  * Service para {@link Pais}

@@ -1,4 +1,4 @@
-package io.github.educontessi.validator;
+package io.github.educontessi.service.validator;
 
 public interface Validator {
 

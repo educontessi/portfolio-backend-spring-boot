@@ -24,6 +24,7 @@ import javax.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import io.github.educontessi.helpers.util.TipoMascara;
+import io.github.educontessi.model.annotation.CPFCNPJ;
 import io.github.educontessi.model.enumeracoes.Sexo;
 import io.github.educontessi.model.enumeracoes.Status;
 import io.github.educontessi.model.enumeracoes.TipoPessoa;
@@ -62,6 +63,7 @@ public class Pessoa {
 
 	@NotNull
 	@Column(name = "cpf_cnpj")
+	@CPFCNPJ
 	private String cpfCnpj;
 
 	@Column(name = "data_nascimento")
@@ -113,7 +115,7 @@ public class Pessoa {
 	private String celular;
 
 	@Email
-	@Size(max = 100, message = "E-mail não pode exceder mais que 100")
+	@Size(max = 100, message = "E-mail não pode exceder mais que 100 caracteres")
 	@Column(name = "email")
 	private String email;
 
