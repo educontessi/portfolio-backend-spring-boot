@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -48,23 +47,20 @@ public class PaisServiceTest {
 	}
 
 	private void mockPais() {
-		when(repository.findById(any())).thenReturn(getPais());
+		when(repository.findById(any())).thenReturn(Optional.of(getPais()));
 	}
 
 	@Test
 	public void deveAtualizarPais() {
 		// Arranjos
 		PaisService serviceSpy = Mockito.spy(service);
-		Optional<Pais> optional = getPais();
-		Pais entity = optional.get();
-		doReturn(optional).when(serviceSpy).findById(this.id);
+		Pais entity = getPais();
 
 		// Execução
 		serviceSpy.update(this.id, entity);
 
 		// Resultados
 		verify(serviceSpy, times(1)).update(this.id, entity);
-		verify(serviceSpy, times(1)).findById(this.id);
 	}
 
 	@Test
@@ -102,11 +98,11 @@ public class PaisServiceTest {
 		assertFalse(exception);
 	}
 
-	private Optional<Pais> getPais() {
+	private Pais getPais() {
 		Pais pais = new Pais();
 		pais.setId(this.id);
 		pais.setNome("Teste");
-		return Optional.of(pais);
+		return pais;
 	}
 
 }
