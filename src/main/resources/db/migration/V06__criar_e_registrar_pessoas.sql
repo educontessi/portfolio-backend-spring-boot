@@ -28,7 +28,7 @@ CREATE TABLE `pessoa` (
 	CONSTRAINT `FK_pessoa_cidade` FOREIGN KEY (`cidade_id`) REFERENCES `cidade` (`id`),
 	CONSTRAINT `FK_pessoa_rua` FOREIGN KEY (`rua_id`) REFERENCES `rua` (`id`)
 )
-COLLATE='utf8mb4_0900_ai_ci'
+COLLATE='latin1_swedish_ci'
 ENGINE=InnoDB
 ;
 

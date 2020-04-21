@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 import io.github.educontessi.domain.filter.PessoaFilter;
 import io.github.educontessi.domain.model.Pessoa;
-import io.github.educontessi.domain.repository.infrastructure.pessoa.PessoaRepository;
+import io.github.educontessi.domain.repository.PessoaRepository;
 
 /**
  * Service para {@link Pessoa}

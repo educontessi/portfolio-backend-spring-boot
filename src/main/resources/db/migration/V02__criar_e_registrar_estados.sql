@@ -9,7 +9,7 @@ CREATE TABLE `estado` (
 	INDEX `FK_estado_pais` (`pais_id`),
 	CONSTRAINT `FK_estado_pais` FOREIGN KEY (`pais_id`) REFERENCES `pais` (`id`)
 )
-COLLATE='utf8mb4_0900_ai_ci'
+COLLATE='latin1_swedish_ci'
 ENGINE=InnoDB
 ;
 

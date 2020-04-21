@@ -22,7 +22,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import io.github.educontessi.domain.enums.Status;
 import io.github.educontessi.domain.enums.TipoPessoa;
 import io.github.educontessi.domain.model.Pessoa;
-import io.github.educontessi.domain.repository.infrastructure.pessoa.PessoaRepository;
+import io.github.educontessi.domain.repository.PessoaRepository;
 
 /**
  * Classe de teste para entidade {@link PessoaService}

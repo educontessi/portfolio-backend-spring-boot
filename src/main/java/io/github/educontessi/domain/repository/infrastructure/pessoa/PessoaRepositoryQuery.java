@@ -1,4 +1,4 @@
-package io.github.educontessi.domain.repository;
+package io.github.educontessi.domain.repository.infrastructure.pessoa;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +14,6 @@ import io.github.educontessi.domain.model.Pessoa;
  */
 public interface PessoaRepositoryQuery {
 
-	public Page<Pessoa> filtrar(PessoaFilter pessoaFilter, Pageable pageable);
+	public Page<Pessoa> filtrar(PessoaFilter filter, Pageable pageable);
 
 }

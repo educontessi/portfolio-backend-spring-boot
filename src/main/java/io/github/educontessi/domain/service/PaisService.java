@@ -6,10 +6,13 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import io.github.educontessi.domain.exception.PaisEmUsoException;
 import io.github.educontessi.domain.exception.PaisNaoEncontradoException;
+import io.github.educontessi.domain.filter.PaisFilter;
 import io.github.educontessi.domain.helpers.util.LoadProperties;
 import io.github.educontessi.domain.model.Pais;
 import io.github.educontessi.domain.repository.PaisRepository;
@@ -33,8 +36,16 @@ public class PaisService {
 		this.deletePaisValidator = deletePaisValidator;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public List<Pais> findAll() {
 		return repository.findAll();
+	}
+
+	public Page<Pais> pesquisar(PaisFilter filter, Pageable pageable) {
+		return repository.filtrar(filter, pageable);
 	}
 
 	public Pais update(Long id, Pais entity) {
@@ -43,7 +54,9 @@ public class PaisService {
 
 	public Pais findById(Long id) {
 		Optional<Pais> optionalSaved = repository.findById(id);
-		isPresent(optionalSaved);
+		if (!optionalSaved.isPresent()) {
+			throw new PaisNaoEncontradoException(id);
+		}
 		return optionalSaved.get();
 	}
 
@@ -54,22 +67,29 @@ public class PaisService {
 	public void delete(Long id) {
 		boolean excluirDefinitivo = Boolean.valueOf(LoadProperties.getProperty("portifolio.excluir-definitivo"));
 		if (excluirDefinitivo) {
-			try {
-				repository.deleteById(id);
-				repository.flush();
-
-			} catch (EmptyResultDataAccessException e) {
-				throw new PaisNaoEncontradoException(id);
-
-			} catch (DataIntegrityViolationException e) {
-				throw new PaisEmUsoException(id);
-			}
+			definitiveDelete(id);
 		} else {
-			Pais saved = findById(id);
-			validarExclusao(saved);
-			saved.setDeleted(true);
-			repository.save(saved);
+			paranoidDelete(id);
 		}
+	}
+
+	protected void definitiveDelete(Long id) {
+		try {
+			repository.deleteById(id);
+			repository.flush();
+		} catch (EmptyResultDataAccessException e) {
+			throw new PaisNaoEncontradoException(id);
+
+		} catch (DataIntegrityViolationException e) {
+			throw new PaisEmUsoException(id);
+		}
+	}
+
+	protected void paranoidDelete(Long id) {
+		Pais saved = findById(id);
+		validarExclusao(saved);
+		saved.setDeleted(true);
+		save(saved);
 	}
 
 	protected void validarExclusao(Pais saved) {
@@ -77,9 +97,4 @@ public class PaisService {
 		deletePaisValidator.validate();
 	}
 
-	protected void isPresent(Optional<Pais> optionalSaved) {
-		if (!optionalSaved.isPresent()) {
-			throw new EmptyResultDataAccessException(1);
-		}
-	}
 }

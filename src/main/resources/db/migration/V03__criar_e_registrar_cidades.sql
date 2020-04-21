@@ -10,7 +10,7 @@ CREATE TABLE `cidade` (
 	INDEX `ibge` (`ibge`),
 	CONSTRAINT `FK_cidade_estado` FOREIGN KEY (`estado_id`) REFERENCES `estado` (`id`)
 )
-COLLATE='utf8mb4_0900_ai_ci'
+COLLATE='latin1_swedish_ci'
 ENGINE=InnoDB
 ;
 

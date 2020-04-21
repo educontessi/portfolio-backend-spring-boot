@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.github.educontessi.api.dataconverter.PaisV1DataConverter;
 import io.github.educontessi.api.dto.PaisV1Dto;
+import io.github.educontessi.domain.filter.PaisFilter;
 import io.github.educontessi.domain.model.Pais;
 import io.github.educontessi.domain.service.PaisService;
 import io.swagger.annotations.Api;
@@ -61,6 +65,15 @@ public class PaisV1Resource extends BaseResource {
 		List<Pais> lista = service.findAll();
 		List<PaisV1Dto> listaDto = new ArrayList<>();
 		listaDto.addAll(lista.stream().map(x -> converter.convertToDto(x)).collect(Collectors.toList()));
+		return listaDto;
+	}
+
+	@GetMapping("pesquisar")
+	public Page<PaisV1Dto> pesquisar(PaisFilter filter, Pageable pageable) {
+		Page<Pais> lista = service.pesquisar(filter, pageable);
+		Page<PaisV1Dto> listaDto = new PageImpl<>(
+				lista.getContent().stream().map(x -> converter.convertToDto(x)).collect(Collectors.toList()),
+				lista.getPageable(), lista.getTotalElements());
 		return listaDto;
 	}
 

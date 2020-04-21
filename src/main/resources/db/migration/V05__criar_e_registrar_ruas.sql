@@ -8,7 +8,7 @@ CREATE TABLE `rua` (
 	INDEX `FK_rua_cidade` (`cidade_id`),
 	CONSTRAINT `FK_rua_cidade` FOREIGN KEY (`cidade_id`) REFERENCES `cidade` (`id`)
 )
-COLLATE='utf8mb4_0900_ai_ci'
+COLLATE='latin1_swedish_ci'
 ENGINE=InnoDB
 ;
 

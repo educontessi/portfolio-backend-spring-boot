@@ -1,4 +1,4 @@
-package io.github.educontessi.domain.repository.infrastructure.pessoa;
+package io.github.educontessi.domain.repository.infrastructure.pais;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,49 +16,40 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.util.StringUtils;
 
-import io.github.educontessi.domain.filter.PessoaFilter;
-import io.github.educontessi.domain.model.Pessoa;
+import io.github.educontessi.domain.filter.PaisFilter;
+import io.github.educontessi.domain.model.Pais;
 
 /**
- * Implementação da interface {@link PessoaRepositoryQuery}
+ * Implementação da interface {@link PaisRepositoryQuery}
  * 
  * @author Eduardo Possamai Contessi
  *
  */
-public class PessoaRepositoryImpl implements PessoaRepositoryQuery {
+public class PaisRepositoryImpl implements PaisRepositoryQuery {
 
 	@PersistenceContext
 	private EntityManager manager;
 
 	@Override
-	public Page<Pessoa> filtrar(PessoaFilter filter, Pageable pageable) {
+	public Page<Pais> filtrar(PaisFilter filter, Pageable pageable) {
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
-		CriteriaQuery<Pessoa> criteria = builder.createQuery(Pessoa.class);
-		Root<Pessoa> root = criteria.from(Pessoa.class);
+		CriteriaQuery<Pais> criteria = builder.createQuery(Pais.class);
+		Root<Pais> root = criteria.from(Pais.class);
 
 		Predicate[] predicates = criarRestricoes(filter, builder, root);
 		criteria.where(predicates);
 
-		TypedQuery<Pessoa> query = manager.createQuery(criteria);
+		TypedQuery<Pais> query = manager.createQuery(criteria);
 		adicionarRestricoesDePaginacao(query, pageable);
 
 		return new PageImpl<>(query.getResultList(), pageable, total(filter));
 	}
 
-	private Predicate[] criarRestricoes(PessoaFilter filter, CriteriaBuilder builder, Root<Pessoa> root) {
+	private Predicate[] criarRestricoes(PaisFilter filter, CriteriaBuilder builder, Root<Pais> root) {
 		List<Predicate> predicates = new ArrayList<>();
 
-		if (!StringUtils.isEmpty(filter.getNomeRazao())) {
-			predicates.add(builder.like(builder.lower(root.get(PessoaFilter.NOME_RAZAO)),
-					"%" + filter.getNomeRazao().toLowerCase() + "%"));
-		}
-
-		if (filter.getDataNascimento() != null) {
-			predicates.add(builder.equal(root.get(PessoaFilter.DATA_NASCIMENTO), filter.getDataNascimento()));
-		}
-
-		if (filter.getCpfCnpj() != null) {
-			predicates.add(builder.equal(root.get(PessoaFilter.CPF_CNPJ), filter.getCpfCnpj()));
+		if (!StringUtils.isEmpty(filter.getNome())) {
+			predicates.add(builder.like(root.get(PaisFilter.NOME), "%" + filter.getNome().toLowerCase() + "%"));
 		}
 
 		return predicates.toArray(new Predicate[predicates.size()]);
@@ -73,10 +64,10 @@ public class PessoaRepositoryImpl implements PessoaRepositoryQuery {
 		query.setMaxResults(totalRegistrosPorPagina);
 	}
 
-	private Long total(PessoaFilter filter) {
+	private Long total(PaisFilter filter) {
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
 		CriteriaQuery<Long> criteria = builder.createQuery(Long.class);
-		Root<Pessoa> root = criteria.from(Pessoa.class);
+		Root<Pais> root = criteria.from(Pais.class);
 
 		Predicate[] predicates = criarRestricoes(filter, builder, root);
 		criteria.where(predicates);
