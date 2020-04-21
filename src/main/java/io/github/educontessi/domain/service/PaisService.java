@@ -17,6 +17,7 @@ import io.github.educontessi.domain.helpers.util.LoadProperties;
 import io.github.educontessi.domain.model.Pais;
 import io.github.educontessi.domain.repository.PaisRepository;
 import io.github.educontessi.domain.service.validator.DeletePaisValidator;
+import io.github.educontessi.domain.service.validator.ValidatorExecutor;
 
 /**
  * Service para {@link Pais}
@@ -28,18 +29,12 @@ import io.github.educontessi.domain.service.validator.DeletePaisValidator;
 public class PaisService {
 
 	private PaisRepository repository;
-	private DeletePaisValidator deletePaisValidator;
 
 	@Autowired
-	public PaisService(PaisRepository repository, DeletePaisValidator deletePaisValidator) {
+	public PaisService(PaisRepository repository) {
 		this.repository = repository;
-		this.deletePaisValidator = deletePaisValidator;
 	}
 
-	/**
-	 * 
-	 * @return
-	 */
 	public List<Pais> findAll() {
 		return repository.findAll();
 	}
@@ -93,8 +88,13 @@ public class PaisService {
 	}
 
 	protected void validarExclusao(Pais saved) {
+		ValidatorExecutor executor = new ValidatorExecutor();
+
+		DeletePaisValidator deletePaisValidator = new DeletePaisValidator();
 		deletePaisValidator.setPais(saved);
-		deletePaisValidator.validate();
+		executor.add(deletePaisValidator);
+
+		executor.execute();
 	}
 
 }

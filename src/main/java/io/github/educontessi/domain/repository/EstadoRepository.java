@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import io.github.educontessi.domain.model.Estado;
+import io.github.educontessi.domain.repository.infrastructure.estado.EstadoRepositoryQuery;
 
 /**
  * Repository para {@link Estado}
@@ -15,7 +16,7 @@ import io.github.educontessi.domain.model.Estado;
  *
  */
 @Repository
-public interface EstadoRepository extends JpaRepository<Estado, Long> {
+public interface EstadoRepository extends JpaRepository<Estado, Long>, EstadoRepositoryQuery {
 
 	public Optional<Estado> findByUf(String uf);
 
