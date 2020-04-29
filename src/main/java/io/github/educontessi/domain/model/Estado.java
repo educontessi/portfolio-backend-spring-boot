@@ -14,8 +14,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 /**
  * Entidade {@link Estado} para manipiular tabela de estados
  * 
@@ -23,8 +21,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *
  */
 @Entity
-@Table(name = "estado")
-public class Estado {
+@Table(name = "estado_view")
+public class Estado extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,7 +42,6 @@ public class Estado {
 	@Column(name = "pais_id", insertable = true, updatable = true)
 	private Long paisId;
 
-	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "pais_id", insertable = false, updatable = false)
 	private Pais pais;

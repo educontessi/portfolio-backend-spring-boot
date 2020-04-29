@@ -20,6 +20,6 @@ public abstract class DataConverter<E extends BaseEntity, D extends BaseDto> {
 	 * @param entity entidade que contém os dados
 	 * @return dto
 	 */
-	public abstract D convertToDto(D dto, E entity);
+	public abstract D convertToDto(D dto, E entity, String expandir);
 
 }

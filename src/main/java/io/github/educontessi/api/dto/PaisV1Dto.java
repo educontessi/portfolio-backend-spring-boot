@@ -3,7 +3,7 @@ package io.github.educontessi.api.dto;
 import io.github.educontessi.domain.model.Pais;
 
 /**
- * Data Transfer Object {@link Pais} 
+ * Data Transfer Object {@link Pais}
  * 
  * @author Eduardo Possamai Contessi
  *

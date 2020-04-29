@@ -1,0 +1,53 @@
+package io.github.educontessi.domain.helpers.util;
+
+public class ExpandirUtil {
+
+	private static final String DELIMITER_REGEX = ",";
+
+	public static boolean contains(String campo, String expandir) {
+		if (!nullOrEmpty(expandir)) {
+			return expandir.contains("all") || expandir.contains(campo);
+		}
+
+		return false;
+	}
+
+	public static String extrairSubExpadir(String campoAtual, String expandir) {
+		String subExpandir = "";
+		if (!nullOrEmpty(expandir)) {
+			String[] all = expandir.split(DELIMITER_REGEX);
+
+			for (String e : all) {
+				String aux = e.replace(campoAtual + ".", "").trim();
+				if (aux.contains(".")) {
+					subExpandir += DELIMITER_REGEX + aux;
+				}
+			}
+		}
+
+		return subExpandir.replaceFirst(DELIMITER_REGEX, "").trim();
+	}
+
+	protected static boolean nullOrEmpty(String expandir) {
+		return expandir == null || expandir.isEmpty();
+	}
+
+	// ---------------------------------------------------------------------------
+	public static void main(String[] args) {
+		String campo = "rua";
+		String expandir = "rua.cidade, rua.cidade.estado, rua.cidade.estado.pais";
+		System.out.println(extrairSubExpadir(campo, expandir));
+
+		String campo2 = "cidade";
+		String expandir2 = "cidade.estado, cidade.estado.pais";
+		System.out.println(extrairSubExpadir(campo2, expandir2));
+
+		String campo3 = "estado";
+		String expandir3 = "estado.pais";
+		System.out.println(extrairSubExpadir(campo3, expandir3));
+
+		String campo4 = "rua";
+		String expandir4 = "rua.cidade, rua.cidade.estado, rua.cidade.estado.pais, pessoa.credito, pessoa.crediario";
+		System.out.println(extrairSubExpadir(campo4, expandir4));
+	}
+}

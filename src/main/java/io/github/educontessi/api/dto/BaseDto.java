@@ -9,16 +9,18 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @MappedSuperclass
+@JsonInclude(Include.NON_NULL)
 public abstract class BaseDto {
 
 	protected Long id;
 	protected String apiVersion;
-	
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-	protected LocalDateTime created;
-	
+
 	@JsonInclude(Include.NON_NULL)
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	protected LocalDateTime created;
+
+	@JsonInclude(Include.NON_NULL)
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	protected LocalDateTime changed;
 
 	public Long getId() {

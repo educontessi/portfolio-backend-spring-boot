@@ -6,9 +6,13 @@ import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.MappedSuperclass;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 import io.github.educontessi.domain.converters.LocalDateTimeToDateConverter;
 
 @MappedSuperclass
+@JsonInclude(Include.NON_NULL)
 public abstract class BaseEntity {
 
 	@Column(name = "create_date", insertable = false, updatable = false)

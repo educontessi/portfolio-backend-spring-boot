@@ -1,6 +1,7 @@
 package io.github.educontessi.domain.service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,10 +44,6 @@ public class PaisService {
 		return repository.filtrar(filter, pageable);
 	}
 
-	public Pais update(Long id, Pais entity) {
-		return repository.saveAndFlush(entity);
-	}
-
 	public Pais findById(Long id) {
 		Optional<Pais> optionalSaved = repository.findById(id);
 		if (!optionalSaved.isPresent()) {
@@ -56,6 +53,7 @@ public class PaisService {
 	}
 
 	public Pais save(Pais entity) {
+		Objects.requireNonNull(entity, "entity nao pode ser null");
 		return repository.saveAndFlush(entity);
 	}
 
@@ -90,9 +88,9 @@ public class PaisService {
 	protected void validarExclusao(Pais saved) {
 		ValidatorExecutor executor = new ValidatorExecutor();
 
-		DeletePaisValidator deletePaisValidator = new DeletePaisValidator();
-		deletePaisValidator.setPais(saved);
-		executor.add(deletePaisValidator);
+		DeletePaisValidator deleteValidator = new DeletePaisValidator();
+		deleteValidator.setPais(saved);
+		executor.add(deleteValidator);
 
 		executor.execute();
 	}

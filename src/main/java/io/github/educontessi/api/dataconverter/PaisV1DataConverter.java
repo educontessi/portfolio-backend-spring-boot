@@ -18,13 +18,17 @@ public class PaisV1DataConverter extends DataConverter<Pais, PaisV1Dto> {
 	}
 
 	@Override
-	public PaisV1Dto convertToDto(PaisV1Dto dto, Pais entity) {
+	public PaisV1Dto convertToDto(PaisV1Dto dto, Pais entity, String expandir) {
 		BeanUtils.copyProperties(entity, dto);
 		return dto;
 	}
 
 	public PaisV1Dto convertToDto(Pais entity) {
-		return convertToDto(new PaisV1Dto(), entity);
+		return convertToDto(new PaisV1Dto(), entity, null);
+	}
+
+	public PaisV1Dto convertToDto(PaisV1Dto dto, Pais entity) {
+		return convertToDto(dto, entity, null);
 	}
 
 	protected String[] getIgnoreProperties() {

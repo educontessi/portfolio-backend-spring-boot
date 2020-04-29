@@ -59,7 +59,6 @@ public class PaisV1Resource extends BaseResource {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Recuperou com sucesso todos os recursos"),
 			@ApiResponse(code = 401, message = "Você não está autorizado a visualizar o recurso"),
 			@ApiResponse(code = 403, message = "É proibido acessar o recurso que você está tentando acessar"),
-			@ApiResponse(code = 404, message = "O recurso que você estava tentando acessar não foi encontrado"),
 			@ApiResponse(code = 500, message = "O aplicativo servidor falhou ao processar a solicitação") })
 	public List<PaisV1Dto> findAll() {
 		List<Pais> lista = service.findAll();
@@ -68,7 +67,12 @@ public class PaisV1Resource extends BaseResource {
 		return listaDto;
 	}
 
-	@GetMapping("pesquisar")
+	@GetMapping("/pesquisar")
+	@ApiOperation(value = "Pesquisar recursos", response = Iterable.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Recuperou com sucesso todos os recursos da pesquisa"),
+			@ApiResponse(code = 401, message = "Você não está autorizado a visualizar o recurso"),
+			@ApiResponse(code = 403, message = "É proibido acessar o recurso que você está tentando acessar"),
+			@ApiResponse(code = 500, message = "O aplicativo servidor falhou ao processar a solicitação") })
 	public Page<PaisV1Dto> pesquisar(PaisFilter filter, Pageable pageable) {
 		Page<Pais> lista = service.pesquisar(filter, pageable);
 		Page<PaisV1Dto> listaDto = new PageImpl<>(
@@ -119,7 +123,7 @@ public class PaisV1Resource extends BaseResource {
 		try {
 			Pais entity = service.findById(id);
 			converter.copyToEntity(entity, dto);
-			entity = service.update(id, entity);
+			entity = service.save(entity);
 
 			converter.convertToDto(dto, entity);
 			return ok(dto);
