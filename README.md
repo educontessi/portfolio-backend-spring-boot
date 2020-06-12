@@ -24,7 +24,7 @@ Projeto usado para colocar em prática meus conhecimentos nas tecnologias:
     - spring.datasource.username=usuario
     - spring.datasource.password=usuario
     
-4) Acesse a pasta do projeto: `cd {{seuWorkspace}}/portfolio-backend-spring-boot`
+4) Acesse a pasta do projeto pela linha de comando: `cd {{seuWorkspace}}/portfolio-backend-spring-boot`
 
 5) Inicie a aplicação: `mvnw spring-boot:run`
 
