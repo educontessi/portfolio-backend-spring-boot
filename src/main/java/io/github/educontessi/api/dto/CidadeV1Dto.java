@@ -11,7 +11,6 @@ import io.github.educontessi.domain.model.Cidade;
 public class CidadeV1Dto extends BaseDto {
 
 	private String nome;
-	private String uf;
 	private EstadoV1Dto estado;
 	private Integer ibge;
 
@@ -25,14 +24,6 @@ public class CidadeV1Dto extends BaseDto {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public String getUf() {
-		return uf;
-	}
-
-	public void setUf(String uf) {
-		this.uf = uf;
 	}
 
 	public EstadoV1Dto getEstado() {

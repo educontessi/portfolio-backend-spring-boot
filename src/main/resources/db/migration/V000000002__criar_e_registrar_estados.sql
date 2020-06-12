@@ -43,3 +43,5 @@ INSERT INTO `portfolio`.`estado` (`nome`, `uf`, `pais_id`) VALUES ('Santa Catari
 INSERT INTO `portfolio`.`estado` (`nome`, `uf`, `pais_id`) VALUES ('São Paulo', 'SP', '1');
 INSERT INTO `portfolio`.`estado` (`nome`, `uf`, `pais_id`) VALUES ('Sergipe', 'SE', '1');
 INSERT INTO `portfolio`.`estado` (`nome`, `uf`, `pais_id`) VALUES ('Tocantins', 'TO', '1');
+
+CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `estado_view` AS SELECT * FROM estado WHERE deleted = false ;

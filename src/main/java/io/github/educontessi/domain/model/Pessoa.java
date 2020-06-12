@@ -36,8 +36,8 @@ import io.github.educontessi.domain.helpers.util.TipoMascara;
  *
  */
 @Entity
-@Table(name = "pessoa")
-public class Pessoa {
+@Table(name = "pessoa_view")
+public class Pessoa extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

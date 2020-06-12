@@ -1,1 +1,0 @@
-CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `cidade_view` AS SELECT * FROM cidade WHERE deleted = false ;

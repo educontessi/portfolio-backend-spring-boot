@@ -23,8 +23,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *
  */
 @Entity
-@Table(name = "bairro")
-public class Bairro {
+@Table(name = "bairro_view")
+public class Bairro extends BaseEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

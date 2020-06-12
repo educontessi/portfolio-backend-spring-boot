@@ -19,6 +19,10 @@ CREATE TABLE `pessoa` (
 	`email` VARCHAR(100) NULL DEFAULT NULL,
 	`observacao` TEXT NULL,
 	`sexo` VARCHAR(50) NULL DEFAULT NULL,
+	`create_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	`changed` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+	`deleted` TINYINT(4) NOT NULL DEFAULT '0',
+	`delete_date` TIMESTAMP NULL DEFAULT NULL,
 	PRIMARY KEY (`id`),
 	UNIQUE INDEX `cpf_cnpj` (`cpf_cnpj`),
 	INDEX `FK_pessoa_cidade` (`cidade_id`),
@@ -35,3 +39,6 @@ ENGINE=InnoDB
 
 INSERT INTO `portfolio`.`pessoa` (`id`, `status`, `tipo_pessoa`, `nome_razao`, `data_cadastro`, `cpf_cnpj`, `data_nascimento`, `rg_ie`, `cidade_id`, `bairro_id`, `rua_id`, `cep`, `numero`, `complemento`, `proximidade`, `telefone`, `celular`, `email`, `observacao`, `sexo`) VALUES (1, 'ATIVO', 'FISICA', 'Pessoa 01', '2019-06-24', '24553420775', '2019-06-24', '1234', 1, 2, 1, '888888888', '888', 'casa', 'mercado', '48999999999', '48999999999', 'teste@teste.com', 'obs', 'MASCULINO');
 INSERT INTO `portfolio`.`pessoa` (`id`, `status`, `tipo_pessoa`, `nome_razao`, `data_cadastro`, `cpf_cnpj`, `data_nascimento`, `rg_ie`, `cidade_id`, `bairro_id`, `rua_id`, `cep`, `numero`, `complemento`, `proximidade`, `telefone`, `celular`, `email`, `observacao`, `sexo`) VALUES (2, 'INATIVO', 'FISICA', 'Pessoa 02', '2019-06-24', '36614740490', '2019-06-24', '1234', 1, 2, 1, '888888888', '888', 'casa', 'mercado', '48999999999', '48999999999', 'teste@teste.com', 'obs', 'FEMININO');
+
+
+CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `pessoa_view` AS SELECT * FROM pessoa WHERE deleted = false ;

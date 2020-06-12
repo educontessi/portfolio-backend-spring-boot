@@ -5618,3 +5618,5 @@ INSERT INTO `cidade` (`id`, `nome`, `estado_id`, `ibge`) VALUES
 	(5599, 'Sudoeste/Octogonal', 7, 5300108),
 	(5600, 'Setor de Indústria e Abastecimento', 7, 5300108),
 	(5601, 'Setor Habitacional Vicente Pires', 7, 5300108);
+	
+	CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `cidade_view` AS SELECT * FROM cidade WHERE deleted = false ;

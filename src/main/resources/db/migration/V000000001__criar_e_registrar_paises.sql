@@ -22,3 +22,6 @@ INSERT INTO `portfolio`.`pais` (`nome`, `sigla`, `bacen`) VALUES ('Paraguai', 'P
 INSERT INTO `portfolio`.`pais` (`nome`, `sigla`, `bacen`) VALUES ('Chile', 'CL', '1589');
 INSERT INTO `portfolio`.`pais` (`nome`, `sigla`, `bacen`) VALUES ('Bolívia', 'BO', '0973');
 INSERT INTO `portfolio`.`pais` (`nome`, `sigla`, `bacen`) VALUES ('Perú', 'PE', '5894');
+
+
+CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `pais_view` AS SELECT * FROM pais WHERE deleted = false ;
