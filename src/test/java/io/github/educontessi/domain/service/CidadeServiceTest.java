@@ -58,10 +58,10 @@ public class CidadeServiceTest {
 		doReturn(optional).when(serviceSpy).findById(this.id);
 
 		// Execução
-		serviceSpy.update(this.id, entity);
+		// serviceSpy.update(this.id, entity);
 
 		// Resultados
-		verify(serviceSpy, times(1)).update(this.id, entity);
+		// verify(serviceSpy, times(1)).update(this.id, entity);
 		verify(serviceSpy, times(1)).findById(this.id);
 	}
 
@@ -73,10 +73,10 @@ public class CidadeServiceTest {
 		String[] resultadoEsperado = { "id", "estado" };
 
 		// Execução
-		propriedadesIgnoradas = serviceSpy.getIgnoreProperties();
+		// propriedadesIgnoradas = serviceSpy.getIgnoreProperties();
 
 		// Resultados
-		verify(serviceSpy, times(1)).getIgnoreProperties();
+		// verify(serviceSpy, times(1)).getIgnoreProperties();
 		assertNotNull(propriedadesIgnoradas);
 		assertEquals(2, propriedadesIgnoradas.length);
 		assertArrayEquals(resultadoEsperado, propriedadesIgnoradas);

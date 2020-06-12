@@ -22,15 +22,7 @@ public class EstadoV1DataConverter extends DataConverter<Estado, EstadoV1Dto> {
 	@Override
 	public EstadoV1Dto convertToDto(EstadoV1Dto dto, Estado entity, String expandir) {
 		BeanUtils.copyProperties(entity, dto);
-
-		if (ExpandirUtil.contains("pais", expandir)) {
-			dto.setPais(new PaisV1DataConverter().convertToDto(entity.getPais()));
-		} else {
-			PaisV1Dto pais = new PaisV1Dto();
-			pais.setId(entity.getPaisId());
-			dto.setPais(pais);
-		}
-
+		setPais(dto, entity, expandir);
 		return dto;
 	}
 
@@ -53,4 +45,13 @@ public class EstadoV1DataConverter extends DataConverter<Estado, EstadoV1Dto> {
 		return (String[]) list.toArray(new String[0]);
 	}
 
+	protected void setPais(EstadoV1Dto dto, Estado entity, String expandir) {
+		if (ExpandirUtil.contains("pais", expandir)) {
+			dto.setPais(new PaisV1DataConverter().convertToDto(entity.getPais()));
+		} else {
+			PaisV1Dto pais = new PaisV1Dto();
+			pais.setId(entity.getPaisId());
+			dto.setPais(pais);
+		}
+	}
 }

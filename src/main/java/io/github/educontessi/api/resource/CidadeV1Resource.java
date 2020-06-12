@@ -1,13 +1,16 @@
 package io.github.educontessi.api.resource;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,9 +23,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.github.educontessi.domain.helpers.event.RecursoCriadoEvent;
+import io.github.educontessi.api.dataconverter.CidadeV1DataConverter;
+import io.github.educontessi.api.dto.CidadeV1Dto;
+import io.github.educontessi.domain.filter.CidadeFilter;
 import io.github.educontessi.domain.model.Cidade;
 import io.github.educontessi.domain.service.CidadeService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 /**
  * Endpoints para {@link Cidade}
@@ -32,54 +41,125 @@ import io.github.educontessi.domain.service.CidadeService;
  */
 @RestController
 @RequestMapping("/v1/cidades")
-public class CidadeV1Resource {
+@Api(produces = "application/json", value = "CidadeV1Resource")
+public class CidadeV1Resource extends BaseResource {
 
-	@Autowired
 	private CidadeService service;
+	private CidadeV1DataConverter converter;
 
 	@Autowired
-	private ApplicationEventPublisher publisher;
+	public CidadeV1Resource(CidadeService service, CidadeV1DataConverter converter) {
+		this.service = service;
+		this.converter = converter;
+	}
 
 	@GetMapping
-	public List<Cidade> findAll() {
-		return service.findAll();
+	@ApiOperation(value = "Busca todos", response = Iterable.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Recuperou com sucesso todos os recursos"),
+			@ApiResponse(code = 401, message = "Você não está autorizado a visualizar o recurso"),
+			@ApiResponse(code = 403, message = "É proibido acessar o recurso que você está tentando acessar"),
+			@ApiResponse(code = 500, message = "O aplicativo servidor falhou ao processar a solicitação") })
+	public List<CidadeV1Dto> findAll(String expandir) {
+		List<Cidade> lista = service.findAll();
+		List<CidadeV1Dto> listaDto = new ArrayList<>();
+		listaDto.addAll(lista.stream().map(x -> converter.convertToDto(x, expandir)).collect(Collectors.toList()));
+		return listaDto;
+	}
+
+	@GetMapping("/pesquisar")
+	@ApiOperation(value = "Pesquisar recursos", response = Iterable.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Recuperou com sucesso todos os recursos da pesquisa"),
+			@ApiResponse(code = 401, message = "Você não está autorizado a visualizar o recurso"),
+			@ApiResponse(code = 403, message = "É proibido acessar o recurso que você está tentando acessar"),
+			@ApiResponse(code = 500, message = "O aplicativo servidor falhou ao processar a solicitação") })
+	public Page<CidadeV1Dto> pesquisar(CidadeFilter filter, Pageable pageable, String expandir) {
+		Page<Cidade> lista = service.pesquisar(filter, pageable);
+		Page<CidadeV1Dto> listaDto = new PageImpl<>(
+				lista.getContent().stream().map(x -> converter.convertToDto(x, expandir)).collect(Collectors.toList()),
+				lista.getPageable(), lista.getTotalElements());
+		return listaDto;
 	}
 
 	@GetMapping("/estado/{estadoId}")
-	public List<Cidade> findByEstadoId(@PathVariable Long estadoId) {
-		return service.findByEstadoId(estadoId);
+	@ApiOperation(value = "Busca por Estado ID", response = Iterable.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Recurso recuperado com sucesso"),
+			@ApiResponse(code = 401, message = "Você não está autorizado a visualizar o recurso"),
+			@ApiResponse(code = 403, message = "É proibido acessar o recurso que você está tentando acessar"),
+			@ApiResponse(code = 404, message = "O recurso que você estava tentando acessar não foi encontrado"),
+			@ApiResponse(code = 500, message = "O aplicativo servidor falhou ao processar a solicitação") })
+	public List<CidadeV1Dto> findByEstadoId(@PathVariable Long estadoId, String expandir) {
+		List<Cidade> lista = service.findByEstadoId(estadoId);
+		List<CidadeV1Dto> listaDto = new ArrayList<>();
+		listaDto.addAll(lista.stream().map(x -> converter.convertToDto(x, expandir)).collect(Collectors.toList()));
+		return listaDto;
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Cidade> findById(@PathVariable Long id) {
-		Optional<Cidade> entity = service.findById(id);
-		return entity.isPresent() ? ResponseEntity.ok(entity.get()) : ResponseEntity.notFound().build();
+	@ApiOperation(value = "Busca por ID", response = Iterable.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Recurso recuperado com sucesso"),
+			@ApiResponse(code = 401, message = "Você não está autorizado a visualizar o recurso"),
+			@ApiResponse(code = 403, message = "É proibido acessar o recurso que você está tentando acessar"),
+			@ApiResponse(code = 404, message = "O recurso que você estava tentando acessar não foi encontrado"),
+			@ApiResponse(code = 500, message = "O aplicativo servidor falhou ao processar a solicitação") })
+	public ResponseEntity<CidadeV1Dto> findById(@PathVariable Long id, String expandir) {
+		Cidade entity = service.findById(id);
+		return ResponseEntity.ok(converter.convertToDto(entity, expandir));
 	}
 
 	@GetMapping("/ibge/{ibge}")
-	public ResponseEntity<Cidade> findByIbge(@PathVariable Integer ibge) {
-		Optional<Cidade> entity = service.findByIbge(ibge);
-		return entity.isPresent() ? ResponseEntity.ok(entity.get()) : ResponseEntity.notFound().build();
+	@ApiOperation(value = "Busca por código do IBGE", response = Iterable.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Recurso recuperado com sucesso"),
+			@ApiResponse(code = 401, message = "Você não está autorizado a visualizar o recurso"),
+			@ApiResponse(code = 403, message = "É proibido acessar o recurso que você está tentando acessar"),
+			@ApiResponse(code = 404, message = "O recurso que você estava tentando acessar não foi encontrado"),
+			@ApiResponse(code = 500, message = "O aplicativo servidor falhou ao processar a solicitação") })
+	public ResponseEntity<CidadeV1Dto> findByIbge(@PathVariable Integer ibge, String expandir) {
+		Cidade entity = service.findByIbge(ibge);
+		return ResponseEntity.ok(converter.convertToDto(entity, expandir));
 	}
 
 	@PostMapping
-	public ResponseEntity<Cidade> save(@Valid @RequestBody Cidade entity, HttpServletResponse response) {
-		Cidade cidade = service.save(entity);
-		publisher.publishEvent(new RecursoCriadoEvent(this, response, cidade.getId()));
-		return ResponseEntity.status(HttpStatus.CREATED).body(cidade);
+	@ApiOperation(value = "Incluir", response = Iterable.class)
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Recurso salvo com sucesso"),
+			@ApiResponse(code = 401, message = "Você não está autorizado a salvar o recurso"),
+			@ApiResponse(code = 403, message = "É proibido acessar o recurso que você está tentando acessar"),
+			@ApiResponse(code = 500, message = "O aplicativo servidor falhou ao processar a solicitação") })
+	public ResponseEntity<Object> save(@Valid @RequestBody CidadeV1Dto dto, HttpServletResponse response) {
+		Cidade entity = new Cidade();
+		converter.copyToEntity(entity, dto);
+		entity = service.save(entity);
+
+		converter.convertToDto(dto, entity);
+		return created(entity.getId(), response, dto);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Cidade> update(@PathVariable Long id, @Valid @RequestBody Cidade entity) {
+	@ApiOperation(value = "Alterar", response = Iterable.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Recurso alterado com sucesso"),
+			@ApiResponse(code = 401, message = "Você não está autorizado a alterar o recurso"),
+			@ApiResponse(code = 403, message = "É proibido acessar o recurso que você está tentando acessar"),
+			@ApiResponse(code = 404, message = "O recurso que você estava tentando acessar não foi encontrado"),
+			@ApiResponse(code = 500, message = "O aplicativo servidor falhou ao processar a solicitação") })
+	public ResponseEntity<Object> update(@PathVariable Long id, @Valid @RequestBody CidadeV1Dto dto) {
 		try {
-			Cidade cidade = service.update(id, entity);
-			return ResponseEntity.ok(cidade);
+			Cidade entity = new Cidade();
+			converter.copyToEntity(entity, dto);
+			entity = service.save(entity);
+
+			converter.convertToDto(dto, entity);
+			return ok(dto);
 		} catch (IllegalArgumentException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
 
 	@DeleteMapping("/{id}")
+	@ApiOperation(value = "Excluir", response = Iterable.class)
+	@ApiResponses(value = { @ApiResponse(code = 204, message = "Recurso excluído com sucesso"),
+			@ApiResponse(code = 401, message = "Você não está autorizado a excluir o recurso"),
+			@ApiResponse(code = 403, message = "É proibido acessar o recurso que você está tentando acessar"),
+			@ApiResponse(code = 404, message = "O recurso que você estava tentando excluir não foi encontrado"),
+			@ApiResponse(code = 500, message = "O aplicativo servidor falhou ao processar a solicitação") })
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable Long id) {
 		service.delete(id);
