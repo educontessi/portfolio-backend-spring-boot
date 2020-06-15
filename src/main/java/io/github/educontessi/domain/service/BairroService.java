@@ -29,7 +29,7 @@ import io.github.educontessi.domain.service.validator.ValidatorExecutor;
 @Service
 public class BairroService {
 
-	private BairroRepository repository;
+	private final BairroRepository repository;
 
 	@Autowired
 	public BairroService(BairroRepository repository) {

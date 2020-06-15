@@ -30,7 +30,7 @@ import io.github.educontessi.domain.service.validator.ValidatorExecutor;
 @Service
 public class CidadeService {
 
-	private CidadeRepository repository;
+	private final CidadeRepository repository;
 
 	@Autowired
 	public CidadeService(CidadeRepository repository) {

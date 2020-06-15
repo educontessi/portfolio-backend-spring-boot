@@ -231,7 +231,7 @@ public class PessoaTest {
 		// Arranjos
 		Pessoa pessoa = getPessoaFisica();
 		pessoa.setNomeRazao("Teste");
-		pessoa.setEmail("teste");
+		pessoa.setEmailPrincipal("teste");
 
 		String mensagem1 = "não é um endereço de e-mail";
 
@@ -250,7 +250,7 @@ public class PessoaTest {
 		// Arranjos
 		Pessoa pessoa = getPessoaFisica();
 		pessoa.setNomeRazao("Teste");
-		pessoa.setEmail(
+		pessoa.setEmailPrincipal(
 				" contact-admin-hello-webmaster-info-services-peter-crazy-but-oh-so-ubber-cool-english-alphabet-loverer-abcdefghijklmnopqrstuvwxyz@please-try-to.send-me-an-email-if-you-can-possibly-begin-to-remember-this-coz.this-is-the-longest-email-address-known-to-man-but-to-be-honest.this-is-such-a-stupidly-long-sub-domain-it-could-go-on-forever.pacraig.com");
 
 		String mensagem1 = "não é um endereço de e-mail";

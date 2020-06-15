@@ -14,4 +14,7 @@ public class PessoaNaoEncontradaException extends EntidadeNaoEncontradaException
 		this(String.format("Não existe um cadastro de pessoa com código %d", id));
 	}
 
+	public PessoaNaoEncontradaException(Long id, String cpfCnpj) {
+		this(String.format("Não existe um cadastro de pessoa com CPF / CNPJ %d", cpfCnpj));
+	}
 }

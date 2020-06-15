@@ -1,151 +1,51 @@
-package io.github.educontessi.domain.model;
-
-import static io.github.educontessi.domain.helpers.util.FuncoesString.adicionaMascara;
-import static io.github.educontessi.domain.helpers.util.FuncoesString.formatarNome;
-import static io.github.educontessi.domain.helpers.util.FuncoesString.removeMascaraDeNumeros;
+package io.github.educontessi.api.dto;
 
 import java.time.LocalDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import io.github.educontessi.domain.annotations.cpfcnpj.CPFCNPJ;
 import io.github.educontessi.domain.enums.Sexo;
 import io.github.educontessi.domain.enums.Status;
 import io.github.educontessi.domain.enums.TipoPessoa;
-import io.github.educontessi.domain.helpers.util.TipoMascara;
+import io.github.educontessi.domain.model.Pessoa;
 
 /**
- * Entidade {@link Pessoa} para manipiular tabela de pessoas
+ * Data Transfer Object {@link Pessoa}
  * 
  * @author Eduardo Possamai Contessi
  *
  */
-@Entity
-@Table(name = "pessoa_view")
-public class Pessoa extends BaseEntity {
+@JsonInclude(Include.NON_EMPTY)
+public class PessoaV1Dto extends BaseDto {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
-	@NotNull
-	@Enumerated(EnumType.STRING)
-	@Column(name = "status")
 	private Status status;
-
-	@NotNull
-	@Enumerated(EnumType.STRING)
-	@Column(name = "tipo_pessoa")
 	private TipoPessoa tipoPessoa;
-
-	@NotNull
-	@Size(min = 3, max = 100)
-	@Column(name = "nome_razao")
 	private String nomeRazao;
-
-	@Column(name = "data_cadastro")
 	private LocalDate dataCadastro;
-
-	@NotNull
-	@Column(name = "cpf_cnpj")
-	@CPFCNPJ
 	private String cpfCnpj;
-
-	@Column(name = "data_nascimento")
 	private LocalDate dataNascimento;
-
-	@Column(name = "rg_ie")
 	private String rgIe;
-
-	@Column(name = "cidade_id", insertable = true, updatable = true)
-	private Long cidadeId;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "cidade_id", insertable = false, updatable = false)
-	private Cidade cidade;
-
-	@Column(name = "bairro_id", insertable = true, updatable = true)
-	private Long bairroId;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "bairro_id", insertable = false, updatable = false)
-	private Bairro bairro;
-
-	@Column(name = "rua_id", insertable = true, updatable = true)
-	private Long ruaId;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "rua_id", insertable = false, updatable = false)
-	private Rua rua;
-
-	@Column(name = "cep")
+	private CidadeV1Dto cidade;
+	private BairroV1Dto bairro;
+	private RuaV1Dto rua;
 	private String cep;
-
-	@Column(name = "numero")
 	private String numero;
-
-	@Column(name = "complemento")
 	private String complemento;
-
-	@Column(name = "proximidade")
 	private String proximidade;
-
-	@Column(name = "numero_contato_principal")
 	private String numeroContatoPrincipal;
-
-	@Column(name = "obs_contato_principal")
 	private String obsContatoPrincipal;
-
-	@Column(name = "numero_contato_alternativo")
 	private String numeroContatoAlternativo;
-
-	@Column(name = "obs_contato_alternativo")
 	private String obsContatoAlternativo;
-
-	@Email
-	@Size(max = 100, message = "E-mail não pode exceder mais que 100 caracteres")
-	@Column(name = "email_principal")
 	private String emailPrincipal;
-
-	@Column(name = "obs_email_principal")
 	private String obsEmailPrincipal;
-
-	@Email
-	@Size(max = 100, message = "E-mail não pode exceder mais que 100 caracteres")
-	@Column(name = "email_alternativo")
 	private String emailAlternativo;
-
-	@Column(name = "obs_email_alternativo")
 	private String obsEmailAlternativo;
-
-	@Column(name = "observacao")
 	private String observacao;
-
-	@Enumerated(EnumType.STRING)
-	@Column(name = "sexo")
 	private Sexo sexo;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
+	public PessoaV1Dto() {
+		this.apiVersion = "V1";
 	}
 
 	public Status getStatus() {
@@ -169,7 +69,7 @@ public class Pessoa extends BaseEntity {
 	}
 
 	public void setNomeRazao(String nomeRazao) {
-		this.nomeRazao = formatarNome(nomeRazao);
+		this.nomeRazao = nomeRazao;
 	}
 
 	public LocalDate getDataCadastro() {
@@ -181,11 +81,11 @@ public class Pessoa extends BaseEntity {
 	}
 
 	public String getCpfCnpj() {
-		return adicionaMascara(getTipoMascara(), cpfCnpj);
+		return cpfCnpj;
 	}
 
 	public void setCpfCnpj(String cpfCnpj) {
-		this.cpfCnpj = removeMascaraDeNumeros(cpfCnpj);
+		this.cpfCnpj = cpfCnpj;
 	}
 
 	public LocalDate getDataNascimento() {
@@ -204,63 +104,36 @@ public class Pessoa extends BaseEntity {
 		this.rgIe = rgIe;
 	}
 
-	public Long getCidadeId() {
-		return cidadeId;
-	}
-
-	public void setCidadeId(Long cidadeId) {
-		this.cidadeId = cidadeId;
-	}
-
-	public Cidade getCidade() {
+	public CidadeV1Dto getCidade() {
 		return cidade;
 	}
 
-	public void setCidade(Cidade cidade) {
+	public void setCidade(CidadeV1Dto cidade) {
 		this.cidade = cidade;
-		this.cidadeId = cidade.getId();
 	}
 
-	public Long getBairroId() {
-		return bairroId;
-	}
-
-	public void setBairroId(Long bairroId) {
-		this.bairroId = bairroId;
-	}
-
-	public Bairro getBairro() {
+	public BairroV1Dto getBairro() {
 		return bairro;
 	}
 
-	public void setBairro(Bairro bairro) {
+	public void setBairro(BairroV1Dto bairro) {
 		this.bairro = bairro;
-		this.bairroId = bairro.getId();
 	}
 
-	public Long getRuaId() {
-		return ruaId;
-	}
-
-	public void setRuaId(Long ruaId) {
-		this.ruaId = ruaId;
-	}
-
-	public Rua getRua() {
+	public RuaV1Dto getRua() {
 		return rua;
 	}
 
-	public void setRua(Rua rua) {
+	public void setRua(RuaV1Dto rua) {
 		this.rua = rua;
-		this.ruaId = rua.getId();
 	}
 
 	public String getCep() {
-		return adicionaMascara(TipoMascara.CEP, cep);
+		return cep;
 	}
 
 	public void setCep(String cep) {
-		this.cep = removeMascaraDeNumeros(cep);
+		this.cep = cep;
 	}
 
 	public String getNumero() {
@@ -365,11 +238,6 @@ public class Pessoa extends BaseEntity {
 
 	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
-	}
-
-	@JsonIgnore
-	protected TipoMascara getTipoMascara() {
-		return tipoPessoa.equals(TipoPessoa.FISICA) ? TipoMascara.CPF : TipoMascara.CNPJ;
 	}
 
 }

@@ -14,9 +14,14 @@ CREATE TABLE `pessoa` (
 	`numero` VARCHAR(50) NULL DEFAULT NULL,
 	`complemento` VARCHAR(100) NULL DEFAULT NULL,
 	`proximidade` VARCHAR(100) NULL DEFAULT NULL,
-	`telefone` VARCHAR(50) NULL DEFAULT NULL,
-	`celular` VARCHAR(50) NULL DEFAULT NULL,
-	`email` VARCHAR(100) NULL DEFAULT NULL,
+	`numero_contato_principal` VARCHAR(50) NULL DEFAULT NULL,
+	`obs_contato_principal` VARCHAR(100) NULL DEFAULT NULL,
+	`numero_contato_alternativo` VARCHAR(50) NULL DEFAULT NULL,
+	`obs_contato_alternativo` VARCHAR(100) NULL DEFAULT NULL,
+	`email_principal` VARCHAR(100) NULL DEFAULT NULL,
+	`obs_email_principal` VARCHAR(100) NULL DEFAULT NULL,
+	`email_alternativo` VARCHAR(100) NULL DEFAULT NULL,
+	`obs_email_alternativo` VARCHAR(100) NULL DEFAULT NULL,
 	`observacao` TEXT NULL,
 	`sexo` VARCHAR(50) NULL DEFAULT NULL,
 	`create_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -37,8 +42,8 @@ ENGINE=InnoDB
 ;
 
 
-INSERT INTO `portfolio`.`pessoa` (`id`, `status`, `tipo_pessoa`, `nome_razao`, `data_cadastro`, `cpf_cnpj`, `data_nascimento`, `rg_ie`, `cidade_id`, `bairro_id`, `rua_id`, `cep`, `numero`, `complemento`, `proximidade`, `telefone`, `celular`, `email`, `observacao`, `sexo`) VALUES (1, 'ATIVO', 'FISICA', 'Pessoa 01', '2019-06-24', '24553420775', '2019-06-24', '1234', 1, 2, 1, '888888888', '888', 'casa', 'mercado', '48999999999', '48999999999', 'teste@teste.com', 'obs', 'MASCULINO');
-INSERT INTO `portfolio`.`pessoa` (`id`, `status`, `tipo_pessoa`, `nome_razao`, `data_cadastro`, `cpf_cnpj`, `data_nascimento`, `rg_ie`, `cidade_id`, `bairro_id`, `rua_id`, `cep`, `numero`, `complemento`, `proximidade`, `telefone`, `celular`, `email`, `observacao`, `sexo`) VALUES (2, 'INATIVO', 'FISICA', 'Pessoa 02', '2019-06-24', '36614740490', '2019-06-24', '1234', 1, 2, 1, '888888888', '888', 'casa', 'mercado', '48999999999', '48999999999', 'teste@teste.com', 'obs', 'FEMININO');
+INSERT INTO `portfolio`.`pessoa` (`id`, `status`, `tipo_pessoa`, `nome_razao`, `data_cadastro`, `cpf_cnpj`, `data_nascimento`, `rg_ie`, `cidade_id`, `bairro_id`, `rua_id`, `cep`, `numero`, `complemento`, `proximidade`, `numero_contato_principal`, `numero_contato_alternativo`, `email_principal`, `observacao`, `sexo`) VALUES (1, 'ATIVO', 'FISICA', 'Pessoa 01', '2019-06-24', '24553420775', '2019-06-24', '1234', 1, 2, 1, '888888888', '888', 'casa', 'mercado', '48999999999', '48999999999', 'teste@teste.com', 'obs', 'MASCULINO');
+INSERT INTO `portfolio`.`pessoa` (`id`, `status`, `tipo_pessoa`, `nome_razao`, `data_cadastro`, `cpf_cnpj`, `data_nascimento`, `rg_ie`, `cidade_id`, `bairro_id`, `rua_id`, `cep`, `numero`, `complemento`, `proximidade`, `numero_contato_principal`, `numero_contato_alternativo`, `email_principal`, `observacao`, `sexo`) VALUES (2, 'INATIVO', 'FISICA', 'Pessoa 02', '2019-06-24', '36614740490', '2019-06-24', '1234', 1, 2, 1, '888888888', '888', 'casa', 'mercado', '48999999999', '48999999999', 'teste@teste.com', 'obs', 'FEMININO');
 
 
 CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `pessoa_view` AS SELECT * FROM pessoa WHERE deleted = false ;

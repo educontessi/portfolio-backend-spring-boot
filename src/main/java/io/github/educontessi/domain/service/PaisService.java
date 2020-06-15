@@ -29,7 +29,7 @@ import io.github.educontessi.domain.service.validator.ValidatorExecutor;
 @Service
 public class PaisService {
 
-	private PaisRepository repository;
+	private final PaisRepository repository;
 
 	@Autowired
 	public PaisService(PaisRepository repository) {

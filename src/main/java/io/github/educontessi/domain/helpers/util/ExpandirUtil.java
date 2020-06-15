@@ -3,10 +3,11 @@ package io.github.educontessi.domain.helpers.util;
 public class ExpandirUtil {
 
 	private static final String DELIMITER_REGEX = ",";
+	private static final String ALL = "tudo";
 
 	public static boolean contains(String campo, String expandir) {
 		if (!nullOrEmpty(expandir)) {
-			return expandir.contains("all") || expandir.contains(campo);
+			return expandir.contains(ALL) || expandir.contains(campo);
 		}
 
 		return false;
@@ -15,8 +16,8 @@ public class ExpandirUtil {
 	public static String extrairSubExpadir(String campoAtual, String expandir) {
 		String subExpandir = "";
 		if (!nullOrEmpty(expandir)) {
-			if (expandir.contains("all")) {
-				subExpandir = "all";
+			if (expandir.contains(ALL)) {
+				subExpandir = ALL;
 			} else {
 				String[] all = expandir.split(DELIMITER_REGEX);
 

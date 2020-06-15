@@ -29,7 +29,7 @@ import io.github.educontessi.domain.service.validator.ValidatorExecutor;
 @Service
 public class RuaService {
 
-	private RuaRepository repository;
+	private final RuaRepository repository;
 
 	@Autowired
 	public RuaService(RuaRepository repository) {

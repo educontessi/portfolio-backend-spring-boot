@@ -14,8 +14,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 /**
  * Entidade {@link Rua} para manipiular tabela de ruas
  * 
@@ -39,7 +37,6 @@ public class Rua extends BaseEntity {
 	@Column(name = "cidade_id", insertable = true, updatable = true)
 	private Long cidadeId;
 
-	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cidade_id", insertable = false, updatable = false)
 	private Cidade cidade;
