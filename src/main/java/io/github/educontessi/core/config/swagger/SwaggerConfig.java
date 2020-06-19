@@ -1,4 +1,4 @@
-package io.github.educontessi.api.config.swagger;
+package io.github.educontessi.core.config.swagger;
 
 import java.util.ArrayList;
 import java.util.List;

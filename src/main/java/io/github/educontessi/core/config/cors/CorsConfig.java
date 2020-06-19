@@ -1,4 +1,4 @@
-package io.github.educontessi.api.config.cors;
+package io.github.educontessi.core.config.cors;
 
 import javax.servlet.Filter;
 

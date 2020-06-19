@@ -8,7 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-import io.github.educontessi.api.config.swagger.SwaggerConfig;
+import io.github.educontessi.core.config.swagger.SwaggerConfig;
 
 /**
  * Main Application
