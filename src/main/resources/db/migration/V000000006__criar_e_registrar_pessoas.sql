@@ -5,7 +5,7 @@ CREATE TABLE `pessoa` (
 	`nome_razao` VARCHAR(100) NOT NULL,
 	`data_cadastro` DATE NOT NULL,
 	`cpf_cnpj` VARCHAR(20) NOT NULL,
-	`data_nascimento` DATE NOT NULL,
+	`data_nascimento` DATE NULL DEFAULT NULL,
 	`rg_ie` VARCHAR(50) NULL DEFAULT NULL,
 	`cidade_id` BIGINT(20) NULL DEFAULT NULL,
 	`bairro_id` BIGINT(20) NULL DEFAULT NULL,
@@ -42,8 +42,8 @@ ENGINE=InnoDB
 ;
 
 
-INSERT INTO `pessoa` (`id`, `status`, `tipo_pessoa`, `nome_razao`, `data_cadastro`, `cpf_cnpj`, `data_nascimento`, `rg_ie`, `cidade_id`, `bairro_id`, `rua_id`, `cep`, `numero`, `complemento`, `proximidade`, `numero_contato_principal`, `numero_contato_alternativo`, `email_principal`, `observacao`, `sexo`) VALUES (1, 'ATIVO', 'FISICA', 'Pessoa 01', '2019-06-24', '24553420775', '2019-06-24', '1234', 1, 2, 1, '888888888', '888', 'casa', 'mercado', '48999999999', '48999999999', 'teste@teste.com', 'obs', 'MASCULINO');
-INSERT INTO `pessoa` (`id`, `status`, `tipo_pessoa`, `nome_razao`, `data_cadastro`, `cpf_cnpj`, `data_nascimento`, `rg_ie`, `cidade_id`, `bairro_id`, `rua_id`, `cep`, `numero`, `complemento`, `proximidade`, `numero_contato_principal`, `numero_contato_alternativo`, `email_principal`, `observacao`, `sexo`) VALUES (2, 'INATIVO', 'FISICA', 'Pessoa 02', '2019-06-24', '36614740490', '2019-06-24', '1234', 1, 2, 1, '888888888', '888', 'casa', 'mercado', '48999999999', '48999999999', 'teste@teste.com', 'obs', 'FEMININO');
+INSERT INTO `pessoa` (`id`, `status`, `tipo_pessoa`, `nome_razao`, `data_cadastro`, `cpf_cnpj`, `data_nascimento`, `rg_ie`, `cidade_id`, `bairro_id`, `rua_id`, `cep`, `numero`, `complemento`, `proximidade`, `numero_contato_principal`, `numero_contato_alternativo`, `email_principal`, `observacao`, `sexo`) VALUES (1, 'ATIVO', 'FISICA', 'Pessoa 01', '2019-06-24', '24553420775', '2019-06-24', '1234', 4330, 1, 1, '888888888', '888', 'casa', 'mercado', '48999999999', '48999999999', 'teste@teste.com', 'obs', 'MASCULINO');
+INSERT INTO `pessoa` (`id`, `status`, `tipo_pessoa`, `nome_razao`, `data_cadastro`, `cpf_cnpj`, `data_nascimento`, `rg_ie`, `cidade_id`, `bairro_id`, `rua_id`, `cep`, `numero`, `complemento`, `proximidade`, `numero_contato_principal`, `numero_contato_alternativo`, `email_principal`, `observacao`, `sexo`) VALUES (2, 'INATIVO', 'FISICA', 'Pessoa 02', '2019-06-24', '36614740490', '2019-06-24', '1234', 4330, 2, 1, '888888888', '888', 'casa', 'mercado', '48999999999', '48999999999', 'teste@teste.com', 'obs', 'FEMININO');
 
 
 CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `pessoa_view` AS SELECT * FROM pessoa WHERE deleted = false ;

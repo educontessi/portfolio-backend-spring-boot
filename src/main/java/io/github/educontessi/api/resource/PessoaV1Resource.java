@@ -87,7 +87,7 @@ public class PessoaV1Resource extends BaseResource {
 			@ApiResponse(code = 403, message = "É proibido acessar o recurso que você está tentando acessar"),
 			@ApiResponse(code = 404, message = "O recurso que você estava tentando acessar não foi encontrado"),
 			@ApiResponse(code = 500, message = "O aplicativo servidor falhou ao processar a solicitação") })
-	public ResponseEntity<PessoaV1Dto> findByCpf(@PathVariable String cpfCnpj, String expandir) {
+	public ResponseEntity<PessoaV1Dto> findByCpfCnpj(@PathVariable String cpfCnpj, String expandir) {
 		Pessoa entity = service.findByCpfCnpj(cpfCnpj);
 		return ResponseEntity.ok(converter.convertToDto(entity, expandir));
 	}

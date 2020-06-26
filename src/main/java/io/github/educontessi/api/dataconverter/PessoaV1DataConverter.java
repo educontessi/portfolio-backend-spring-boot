@@ -39,35 +39,41 @@ public class PessoaV1DataConverter extends DataConverter<Pessoa, PessoaV1Dto> {
 	}
 
 	protected void setRua(PessoaV1Dto dto, Pessoa entity, String expandir) {
-		if (ExpandirUtil.contains("rua", expandir)) {
-			dto.setRua(new RuaV1DataConverter().convertToDto(entity.getRua(),
-					ExpandirUtil.extrairSubExpadir("rua", expandir)));
-		} else {
-			RuaV1Dto rua = new RuaV1Dto();
-			rua.setId(entity.getRuaId());
-			dto.setRua(rua);
+		if (entity.getRuaId() != null) {
+			if (ExpandirUtil.contains("rua", expandir)) {
+				dto.setRua(new RuaV1DataConverter().convertToDto(entity.getRua(),
+						ExpandirUtil.extrairSubExpadir("rua", expandir)));
+			} else {
+				RuaV1Dto rua = new RuaV1Dto();
+				rua.setId(entity.getRuaId());
+				dto.setRua(rua);
+			}
 		}
 	}
 
 	protected void setBairro(PessoaV1Dto dto, Pessoa entity, String expandir) {
-		if (ExpandirUtil.contains("bairro", expandir)) {
-			dto.setBairro(new BairroV1DataConverter().convertToDto(entity.getBairro(),
-					ExpandirUtil.extrairSubExpadir("bairro", expandir)));
-		} else {
-			BairroV1Dto bairro = new BairroV1Dto();
-			bairro.setId(entity.getBairroId());
-			dto.setBairro(bairro);
+		if (entity.getBairroId() != null) {
+			if (ExpandirUtil.contains("bairro", expandir)) {
+				dto.setBairro(new BairroV1DataConverter().convertToDto(entity.getBairro(),
+						ExpandirUtil.extrairSubExpadir("bairro", expandir)));
+			} else {
+				BairroV1Dto bairro = new BairroV1Dto();
+				bairro.setId(entity.getBairroId());
+				dto.setBairro(bairro);
+			}
 		}
 	}
 
 	protected void setCidade(PessoaV1Dto dto, Pessoa entity, String expandir) {
-		if (ExpandirUtil.contains("cidade", expandir)) {
-			dto.setCidade(new CidadeV1DataConverter().convertToDto(entity.getCidade(),
-					ExpandirUtil.extrairSubExpadir("cidade", expandir)));
-		} else {
-			CidadeV1Dto cidade = new CidadeV1Dto();
-			cidade.setId(entity.getCidadeId());
-			dto.setCidade(cidade);
+		if (entity.getCidadeId() != null) {
+			if (ExpandirUtil.contains("cidade", expandir)) {
+				dto.setCidade(new CidadeV1DataConverter().convertToDto(entity.getCidade(),
+						ExpandirUtil.extrairSubExpadir("cidade", expandir)));
+			} else {
+				CidadeV1Dto cidade = new CidadeV1Dto();
+				cidade.setId(entity.getCidadeId());
+				dto.setCidade(cidade);
+			}
 		}
 	}
 }

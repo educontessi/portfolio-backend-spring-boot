@@ -32,7 +32,7 @@ public class ViaCepV1Resource extends BaseResource {
 	}
 
 	@GetMapping("/{cep}")
-	public ResponseEntity<ViaCepV1Dto> findById(@PathVariable String cep) {
+	public ResponseEntity<ViaCepV1Dto> buscaCep(@PathVariable String cep) {
 		ViaCepResposta entity = service.buscaEnderecoPorCep(cep);
 		return ResponseEntity.ok(converter.convertToDto(entity));
 	}
