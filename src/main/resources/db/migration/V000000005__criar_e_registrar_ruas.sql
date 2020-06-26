@@ -14,14 +14,14 @@ COLLATE='latin1_swedish_ci'
 ENGINE=InnoDB
 ;
 
-INSERT INTO `portfolio`.`rua` (`nome`, `cidade_id`) VALUES ('Rua A', 4330);
-INSERT INTO `portfolio`.`rua` (`nome`, `cidade_id`) VALUES ('Rua B', 4330);
-INSERT INTO `portfolio`.`rua` (`nome`, `cidade_id`) VALUES ('Rua C', 4330);
-INSERT INTO `portfolio`.`rua` (`nome`, `cidade_id`) VALUES ('Rua D', 4330);
-INSERT INTO `portfolio`.`rua` (`nome`, `cidade_id`) VALUES ('Rua E', 4330);
-INSERT INTO `portfolio`.`rua` (`nome`, `cidade_id`) VALUES ('Rua F', 4330);
-INSERT INTO `portfolio`.`rua` (`nome`, `cidade_id`) VALUES ('Rua G', 4330);
-INSERT INTO `portfolio`.`rua` (`nome`, `cidade_id`) VALUES ('Rua H', 4330);
+INSERT INTO `rua` (`nome`, `cidade_id`) VALUES ('Rua A', 4330);
+INSERT INTO `rua` (`nome`, `cidade_id`) VALUES ('Rua B', 4330);
+INSERT INTO `rua` (`nome`, `cidade_id`) VALUES ('Rua C', 4330);
+INSERT INTO `rua` (`nome`, `cidade_id`) VALUES ('Rua D', 4330);
+INSERT INTO `rua` (`nome`, `cidade_id`) VALUES ('Rua E', 4330);
+INSERT INTO `rua` (`nome`, `cidade_id`) VALUES ('Rua F', 4330);
+INSERT INTO `rua` (`nome`, `cidade_id`) VALUES ('Rua G', 4330);
+INSERT INTO `rua` (`nome`, `cidade_id`) VALUES ('Rua H', 4330);
 
 
 CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `rua_view` AS SELECT * FROM rua WHERE deleted = false ;

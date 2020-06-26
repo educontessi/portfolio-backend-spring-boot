@@ -15,13 +15,13 @@ COLLATE='latin1_swedish_ci'
 ENGINE=InnoDB
 ;
 
-INSERT INTO `portfolio`.`pais` (`nome`, `sigla`, `bacen`) VALUES ('Brasil', 'BR', '1058');
-INSERT INTO `portfolio`.`pais` (`nome`, `sigla`, `bacen`) VALUES ('Uruguai', 'UY', '8451');
-INSERT INTO `portfolio`.`pais` (`nome`, `sigla`, `bacen`) VALUES ('Argentina', 'AR', '0639');
-INSERT INTO `portfolio`.`pais` (`nome`, `sigla`, `bacen`) VALUES ('Paraguai', 'PY', '5860');
-INSERT INTO `portfolio`.`pais` (`nome`, `sigla`, `bacen`) VALUES ('Chile', 'CL', '1589');
-INSERT INTO `portfolio`.`pais` (`nome`, `sigla`, `bacen`) VALUES ('Bolívia', 'BO', '0973');
-INSERT INTO `portfolio`.`pais` (`nome`, `sigla`, `bacen`) VALUES ('Perú', 'PE', '5894');
+INSERT INTO `pais` (`nome`, `sigla`, `bacen`) VALUES ('Brasil', 'BR', '1058');
+INSERT INTO `pais` (`nome`, `sigla`, `bacen`) VALUES ('Uruguai', 'UY', '8451');
+INSERT INTO `pais` (`nome`, `sigla`, `bacen`) VALUES ('Argentina', 'AR', '0639');
+INSERT INTO `pais` (`nome`, `sigla`, `bacen`) VALUES ('Paraguai', 'PY', '5860');
+INSERT INTO `pais` (`nome`, `sigla`, `bacen`) VALUES ('Chile', 'CL', '1589');
+INSERT INTO `pais` (`nome`, `sigla`, `bacen`) VALUES ('Bolívia', 'BO', '0973');
+INSERT INTO `pais` (`nome`, `sigla`, `bacen`) VALUES ('Perú', 'PE', '5894');
 
 
 CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `pais_view` AS SELECT * FROM pais WHERE deleted = false ;

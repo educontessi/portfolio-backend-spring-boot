@@ -128,7 +128,7 @@ public class PessoaV1Resource extends BaseResource {
 			@ApiResponse(code = 500, message = "O aplicativo servidor falhou ao processar a solicitação") })
 	public ResponseEntity<Object> update(@PathVariable Long id, @Valid @RequestBody PessoaV1Dto dto) {
 		try {
-			Pessoa entity = new Pessoa();
+			Pessoa entity = service.findById(id);
 			converter.copyToEntity(entity, dto);
 			entity = service.save(entity);
 

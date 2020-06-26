@@ -1,8 +1,5 @@
 package io.github.educontessi.api.dataconverter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +14,7 @@ public class EstadoV1DataConverter extends DataConverter<Estado, EstadoV1Dto> {
 	@Override
 	public void copyToEntity(Estado entity, EstadoV1Dto dto) {
 		BeanUtils.copyProperties(dto, entity, getIgnoreProperties());
+		entity.setPaisId(getIdOrNull(dto.getPais()));
 	}
 
 	@Override
@@ -32,17 +30,6 @@ public class EstadoV1DataConverter extends DataConverter<Estado, EstadoV1Dto> {
 
 	public EstadoV1Dto convertToDto(EstadoV1Dto dto, Estado entity) {
 		return convertToDto(dto, entity, null);
-	}
-
-	protected String[] getIgnoreProperties() {
-		List<String> list = new ArrayList<>();
-		list.add("id");
-		list.add("pais");
-		list.add("created");
-		list.add("changed");
-		list.add("deletedDate");
-
-		return (String[]) list.toArray(new String[0]);
 	}
 
 	protected void setPais(EstadoV1Dto dto, Estado entity, String expandir) {

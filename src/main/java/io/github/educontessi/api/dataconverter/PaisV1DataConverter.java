@@ -1,8 +1,5 @@
 package io.github.educontessi.api.dataconverter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
@@ -31,14 +28,10 @@ public class PaisV1DataConverter extends DataConverter<Pais, PaisV1Dto> {
 		return convertToDto(dto, entity, null);
 	}
 
-	protected String[] getIgnoreProperties() {
-		List<String> list = new ArrayList<>();
-		list.add("id");
-		list.add("created");
-		list.add("changed");
-		list.add("deletedDate");
-
-		return (String[]) list.toArray(new String[0]);
+	public Pais copyToEntity(PaisV1Dto dto) {
+		Pais entity = new Pais();
+		copyToEntity(entity, dto);
+		return entity;
 	}
 
 }

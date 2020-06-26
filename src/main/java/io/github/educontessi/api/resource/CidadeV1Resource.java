@@ -142,7 +142,7 @@ public class CidadeV1Resource extends BaseResource {
 			@ApiResponse(code = 500, message = "O aplicativo servidor falhou ao processar a solicitação") })
 	public ResponseEntity<Object> update(@PathVariable Long id, @Valid @RequestBody CidadeV1Dto dto) {
 		try {
-			Cidade entity = new Cidade();
+			Cidade entity = service.findById(id);
 			converter.copyToEntity(entity, dto);
 			entity = service.save(entity);
 

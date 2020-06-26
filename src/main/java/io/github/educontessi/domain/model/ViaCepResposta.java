@@ -14,7 +14,7 @@ import io.github.educontessi.domain.helpers.util.TipoMascara;
  * @author Eduardo Possamai Contessi
  *
  */
-public class ViaCepResposta {
+public class ViaCepResposta extends BaseEntity {
 
 	private String cep;
 	private Rua rua;

@@ -1,8 +1,5 @@
 package io.github.educontessi.api.dataconverter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +16,9 @@ public class PessoaV1DataConverter extends DataConverter<Pessoa, PessoaV1Dto> {
 	@Override
 	public void copyToEntity(Pessoa entity, PessoaV1Dto dto) {
 		BeanUtils.copyProperties(dto, entity, getIgnoreProperties());
+		entity.setRuaId(getIdOrNull(dto.getRua()));
+		entity.setBairroId(getIdOrNull(dto.getBairro()));
+		entity.setCidadeId(getIdOrNull(dto.getCidade()));
 	}
 
 	@Override
@@ -36,19 +36,6 @@ public class PessoaV1DataConverter extends DataConverter<Pessoa, PessoaV1Dto> {
 
 	public PessoaV1Dto convertToDto(PessoaV1Dto dto, Pessoa entity) {
 		return convertToDto(dto, entity, null);
-	}
-
-	protected String[] getIgnoreProperties() {
-		List<String> list = new ArrayList<>();
-		list.add("id");
-		list.add("rua");
-		list.add("bairro");
-		list.add("cidade");
-		list.add("created");
-		list.add("changed");
-		list.add("deletedDate");
-
-		return (String[]) list.toArray(new String[0]);
 	}
 
 	protected void setRua(PessoaV1Dto dto, Pessoa entity, String expandir) {

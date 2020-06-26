@@ -15,11 +15,11 @@ ENGINE=InnoDB
 ;
 
 
-INSERT INTO `portfolio`.`bairro` (`nome`, `cidade_id`) VALUES ('Mato Alto', 4330);
-INSERT INTO `portfolio`.`bairro` (`nome`, `cidade_id`) VALUES ('Cidade Alta', 4330);
-INSERT INTO `portfolio`.`bairro` (`nome`, `cidade_id`) VALUES ('Centro', 4330);
-INSERT INTO `portfolio`.`bairro` (`nome`, `cidade_id`) VALUES ('Caverazinho', 4330);
-INSERT INTO `portfolio`.`bairro` (`nome`, `cidade_id`) VALUES ('Urussanguinha', 4330);
+INSERT INTO `bairro` (`nome`, `cidade_id`) VALUES ('Mato Alto', 4330);
+INSERT INTO `bairro` (`nome`, `cidade_id`) VALUES ('Cidade Alta', 4330);
+INSERT INTO `bairro` (`nome`, `cidade_id`) VALUES ('Centro', 4330);
+INSERT INTO `bairro` (`nome`, `cidade_id`) VALUES ('Caverazinho', 4330);
+INSERT INTO `bairro` (`nome`, `cidade_id`) VALUES ('Urussanguinha', 4330);
 
 
 CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `bairro_view` AS SELECT * FROM bairro WHERE deleted = false ;

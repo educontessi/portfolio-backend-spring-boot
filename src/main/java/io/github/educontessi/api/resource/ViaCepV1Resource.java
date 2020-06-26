@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.github.educontessi.api.dataconverter.ViaCepV1DataConverter;
+import io.github.educontessi.api.dto.ViaCepV1Dto;
 import io.github.educontessi.domain.model.ViaCepResposta;
 import io.github.educontessi.domain.service.ViaCepService;
 
@@ -18,15 +20,21 @@ import io.github.educontessi.domain.service.ViaCepService;
  */
 @RestController
 @RequestMapping("/v1/busca-cep")
-public class ViaCepV1Resource {
+public class ViaCepV1Resource extends BaseResource {
+
+	private ViaCepService service;
+	private ViaCepV1DataConverter converter;
 
 	@Autowired
-	private ViaCepService service;
+	public ViaCepV1Resource(ViaCepService service, ViaCepV1DataConverter converter) {
+		this.service = service;
+		this.converter = converter;
+	}
 
 	@GetMapping("/{cep}")
-	public ResponseEntity<ViaCepResposta> findById(@PathVariable String cep) {
+	public ResponseEntity<ViaCepV1Dto> findById(@PathVariable String cep) {
 		ViaCepResposta entity = service.buscaEnderecoPorCep(cep);
-		return (entity != null && entity.isValid()) ? ResponseEntity.ok(entity) : ResponseEntity.notFound().build();
+		return ResponseEntity.ok(converter.convertToDto(entity));
 	}
 
 }
