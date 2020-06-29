@@ -14,6 +14,6 @@ import io.github.educontessi.domain.model.Pais;
  */
 public interface PaisRepositoryQuery {
 
-	public Page<Pais> filtrar(PaisFilter filter, Pageable pageable);
+	public Page<Pais> search(PaisFilter filter, Pageable pageable);
 
 }

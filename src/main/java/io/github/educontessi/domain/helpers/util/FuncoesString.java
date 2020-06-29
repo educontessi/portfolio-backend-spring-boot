@@ -45,28 +45,31 @@ public class FuncoesString {
 	 */
 	public static String formatarNome(String nome) {
 		StringBuilder builder = new StringBuilder();
-		try {
-			nome = nome.toLowerCase().trim();
-			nome = nome.replaceAll("\\s+", " ");
-			String[] palavras = nome.split(" ");
+		if (nome != null) {
+			try {
+				nome = nome.toLowerCase().trim();
+				nome = nome.replaceAll("\\s+", " ");
+				String[] palavras = nome.split(" ");
 
-			for (String palavra : palavras) {
+				for (String palavra : palavras) {
 
-				String[] palavrasDMudo = palavra.split("'"); // D'Oeste / D'Água
-				if (palavrasDMudo.length == 1) {
-					builder.append(verificaPreposicaoNome(palavra) ? palavra : StringUtils.capitalize(palavra))
-							.append(" ");
-				} else if (palavrasDMudo.length == 2) {
-					builder.append(StringUtils.capitalize(palavrasDMudo[0])).append("'");
-					builder.append(StringUtils.capitalize(palavrasDMudo[1]));
-				} else {
-					throw new Exception("Nome Inválido");
+					String[] palavrasDMudo = palavra.split("'"); // D'Oeste / D'Água
+					if (palavrasDMudo.length == 1) {
+						builder.append(verificaPreposicaoNome(palavra) ? palavra : StringUtils.capitalize(palavra))
+								.append(" ");
+					} else if (palavrasDMudo.length == 2) {
+						builder.append(StringUtils.capitalize(palavrasDMudo[0])).append("'");
+						builder.append(StringUtils.capitalize(palavrasDMudo[1]));
+					} else {
+						throw new Exception("Nome Inválido");
+					}
 				}
+				return builder.toString().trim();
+			} catch (Exception e) {
+				throw new RuntimeException(e);
 			}
-			return builder.toString().trim();
-		} catch (Exception e) {
-			throw new RuntimeException(e);
 		}
+		return nome;
 	}
 
 	private static boolean verificaPreposicaoNome(String palavra) {

@@ -31,7 +31,7 @@ public class PaisRepositoryImpl implements PaisRepositoryQuery {
 	private EntityManager manager;
 
 	@Override
-	public Page<Pais> filtrar(PaisFilter filter, Pageable pageable) {
+	public Page<Pais> search(PaisFilter filter, Pageable pageable) {
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
 		CriteriaQuery<Pais> criteria = builder.createQuery(Pais.class);
 		Root<Pais> root = criteria.from(Pais.class);

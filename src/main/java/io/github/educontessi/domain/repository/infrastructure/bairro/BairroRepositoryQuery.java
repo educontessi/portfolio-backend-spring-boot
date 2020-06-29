@@ -14,6 +14,6 @@ import io.github.educontessi.domain.model.Bairro;
  */
 public interface BairroRepositoryQuery {
 
-	public Page<Bairro> filtrar(BairroFilter filter, Pageable pageable);
+	public Page<Bairro> search(BairroFilter filter, Pageable pageable);
 
 }

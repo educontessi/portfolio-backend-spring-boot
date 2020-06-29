@@ -1,6 +1,8 @@
 package io.github.educontessi.domain.service;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
@@ -44,10 +46,34 @@ public class PaisServiceTest {
 	}
 
 	@Test
-	public void deveAtualizarPais() {
+	public void deveListarTodos() {
 		// Arranjos
 		PaisService serviceSpy = Mockito.spy(service);
-		Pais entity = getPais();
+
+		// Execução
+		serviceSpy.findAll();
+
+		// Resultados
+		verify(repository, times(1)).findAll();
+	}
+
+	@Test
+	public void deveLPesquisar() {
+		// Arranjos
+		PaisService serviceSpy = Mockito.spy(service);
+
+		// Execução
+		serviceSpy.search(any(), any());
+
+		// Resultados
+		verify(repository, times(1)).search(any(), any());
+	}
+
+	@Test
+	public void deveAtualizarPais() {
+		// Arranjos
+		// PaisService serviceSpy = Mockito.spy(service);
+		// Pais entity = getPais();
 
 		// Execução
 		// serviceSpy.update(this.id, entity);

@@ -31,7 +31,7 @@ public class BairroRepositoryImpl implements BairroRepositoryQuery {
 	private EntityManager manager;
 
 	@Override
-	public Page<Bairro> filtrar(BairroFilter filter, Pageable pageable) {
+	public Page<Bairro> search(BairroFilter filter, Pageable pageable) {
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
 		CriteriaQuery<Bairro> criteria = builder.createQuery(Bairro.class);
 		Root<Bairro> root = criteria.from(Bairro.class);

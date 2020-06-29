@@ -41,8 +41,8 @@ public class CidadeService {
 		return repository.findAll();
 	}
 
-	public Page<Cidade> pesquisar(CidadeFilter filter, Pageable pageable) {
-		return repository.filtrar(filter, pageable);
+	public Page<Cidade> search(CidadeFilter filter, Pageable pageable) {
+		return repository.search(filter, pageable);
 	}
 
 	public Cidade findById(Long id) {

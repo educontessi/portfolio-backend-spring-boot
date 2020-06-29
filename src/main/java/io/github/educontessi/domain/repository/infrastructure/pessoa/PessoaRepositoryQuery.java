@@ -14,6 +14,6 @@ import io.github.educontessi.domain.model.Pessoa;
  */
 public interface PessoaRepositoryQuery {
 
-	public Page<Pessoa> filtrar(PessoaFilter filter, Pageable pageable);
+	public Page<Pessoa> search(PessoaFilter filter, Pageable pageable);
 
 }

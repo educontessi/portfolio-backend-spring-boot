@@ -14,6 +14,6 @@ import io.github.educontessi.domain.model.Rua;
  */
 public interface RuaRepositoryQuery {
 
-	public Page<Rua> filtrar(RuaFilter filter, Pageable pageable);
+	public Page<Rua> search(RuaFilter filter, Pageable pageable);
 
 }

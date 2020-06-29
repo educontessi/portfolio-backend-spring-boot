@@ -15,6 +15,7 @@ public class RuaV1DataConverter extends DataConverter<Rua, RuaV1Dto> {
 	public void copyToEntity(Rua entity, RuaV1Dto dto) {
 		BeanUtils.copyProperties(dto, entity, getIgnoreProperties());
 		entity.setCidadeId(getIdOrNull(dto.getCidade()));
+		isValid(entity);
 	}
 
 	@Override

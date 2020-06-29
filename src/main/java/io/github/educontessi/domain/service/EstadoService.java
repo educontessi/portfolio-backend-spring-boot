@@ -40,8 +40,8 @@ public class EstadoService {
 		return repository.findAll();
 	}
 
-	public Page<Estado> pesquisar(EstadoFilter filter, Pageable pageable) {
-		return repository.filtrar(filter, pageable);
+	public Page<Estado> search(EstadoFilter filter, Pageable pageable) {
+		return repository.search(filter, pageable);
 	}
 
 	public Estado findById(Long id) {

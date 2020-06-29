@@ -31,7 +31,7 @@ public class CidadeRepositoryImpl implements CidadeRepositoryQuery {
 	private EntityManager manager;
 
 	@Override
-	public Page<Cidade> filtrar(CidadeFilter filter, Pageable pageable) {
+	public Page<Cidade> search(CidadeFilter filter, Pageable pageable) {
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
 		CriteriaQuery<Cidade> criteria = builder.createQuery(Cidade.class);
 		Root<Cidade> root = criteria.from(Cidade.class);

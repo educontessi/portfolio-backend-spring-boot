@@ -31,7 +31,7 @@ public class EstadoRepositoryImpl implements EstadoRepositoryQuery {
 	private EntityManager manager;
 
 	@Override
-	public Page<Estado> filtrar(EstadoFilter filter, Pageable pageable) {
+	public Page<Estado> search(EstadoFilter filter, Pageable pageable) {
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
 		CriteriaQuery<Estado> criteria = builder.createQuery(Estado.class);
 		Root<Estado> root = criteria.from(Estado.class);

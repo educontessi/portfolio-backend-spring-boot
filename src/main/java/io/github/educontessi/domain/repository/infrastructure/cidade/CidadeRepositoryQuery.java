@@ -14,6 +14,6 @@ import io.github.educontessi.domain.model.Cidade;
  */
 public interface CidadeRepositoryQuery {
 
-	public Page<Cidade> filtrar(CidadeFilter filter, Pageable pageable);
+	public Page<Cidade> search(CidadeFilter filter, Pageable pageable);
 
 }

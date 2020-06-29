@@ -40,8 +40,8 @@ public class BairroService {
 		return repository.findAll();
 	}
 
-	public Page<Bairro> pesquisar(BairroFilter filter, Pageable pageable) {
-		return repository.filtrar(filter, pageable);
+	public Page<Bairro> search(BairroFilter filter, Pageable pageable) {
+		return repository.search(filter, pageable);
 	}
 
 	public Bairro findById(Long id) {

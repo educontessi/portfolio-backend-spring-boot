@@ -19,6 +19,7 @@ public class PessoaV1DataConverter extends DataConverter<Pessoa, PessoaV1Dto> {
 		entity.setRuaId(getIdOrNull(dto.getRua()));
 		entity.setBairroId(getIdOrNull(dto.getBairro()));
 		entity.setCidadeId(getIdOrNull(dto.getCidade()));
+		isValid(entity);
 	}
 
 	@Override

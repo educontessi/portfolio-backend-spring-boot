@@ -15,6 +15,7 @@ public class BairroV1DataConverter extends DataConverter<Bairro, BairroV1Dto> {
 	public void copyToEntity(Bairro entity, BairroV1Dto dto) {
 		BeanUtils.copyProperties(dto, entity, getIgnoreProperties());
 		entity.setCidadeId(getIdOrNull(dto.getCidade()));
+		isValid(entity);
 	}
 
 	@Override

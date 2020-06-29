@@ -2,8 +2,15 @@ package io.github.educontessi.api.dataconverter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 import io.github.educontessi.api.dto.BaseDto;
+import io.github.educontessi.domain.exception.negocio.DtoInvalidoException;
 import io.github.educontessi.domain.model.BaseEntity;
 
 public abstract class DataConverter<E extends BaseEntity, D extends BaseDto> {
@@ -37,5 +44,19 @@ public abstract class DataConverter<E extends BaseEntity, D extends BaseDto> {
 		list.add("deletedDate");
 
 		return (String[]) list.toArray(new String[0]);
+	}
+
+	protected void isValid(E entity) {
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		Validator validator = factory.getValidator();
+		Set<ConstraintViolation<E>> violacoes = validator.validate(entity);
+		if (!violacoes.isEmpty()) {
+			StringBuilder builder = new StringBuilder();
+			for (ConstraintViolation<E> violacao : violacoes) {
+				builder.append("|");
+				builder.append(violacao.getMessage().replace("{0}", violacao.getPropertyPath().toString()));
+			}
+			throw new DtoInvalidoException(builder);
+		}
 	}
 }

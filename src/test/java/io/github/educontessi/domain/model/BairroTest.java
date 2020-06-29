@@ -58,6 +58,7 @@ public class BairroTest {
 	public void deveRetornarViolacoesParaTamanhosMinimosDeCamposObrigatorios() {
 		// Arranjos
 		Bairro bairro = new Bairro();
+		bairro.setId(1L);
 		bairro.setNome("BR"); // MINIMO 3
 		bairro.setCidadeId(1L);
 

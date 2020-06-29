@@ -2,7 +2,6 @@ package io.github.educontessi.domain.service;
 
 import static io.github.educontessi.domain.helpers.util.FuncoesString.removeMascaraDeNumeros;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -43,8 +42,8 @@ public class PessoaService {
 		return repository.findAll();
 	}
 
-	public Page<Pessoa> pesquisar(PessoaFilter pessoaFilter, Pageable pageable) {
-		return repository.filtrar(pessoaFilter, pageable);
+	public Page<Pessoa> search(PessoaFilter pessoaFilter, Pageable pageable) {
+		return repository.search(pessoaFilter, pageable);
 	}
 
 	public Pessoa findById(Long id) {
@@ -104,16 +103,6 @@ public class PessoaService {
 		executor.add(deleteValidator);
 
 		executor.execute();
-	}
-
-	protected String[] getIgnoreProperties() {
-		List<String> list = new ArrayList<>();
-		list.add("id");
-		list.add("rua");
-		list.add("bairro");
-		list.add("cidade");
-
-		return (String[]) list.toArray(new String[0]);
 	}
 
 }

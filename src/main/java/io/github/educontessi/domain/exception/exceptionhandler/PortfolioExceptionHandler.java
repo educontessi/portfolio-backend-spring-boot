@@ -1,10 +1,8 @@
-package io.github.educontessi.domain.helpers.exceptionhandler;
+package io.github.educontessi.domain.exception.exceptionhandler;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import javax.validation.ConstraintViolationException;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +22,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import io.github.educontessi.domain.exception.negocio.DtoInvalidoException;
 import io.github.educontessi.domain.exception.negocio.EntidadeEmUsoException;
 import io.github.educontessi.domain.exception.negocio.EntidadeNaoEncontradaException;
 
@@ -51,7 +50,7 @@ public class PortfolioExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-			HttpHeaders headers, HttpStatus status, WebRequest request) {
+			HttpHeaders headers, HttpStatus status, WebRequest request) { // Exception usada quando não utiliza dto
 
 		List<Erro> erros = criarListaDeErros(ex.getBindingResult());
 		return handleExceptionInternal(ex, erros, headers, HttpStatus.BAD_REQUEST, request);
@@ -94,10 +93,9 @@ public class PortfolioExceptionHandler extends ResponseEntityExceptionHandler {
 		return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
 	}
 
-	@ExceptionHandler({ ConstraintViolationException.class })
-	public ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException ex,
-			WebRequest request) {
-		String mensagemUsuario = ex.getMessage(); // TODO ajustar para mostrar uma mensagem mais amigavel
+	@ExceptionHandler({ DtoInvalidoException.class })
+	public ResponseEntity<Object> handleEntidadeValidaException(DtoInvalidoException ex, WebRequest request) {
+		String mensagemUsuario = ex.getMessage(); // Exception usada quando utiliza dto
 		String mensagemDesenvolvedor = ExceptionUtils.getRootCauseMessage(ex);
 		List<Erro> erros = Arrays.asList(new Erro(mensagemUsuario, mensagemDesenvolvedor));
 		return handleExceptionInternal(ex, erros, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);

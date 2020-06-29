@@ -15,6 +15,7 @@ public class CidadeV1DataConverter extends DataConverter<Cidade, CidadeV1Dto> {
 	public void copyToEntity(Cidade entity, CidadeV1Dto dto) {
 		BeanUtils.copyProperties(dto, entity, getIgnoreProperties());
 		entity.setEstadoId(getIdOrNull(dto.getEstado()));
+		isValid(entity);
 	}
 
 	@Override

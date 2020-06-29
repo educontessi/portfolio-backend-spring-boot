@@ -29,19 +29,15 @@ import io.github.educontessi.domain.service.validator.ValidatorExecutor;
 @Service
 public class PaisService {
 
-	private final PaisRepository repository;
-
 	@Autowired
-	public PaisService(PaisRepository repository) {
-		this.repository = repository;
-	}
+	private PaisRepository repository;
 
 	public List<Pais> findAll() {
 		return repository.findAll();
 	}
 
-	public Page<Pais> pesquisar(PaisFilter filter, Pageable pageable) {
-		return repository.filtrar(filter, pageable);
+	public Page<Pais> search(PaisFilter filter, Pageable pageable) {
+		return repository.search(filter, pageable);
 	}
 
 	public Pais findById(Long id) {

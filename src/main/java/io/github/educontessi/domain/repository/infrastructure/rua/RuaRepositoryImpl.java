@@ -31,7 +31,7 @@ public class RuaRepositoryImpl implements RuaRepositoryQuery {
 	private EntityManager manager;
 
 	@Override
-	public Page<Rua> filtrar(RuaFilter filter, Pageable pageable) {
+	public Page<Rua> search(RuaFilter filter, Pageable pageable) {
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
 		CriteriaQuery<Rua> criteria = builder.createQuery(Rua.class);
 		Root<Rua> root = criteria.from(Rua.class);

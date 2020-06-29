@@ -72,8 +72,8 @@ public class BairroV1Resource extends BaseResource {
 			@ApiResponse(code = 401, message = "Você não está autorizado a visualizar o recurso"),
 			@ApiResponse(code = 403, message = "É proibido acessar o recurso que você está tentando acessar"),
 			@ApiResponse(code = 500, message = "O aplicativo servidor falhou ao processar a solicitação") })
-	public Page<BairroV1Dto> pesquisar(BairroFilter filter, Pageable pageable, String expandir) {
-		Page<Bairro> lista = service.pesquisar(filter, pageable);
+	public Page<BairroV1Dto> search(BairroFilter filter, Pageable pageable, String expandir) {
+		Page<Bairro> lista = service.search(filter, pageable);
 		Page<BairroV1Dto> listaDto = new PageImpl<>(
 				lista.getContent().stream().map(x -> converter.convertToDto(x, expandir)).collect(Collectors.toList()),
 				lista.getPageable(), lista.getTotalElements());

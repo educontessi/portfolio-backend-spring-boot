@@ -14,6 +14,6 @@ import io.github.educontessi.domain.model.Estado;
  */
 public interface EstadoRepositoryQuery {
 
-	public Page<Estado> filtrar(EstadoFilter filter, Pageable pageable);
+	public Page<Estado> search(EstadoFilter filter, Pageable pageable);
 
 }

@@ -31,7 +31,7 @@ public class PessoaRepositoryImpl implements PessoaRepositoryQuery {
 	private EntityManager manager;
 
 	@Override
-	public Page<Pessoa> filtrar(PessoaFilter filter, Pageable pageable) {
+	public Page<Pessoa> search(PessoaFilter filter, Pageable pageable) {
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
 		CriteriaQuery<Pessoa> criteria = builder.createQuery(Pessoa.class);
 		Root<Pessoa> root = criteria.from(Pessoa.class);

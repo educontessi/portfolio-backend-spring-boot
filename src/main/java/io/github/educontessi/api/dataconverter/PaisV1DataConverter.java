@@ -12,6 +12,7 @@ public class PaisV1DataConverter extends DataConverter<Pais, PaisV1Dto> {
 	@Override
 	public void copyToEntity(Pais entity, PaisV1Dto dto) {
 		BeanUtils.copyProperties(dto, entity, getIgnoreProperties());
+		isValid(entity);
 	}
 
 	@Override

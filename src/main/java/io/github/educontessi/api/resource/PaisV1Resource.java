@@ -73,8 +73,8 @@ public class PaisV1Resource extends BaseResource {
 			@ApiResponse(code = 401, message = "Você não está autorizado a visualizar o recurso"),
 			@ApiResponse(code = 403, message = "É proibido acessar o recurso que você está tentando acessar"),
 			@ApiResponse(code = 500, message = "O aplicativo servidor falhou ao processar a solicitação") })
-	public Page<PaisV1Dto> pesquisar(PaisFilter filter, Pageable pageable) {
-		Page<Pais> lista = service.pesquisar(filter, pageable);
+	public Page<PaisV1Dto> search(PaisFilter filter, Pageable pageable) {
+		Page<Pais> lista = service.search(filter, pageable);
 		Page<PaisV1Dto> listaDto = new PageImpl<>(
 				lista.getContent().stream().map(x -> converter.convertToDto(x)).collect(Collectors.toList()),
 				lista.getPageable(), lista.getTotalElements());

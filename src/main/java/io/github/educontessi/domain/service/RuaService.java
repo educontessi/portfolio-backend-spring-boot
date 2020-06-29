@@ -40,8 +40,8 @@ public class RuaService {
 		return repository.findAll();
 	}
 
-	public Page<Rua> pesquisar(RuaFilter filter, Pageable pageable) {
-		return repository.filtrar(filter, pageable);
+	public Page<Rua> search(RuaFilter filter, Pageable pageable) {
+		return repository.search(filter, pageable);
 	}
 
 	public Rua findById(Long id) {

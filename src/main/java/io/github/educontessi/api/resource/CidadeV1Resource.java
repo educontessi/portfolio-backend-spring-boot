@@ -72,8 +72,8 @@ public class CidadeV1Resource extends BaseResource {
 			@ApiResponse(code = 401, message = "Você não está autorizado a visualizar o recurso"),
 			@ApiResponse(code = 403, message = "É proibido acessar o recurso que você está tentando acessar"),
 			@ApiResponse(code = 500, message = "O aplicativo servidor falhou ao processar a solicitação") })
-	public Page<CidadeV1Dto> pesquisar(CidadeFilter filter, Pageable pageable, String expandir) {
-		Page<Cidade> lista = service.pesquisar(filter, pageable);
+	public Page<CidadeV1Dto> search(CidadeFilter filter, Pageable pageable, String expandir) {
+		Page<Cidade> lista = service.search(filter, pageable);
 		Page<CidadeV1Dto> listaDto = new PageImpl<>(
 				lista.getContent().stream().map(x -> converter.convertToDto(x, expandir)).collect(Collectors.toList()),
 				lista.getPageable(), lista.getTotalElements());

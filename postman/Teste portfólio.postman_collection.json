@@ -69,7 +69,7 @@
 					"response": []
 				},
 				{
-					"name": "pesquisar",
+					"name": "search",
 					"event": [
 						{
 							"listen": "test",
@@ -472,7 +472,7 @@
 					"response": []
 				},
 				{
-					"name": "pesquisar",
+					"name": "search",
 					"event": [
 						{
 							"listen": "test",
@@ -1041,7 +1041,7 @@
 					"response": []
 				},
 				{
-					"name": "pesquisar",
+					"name": "search",
 					"event": [
 						{
 							"listen": "test",
@@ -1605,7 +1605,7 @@
 					"response": []
 				},
 				{
-					"name": "pesquisar",
+					"name": "search",
 					"event": [
 						{
 							"listen": "test",
@@ -2105,7 +2105,7 @@
 					"response": []
 				},
 				{
-					"name": "pesquisar",
+					"name": "search",
 					"event": [
 						{
 							"listen": "test",
@@ -2697,7 +2697,7 @@
 					"response": []
 				},
 				{
-					"name": "pesquisar",
+					"name": "search",
 					"event": [
 						{
 							"listen": "test",

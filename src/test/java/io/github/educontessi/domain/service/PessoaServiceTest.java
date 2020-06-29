@@ -1,8 +1,5 @@
 package io.github.educontessi.domain.service;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
@@ -56,7 +53,7 @@ public class PessoaServiceTest {
 		// Arranjos
 		PessoaService serviceSpy = Mockito.spy(service);
 		Optional<Pessoa> optional = getPessoa();
-		Pessoa entity = optional.get();
+		// Pessoa entity = optional.get();
 		doReturn(optional).when(serviceSpy).findById(this.id);
 
 		// Execução
@@ -65,23 +62,6 @@ public class PessoaServiceTest {
 		// Resultados
 		// verify(serviceSpy, times(1)).update(this.id, entity);
 		verify(serviceSpy, times(1)).findById(this.id);
-	}
-
-	@Test
-	public void deveRetornarArrayComPropriedadesIgnoradas() {
-		// Arranjos
-		PessoaService serviceSpy = Mockito.spy(service);
-		String[] propriedadesIgnoradas = null;
-		String[] resultadoEsperado = { "id", "rua", "bairro", "cidade" };
-
-		// Execução
-		propriedadesIgnoradas = serviceSpy.getIgnoreProperties();
-
-		// Resultados
-		verify(serviceSpy, times(1)).getIgnoreProperties();
-		assertNotNull(propriedadesIgnoradas);
-		assertEquals(4, propriedadesIgnoradas.length);
-		assertArrayEquals(resultadoEsperado, propriedadesIgnoradas);
 	}
 
 	private Optional<Pessoa> getPessoa() {
