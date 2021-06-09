@@ -54,7 +54,7 @@ public class SwaggerConfig {
 	}
 
 	private List<Tag> getTags() {
-		List<Tag> tags = new ArrayList<Tag>();
+		List<Tag> tags = new ArrayList<>();
 
 		tags.add(new Tag("bairro-v-1-resource", "Gerencia os bairros"));
 		tags.add(new Tag("cidade-v-1-resource", "Gerencia as cidades"));
