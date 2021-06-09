@@ -1,14 +1,12 @@
 package io.github.educontessi;
 
-import java.util.TimeZone;
-
-import javax.annotation.PostConstruct;
-
+import io.github.educontessi.core.config.swagger.SwaggerConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-import io.github.educontessi.core.config.swagger.SwaggerConfig;
+import javax.annotation.PostConstruct;
+import java.util.TimeZone;
 
 /**
  * Main Application

@@ -1,7 +1,11 @@
 package io.github.educontessi.domain.repository.infrastructure.rua;
 
-import java.util.ArrayList;
-import java.util.List;
+import io.github.educontessi.domain.filter.RuaFilter;
+import io.github.educontessi.domain.model.Rua;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -10,14 +14,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
-import org.springframework.util.StringUtils;
-
-import io.github.educontessi.domain.filter.RuaFilter;
-import io.github.educontessi.domain.model.Rua;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Implementação da interface {@link RuaRepositoryQuery}
@@ -49,7 +47,7 @@ public class RuaRepositoryImpl implements RuaRepositoryQuery {
 		List<Predicate> predicates = new ArrayList<>();
 
 		if (!StringUtils.isEmpty(filter.getNome())) {
-			predicates.add(builder.like(root.get(RuaFilter.NOME), "%" + filter.getNome().toLowerCase() + "%"));
+			predicates.add(builder.like(root.get(RuaFilter.COLUNA_NOME), "%" + filter.getNome().toLowerCase() + "%"));
 		}
 
 		return predicates.toArray(new Predicate[predicates.size()]);

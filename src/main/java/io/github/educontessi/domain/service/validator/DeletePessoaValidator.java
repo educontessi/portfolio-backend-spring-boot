@@ -1,8 +1,7 @@
 package io.github.educontessi.domain.service.validator;
 
-import org.springframework.stereotype.Service;
-
 import io.github.educontessi.domain.model.Pessoa;
+import org.springframework.stereotype.Service;
 
 @Service
 public class DeletePessoaValidator implements Validator {

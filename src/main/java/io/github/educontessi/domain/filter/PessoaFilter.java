@@ -1,10 +1,11 @@
 package io.github.educontessi.domain.filter;
 
-import java.time.LocalDate;
-
+import io.github.educontessi.domain.model.Pessoa;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import io.github.educontessi.domain.model.Pessoa;
+import java.time.LocalDate;
+
+import static io.github.educontessi.domain.helpers.util.FuncoesString.removeMascaraDeNumeros;
 
 /**
  * Classe usada para filtro de {@link Pessoa}
@@ -14,9 +15,9 @@ import io.github.educontessi.domain.model.Pessoa;
  */
 public class PessoaFilter {
 
-	public static final String NOME_RAZAO = "nomeRazao";
-	public static final String CPF_CNPJ = "cpfCnpj";
-	public static final String DATA_NASCIMENTO = "dataNascimento";
+	public static final String COLUNA_NOME_RAZAO = "nomeRazao";
+	public static final String COLUNA_CPF_CNPJ = "cpfCnpj";
+	public static final String COLUNA_DATA_NASCIMENTO = "dataNascimento";
 
 	private String nomeRazao;
 	private String cpfCnpj;
@@ -37,7 +38,7 @@ public class PessoaFilter {
 	}
 
 	public void setCpfCnpj(String cpfCnpj) {
-		this.cpfCnpj = cpfCnpj;
+		this.cpfCnpj = removeMascaraDeNumeros(cpfCnpj);
 	}
 
 	public LocalDate getDataNascimento() {

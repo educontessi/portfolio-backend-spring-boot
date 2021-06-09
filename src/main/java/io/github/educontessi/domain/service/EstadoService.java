@@ -1,9 +1,13 @@
 package io.github.educontessi.domain.service;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-
+import io.github.educontessi.domain.exception.negocio.EntidadeEmUsoException;
+import io.github.educontessi.domain.exception.negocio.EntidadeNaoEncontradaException;
+import io.github.educontessi.domain.filter.EstadoFilter;
+import io.github.educontessi.domain.model.Estado;
+import io.github.educontessi.domain.parametros_do_sistema.Parametros;
+import io.github.educontessi.domain.repository.EstadoRepository;
+import io.github.educontessi.domain.service.validator.DeleteEstadoValidator;
+import io.github.educontessi.domain.service.validator.ValidatorExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -11,14 +15,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import io.github.educontessi.domain.exception.EstadoEmUsoException;
-import io.github.educontessi.domain.exception.EstadoNaoEncontradoException;
-import io.github.educontessi.domain.filter.EstadoFilter;
-import io.github.educontessi.domain.helpers.util.LoadProperties;
-import io.github.educontessi.domain.model.Estado;
-import io.github.educontessi.domain.repository.EstadoRepository;
-import io.github.educontessi.domain.service.validator.DeleteEstadoValidator;
-import io.github.educontessi.domain.service.validator.ValidatorExecutor;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Service para {@link Estado}
@@ -47,7 +46,7 @@ public class EstadoService {
 	public Estado findById(Long id) {
 		Optional<Estado> optionalSaved = repository.findById(id);
 		if (!optionalSaved.isPresent()) {
-			throw new EstadoNaoEncontradoException(id);
+			throw new EntidadeNaoEncontradaException(id);
 		}
 		return optionalSaved.get();
 	}
@@ -59,19 +58,18 @@ public class EstadoService {
 	public Estado findByUf(String uf) {
 		Optional<Estado> optionalSaved = repository.findByUf(uf);
 		if (!optionalSaved.isPresent()) {
-			throw new EstadoNaoEncontradoException(String.format("Não existe um cadastro de estado com UF %d", uf));
+			throw new EntidadeNaoEncontradaException(String.format("Não existe um cadastro de estado com UF %s", uf));
 		}
 		return optionalSaved.get();
 	}
 
 	public Estado save(Estado entity) {
-		Objects.requireNonNull(entity, "entity nao pode ser null");
+		Objects.requireNonNull(entity, "entity não pode ser null");
 		return repository.save(entity);
 	}
 
 	public void delete(Long id) {
-		boolean excluirDefinitivo = Boolean.valueOf(LoadProperties.getProperty("portifolio.excluir-definitivo"));
-		if (excluirDefinitivo) {
+		if (Parametros.EXCLUIR_DEFINITIVO) {
 			definitiveDelete(id);
 		} else {
 			paranoidDelete(id);
@@ -83,10 +81,10 @@ public class EstadoService {
 			repository.deleteById(id);
 			repository.flush();
 		} catch (EmptyResultDataAccessException e) {
-			throw new EstadoNaoEncontradoException(id);
+			throw new EntidadeNaoEncontradaException(id);
 
 		} catch (DataIntegrityViolationException e) {
-			throw new EstadoEmUsoException(id);
+			throw new EntidadeEmUsoException(id);
 		}
 	}
 
@@ -94,7 +92,7 @@ public class EstadoService {
 		Estado saved = findById(id);
 		validarExclusao(saved);
 		saved.setDeleted(true);
-		save(saved);
+		repository.save(saved);
 	}
 
 	protected void validarExclusao(Estado saved) {

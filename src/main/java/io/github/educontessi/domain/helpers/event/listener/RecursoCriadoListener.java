@@ -1,14 +1,12 @@
 package io.github.educontessi.domain.helpers.event.listener;
 
-import java.net.URI;
-
-import javax.servlet.http.HttpServletResponse;
-
+import io.github.educontessi.domain.helpers.event.RecursoCriadoEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import io.github.educontessi.domain.helpers.event.RecursoCriadoEvent;
+import javax.servlet.http.HttpServletResponse;
+import java.net.URI;
 
 /**
  * ApplicationListener para o {@link RecursoCriadoEvent} usado para adicionar o

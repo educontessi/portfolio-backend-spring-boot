@@ -1,18 +1,15 @@
 package io.github.educontessi.domain.model;
 
-import static io.github.educontessi.domain.helpers.util.FuncoesString.formatarNome;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import static io.github.educontessi.domain.helpers.util.FuncoesString.formatarNome;
+
 /**
- * Entidade {@link Pais} para manipiular tabela de países
+ * Entidade {@link Pais} para manipular tabela de países
  * 
  * @author Eduardo Possamai Contessi
  *
@@ -20,10 +17,6 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "pais_view")
 public class Pais extends BaseEntity {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
 
 	@NotNull
 	@Size(min = 3, max = 100)
@@ -39,14 +32,6 @@ public class Pais extends BaseEntity {
 	@Size(min = 2, max = 10)
 	@Column(name = "bacen")
 	private String bacen;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getNome() {
 		return nome;

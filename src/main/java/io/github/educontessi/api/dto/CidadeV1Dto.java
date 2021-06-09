@@ -1,6 +1,7 @@
 package io.github.educontessi.api.dto;
 
 import io.github.educontessi.domain.model.Cidade;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * Data Transfer Object {@link Cidade}
@@ -8,10 +9,14 @@ import io.github.educontessi.domain.model.Cidade;
  * @author Eduardo Possamai Contessi
  *
  */
+@JsonIgnoreProperties(value = { "created", "changed" })
 public class CidadeV1Dto extends BaseDto {
 
 	private String nome;
+
+	private Long estadoId;
 	private EstadoV1Dto estado;
+
 	private Integer ibge;
 
 	public CidadeV1Dto() {
@@ -40,6 +45,14 @@ public class CidadeV1Dto extends BaseDto {
 
 	public void setIbge(Integer ibge) {
 		this.ibge = ibge;
+	}
+
+	public Long getEstadoId() {
+		return estadoId;
+	}
+
+	public void setEstadoId(Long estadoId) {
+		this.estadoId = estadoId;
 	}
 
 }

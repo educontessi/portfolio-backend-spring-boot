@@ -1,14 +1,13 @@
 package io.github.educontessi.domain.service.validator;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import io.github.educontessi.domain.exception.EstadoEmUsoException;
+import io.github.educontessi.domain.exception.negocio.EntidadeEmUsoException;
 import io.github.educontessi.domain.model.Cidade;
 import io.github.educontessi.domain.model.Estado;
 import io.github.educontessi.domain.repository.CidadeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class DeleteEstadoValidator implements Validator {
@@ -21,8 +20,8 @@ public class DeleteEstadoValidator implements Validator {
 	@Override
 	public void validate() {
 		List<Cidade> cidades = cidadeRepository.findByEstadoId(estado.getId());
-		if (cidades.size() > 0) {
-			throw new EstadoEmUsoException(estado.getId());
+		if (!cidades.isEmpty()) {
+			throw new EntidadeEmUsoException(estado.getId());
 		}
 	}
 

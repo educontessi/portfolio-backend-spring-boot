@@ -1,10 +1,9 @@
 package io.github.educontessi.api.dataconverter;
 
-import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Component;
-
 import io.github.educontessi.api.dto.PaisV1Dto;
 import io.github.educontessi.domain.model.Pais;
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Component;
 
 @Component
 public class PaisV1DataConverter extends DataConverter<Pais, PaisV1Dto> {

@@ -1,17 +1,16 @@
 package io.github.educontessi.api.dataconverter;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import io.github.educontessi.api.dto.BaseDto;
+import io.github.educontessi.domain.exception.negocio.DtoInvalidoException;
+import io.github.educontessi.domain.model.BaseEntity;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-
-import io.github.educontessi.api.dto.BaseDto;
-import io.github.educontessi.domain.exception.negocio.DtoInvalidoException;
-import io.github.educontessi.domain.model.BaseEntity;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public abstract class DataConverter<E extends BaseEntity, D extends BaseDto> {
 
@@ -36,6 +35,16 @@ public abstract class DataConverter<E extends BaseEntity, D extends BaseDto> {
 		return dto == null ? null : dto.getId();
 	}
 
+	protected Long getIdOrNull(BaseDto dto, Long idPrioritario) {
+		Long retorno = null;
+		if (idPrioritario != null ) {
+			retorno = idPrioritario;
+		} else if(dto != null) {
+			retorno = dto.getId();
+		}
+		return retorno;
+	}
+
 	protected String[] getIgnoreProperties() {
 		List<String> list = new ArrayList<>();
 		list.add("id");
@@ -43,7 +52,7 @@ public abstract class DataConverter<E extends BaseEntity, D extends BaseDto> {
 		list.add("changed");
 		list.add("deletedDate");
 
-		return (String[]) list.toArray(new String[0]);
+		return list.toArray(new String[0]);
 	}
 
 	protected void isValid(E entity) {

@@ -1,13 +1,12 @@
 package io.github.educontessi.domain.repository;
 
-import java.util.List;
-import java.util.Optional;
-
+import io.github.educontessi.domain.model.Estado;
+import io.github.educontessi.domain.repository.infrastructure.estado.EstadoRepositoryQuery;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import io.github.educontessi.domain.model.Estado;
-import io.github.educontessi.domain.repository.infrastructure.estado.EstadoRepositoryQuery;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Repository para {@link Estado}
@@ -18,8 +17,8 @@ import io.github.educontessi.domain.repository.infrastructure.estado.EstadoRepos
 @Repository
 public interface EstadoRepository extends JpaRepository<Estado, Long>, EstadoRepositoryQuery {
 
-	public Optional<Estado> findByUf(String uf);
+	Optional<Estado> findByUf(String uf);
 
-	public List<Estado> findByPaisId(Long paisId);
+	List<Estado> findByPaisId(Long paisId);
 
 }

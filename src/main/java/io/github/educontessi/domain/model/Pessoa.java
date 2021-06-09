@@ -1,36 +1,21 @@
 package io.github.educontessi.domain.model;
 
-import static io.github.educontessi.domain.helpers.util.FuncoesString.adicionaMascara;
-import static io.github.educontessi.domain.helpers.util.FuncoesString.formatarNome;
-import static io.github.educontessi.domain.helpers.util.FuncoesString.removeMascaraDeNumeros;
-
-import java.time.LocalDate;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import io.github.educontessi.domain.annotations.cpfcnpj.CPFCNPJ;
 import io.github.educontessi.domain.enums.Sexo;
-import io.github.educontessi.domain.enums.Status;
+import io.github.educontessi.domain.enums.StatusCadastro;
 import io.github.educontessi.domain.enums.TipoPessoa;
 import io.github.educontessi.domain.helpers.util.TipoMascara;
 
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.time.LocalDate;
+
+import static io.github.educontessi.domain.helpers.util.FuncoesString.*;
+
 /**
- * Entidade {@link Pessoa} para manipiular tabela de pessoas
+ * Entidade {@link Pessoa} para manipular tabela de pessoas
  * 
  * @author Eduardo Possamai Contessi
  *
@@ -39,14 +24,10 @@ import io.github.educontessi.domain.helpers.util.TipoMascara;
 @Table(name = "pessoa_view")
 public class Pessoa extends BaseEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "status")
-	private Status status;
+	private StatusCadastro status;
 
 	@NotNull
 	@Enumerated(EnumType.STRING)
@@ -61,7 +42,6 @@ public class Pessoa extends BaseEntity {
 	@Column(name = "data_cadastro")
 	private LocalDate dataCadastro;
 
-	@NotNull
 	@Column(name = "cpf_cnpj")
 	@CPFCNPJ
 	private String cpfCnpj;
@@ -72,21 +52,21 @@ public class Pessoa extends BaseEntity {
 	@Column(name = "rg_ie")
 	private String rgIe;
 
-	@Column(name = "cidade_id", insertable = true, updatable = true)
+	@Column(name = "cidade_id")
 	private Long cidadeId;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cidade_id", insertable = false, updatable = false)
 	private Cidade cidade;
 
-	@Column(name = "bairro_id", insertable = true, updatable = true)
+	@Column(name = "bairro_id")
 	private Long bairroId;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "bairro_id", insertable = false, updatable = false)
 	private Bairro bairro;
 
-	@Column(name = "rua_id", insertable = true, updatable = true)
+	@Column(name = "rua_id")
 	private Long ruaId;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -140,19 +120,11 @@ public class Pessoa extends BaseEntity {
 	@Column(name = "sexo")
 	private Sexo sexo;
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Status getStatus() {
+	public StatusCadastro getStatus() {
 		return status;
 	}
 
-	public void setStatus(Status status) {
+	public void setStatus(StatusCadastro status) {
 		this.status = status;
 	}
 
@@ -181,7 +153,7 @@ public class Pessoa extends BaseEntity {
 	}
 
 	public String getCpfCnpj() {
-		return adicionaMascara(getTipoMascara(), cpfCnpj);
+		return adicionaMascara(getTipoPessoa(), cpfCnpj);
 	}
 
 	public void setCpfCnpj(String cpfCnpj) {
@@ -218,7 +190,6 @@ public class Pessoa extends BaseEntity {
 
 	public void setCidade(Cidade cidade) {
 		this.cidade = cidade;
-		this.cidadeId = cidade.getId();
 	}
 
 	public Long getBairroId() {
@@ -235,7 +206,6 @@ public class Pessoa extends BaseEntity {
 
 	public void setBairro(Bairro bairro) {
 		this.bairro = bairro;
-		this.bairroId = bairro.getId();
 	}
 
 	public Long getRuaId() {
@@ -252,7 +222,6 @@ public class Pessoa extends BaseEntity {
 
 	public void setRua(Rua rua) {
 		this.rua = rua;
-		this.ruaId = rua.getId();
 	}
 
 	public String getCep() {
@@ -365,11 +334,6 @@ public class Pessoa extends BaseEntity {
 
 	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
-	}
-
-	@JsonIgnore
-	protected TipoMascara getTipoMascara() {
-		return tipoPessoa.equals(TipoPessoa.FISICA) ? TipoMascara.CPF : TipoMascara.CNPJ;
 	}
 
 }

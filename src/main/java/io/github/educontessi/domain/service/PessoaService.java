@@ -1,11 +1,13 @@
 package io.github.educontessi.domain.service;
 
-import static io.github.educontessi.domain.helpers.util.FuncoesString.removeMascaraDeNumeros;
-
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-
+import io.github.educontessi.domain.exception.negocio.EntidadeEmUsoException;
+import io.github.educontessi.domain.exception.negocio.EntidadeNaoEncontradaException;
+import io.github.educontessi.domain.filter.PessoaFilter;
+import io.github.educontessi.domain.model.Pessoa;
+import io.github.educontessi.domain.parametros_do_sistema.Parametros;
+import io.github.educontessi.domain.repository.PessoaRepository;
+import io.github.educontessi.domain.service.validator.DeletePessoaValidator;
+import io.github.educontessi.domain.service.validator.ValidatorExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -13,14 +15,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import io.github.educontessi.domain.exception.PessoaEmUsoException;
-import io.github.educontessi.domain.exception.PessoaNaoEncontradaException;
-import io.github.educontessi.domain.filter.PessoaFilter;
-import io.github.educontessi.domain.helpers.util.LoadProperties;
-import io.github.educontessi.domain.model.Pessoa;
-import io.github.educontessi.domain.repository.PessoaRepository;
-import io.github.educontessi.domain.service.validator.DeletePessoaValidator;
-import io.github.educontessi.domain.service.validator.ValidatorExecutor;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
+import static io.github.educontessi.domain.helpers.util.FuncoesString.removeMascaraDeNumeros;
 
 /**
  * Service para {@link Pessoa}
@@ -49,7 +48,7 @@ public class PessoaService {
 	public Pessoa findById(Long id) {
 		Optional<Pessoa> optionalSaved = repository.findById(id);
 		if (!optionalSaved.isPresent()) {
-			throw new PessoaNaoEncontradaException(id);
+			throw new EntidadeNaoEncontradaException(id);
 		}
 		return optionalSaved.get();
 	}
@@ -57,19 +56,18 @@ public class PessoaService {
 	public Pessoa findByCpfCnpj(String cpfCnpj) {
 		Optional<Pessoa> optionalSaved = repository.findByCpfCnpj(removeMascaraDeNumeros(cpfCnpj));
 		if (!optionalSaved.isPresent()) {
-			throw new PessoaNaoEncontradaException(null, cpfCnpj);
+			throw new EntidadeNaoEncontradaException(String.format("Não existe um cadastro de pessoa com CPF/CNPJ %s", cpfCnpj));
 		}
 		return optionalSaved.get();
 	}
 
 	public Pessoa save(Pessoa entity) {
-		Objects.requireNonNull(entity, "entity nao pode ser null");
+		Objects.requireNonNull(entity, "entity não pode ser null");
 		return repository.save(entity);
 	}
 
 	public void delete(Long id) {
-		boolean excluirDefinitivo = Boolean.valueOf(LoadProperties.getProperty("portifolio.excluir-definitivo"));
-		if (excluirDefinitivo) {
+		if (Parametros.EXCLUIR_DEFINITIVO) {
 			definitiveDelete(id);
 		} else {
 			paranoidDelete(id);
@@ -81,10 +79,10 @@ public class PessoaService {
 			repository.deleteById(id);
 			repository.flush();
 		} catch (EmptyResultDataAccessException e) {
-			throw new PessoaNaoEncontradaException(id);
+			throw new EntidadeNaoEncontradaException(id);
 
 		} catch (DataIntegrityViolationException e) {
-			throw new PessoaEmUsoException(id);
+			throw new EntidadeEmUsoException(id);
 		}
 	}
 
@@ -92,7 +90,7 @@ public class PessoaService {
 		Pessoa saved = findById(id);
 		validarExclusao(saved);
 		saved.setDeleted(true);
-		save(saved);
+		repository.save(saved);
 	}
 
 	protected void validarExclusao(Pessoa saved) {

@@ -3,13 +3,13 @@ package io.github.educontessi.domain.helpers.util;
 public class ConverteMensagemUnicode {
 
 	public String converteMensagemUnicode(String mensagem) {
-		String retorno = "";
+		StringBuilder retorno = new StringBuilder();
 		char[] chars = mensagem.toCharArray();
 
 		for (char letra : chars) {
-			retorno = retorno + geraCodigoUnicode(letra);
+			retorno.append(geraCodigoUnicode(letra));
 		}
-		return retorno;
+		return retorno.toString();
 	}
 
 	private String geraCodigoUnicode(char letra) {
@@ -37,4 +37,5 @@ public class ConverteMensagemUnicode {
 		String caracteres = "á,à,â,ã,ä,Á,À,Â,Ã,Ä,é,è,ê,ê,É,È,Ê,Ë,í,ì,î,ï,Í,Ì,Î,Ï,ó,ò,ô,õ,ö,Ó,Ò,Ô,Õ,Ö,ú,ù,û,ü,Ú,Ù,Û,ç,Ç,ñ,Ñ,&,'";
 		return caracteres.contains(letra);
 	}
+
 }

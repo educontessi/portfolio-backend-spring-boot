@@ -1,7 +1,11 @@
 package io.github.educontessi.domain.repository.infrastructure.estado;
 
-import java.util.ArrayList;
-import java.util.List;
+import io.github.educontessi.domain.filter.EstadoFilter;
+import io.github.educontessi.domain.model.Estado;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -10,14 +14,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
-import org.springframework.util.StringUtils;
-
-import io.github.educontessi.domain.filter.EstadoFilter;
-import io.github.educontessi.domain.model.Estado;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Implementação da interface {@link EstadoRepositoryQuery}
@@ -49,11 +47,11 @@ public class EstadoRepositoryImpl implements EstadoRepositoryQuery {
 		List<Predicate> predicates = new ArrayList<>();
 
 		if (!StringUtils.isEmpty(filter.getNome())) {
-			predicates.add(builder.like(root.get(EstadoFilter.NOME), "%" + filter.getNome().toLowerCase() + "%"));
+			predicates.add(builder.like(root.get(EstadoFilter.COLUNA_NOME), "%" + filter.getNome().toLowerCase() + "%"));
 		}
 
 		if (!StringUtils.isEmpty(filter.getUf())) {
-			predicates.add(builder.equal(root.get(EstadoFilter.UF), filter.getUf().toUpperCase()));
+			predicates.add(builder.equal(root.get(EstadoFilter.COLUNA_UF), filter.getUf().toUpperCase()));
 		}
 
 		return predicates.toArray(new Predicate[predicates.size()]);

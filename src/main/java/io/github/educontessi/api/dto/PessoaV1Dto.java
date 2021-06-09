@@ -1,14 +1,13 @@
 package io.github.educontessi.api.dto;
 
-import java.time.LocalDate;
-
+import io.github.educontessi.domain.enums.Sexo;
+import io.github.educontessi.domain.enums.StatusCadastro;
+import io.github.educontessi.domain.enums.TipoPessoa;
+import io.github.educontessi.domain.model.Pessoa;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-import io.github.educontessi.domain.enums.Sexo;
-import io.github.educontessi.domain.enums.Status;
-import io.github.educontessi.domain.enums.TipoPessoa;
-import io.github.educontessi.domain.model.Pessoa;
+import java.time.LocalDate;
 
 /**
  * Data Transfer Object {@link Pessoa}
@@ -19,16 +18,23 @@ import io.github.educontessi.domain.model.Pessoa;
 @JsonInclude(Include.NON_EMPTY)
 public class PessoaV1Dto extends BaseDto {
 
-	private Status status;
+	private StatusCadastro status;
 	private TipoPessoa tipoPessoa;
 	private String nomeRazao;
 	private LocalDate dataCadastro;
 	private String cpfCnpj;
 	private LocalDate dataNascimento;
 	private String rgIe;
+
+	private Long cidadeId;
 	private CidadeV1Dto cidade;
+
+	private Long bairroId;
 	private BairroV1Dto bairro;
+
+	private Long ruaId;
 	private RuaV1Dto rua;
+
 	private String cep;
 	private String numero;
 	private String complemento;
@@ -48,11 +54,11 @@ public class PessoaV1Dto extends BaseDto {
 		this.apiVersion = "V1";
 	}
 
-	public Status getStatus() {
+	public StatusCadastro getStatus() {
 		return status;
 	}
 
-	public void setStatus(Status status) {
+	public void setStatus(StatusCadastro status) {
 		this.status = status;
 	}
 
@@ -238,6 +244,30 @@ public class PessoaV1Dto extends BaseDto {
 
 	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
+	}
+
+	public Long getCidadeId() {
+		return cidadeId;
+	}
+
+	public void setCidadeId(Long cidadeId) {
+		this.cidadeId = cidadeId;
+	}
+
+	public Long getBairroId() {
+		return bairroId;
+	}
+
+	public void setBairroId(Long bairroId) {
+		this.bairroId = bairroId;
+	}
+
+	public Long getRuaId() {
+		return ruaId;
+	}
+
+	public void setRuaId(Long ruaId) {
+		this.ruaId = ruaId;
 	}
 
 }

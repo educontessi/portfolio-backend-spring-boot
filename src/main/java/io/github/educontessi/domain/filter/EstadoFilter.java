@@ -10,8 +10,8 @@ import io.github.educontessi.domain.model.Estado;
  */
 public class EstadoFilter {
 
-	public static final String NOME = "nome";
-	public static final String UF = "uf";
+	public static final String COLUNA_NOME = "nome";
+	public static final String COLUNA_UF = "uf";
 
 	private String nome;
 	private String uf;

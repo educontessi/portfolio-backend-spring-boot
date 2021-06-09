@@ -1,10 +1,9 @@
 package io.github.educontessi.domain.repository.infrastructure.rua;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
 import io.github.educontessi.domain.filter.RuaFilter;
 import io.github.educontessi.domain.model.Rua;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * Interface para filtros personalizados do cadastro de {@link Rua}
@@ -14,6 +13,6 @@ import io.github.educontessi.domain.model.Rua;
  */
 public interface RuaRepositoryQuery {
 
-	public Page<Rua> search(RuaFilter filter, Pageable pageable);
+	Page<Rua> search(RuaFilter filter, Pageable pageable);
 
 }

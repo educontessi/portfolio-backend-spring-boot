@@ -10,7 +10,7 @@ import io.github.educontessi.domain.model.Cidade;
  */
 public class CidadeFilter {
 
-	public static final String NOME = "nome";
+	public static final String COLUNA_NOME = "nome";
 
 	private String nome;
 

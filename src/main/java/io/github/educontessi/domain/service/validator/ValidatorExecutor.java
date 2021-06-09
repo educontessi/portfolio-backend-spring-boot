@@ -16,7 +16,7 @@ public class ValidatorExecutor {
 	}
 
 	public void execute() {
-		validators.forEach(v -> v.validate());
+		validators.forEach(Validator::validate);
 	}
 
 	public void add(Validator validator) {

@@ -1,11 +1,10 @@
 package io.github.educontessi.domain.model;
 
-import static io.github.educontessi.domain.helpers.util.FuncoesString.adicionaMascara;
-import static io.github.educontessi.domain.helpers.util.FuncoesString.removeMascaraDeNumeros;
-
+import io.github.educontessi.domain.helpers.util.TipoMascara;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import io.github.educontessi.domain.helpers.util.TipoMascara;
+import static io.github.educontessi.domain.helpers.util.FuncoesString.adicionaMascara;
+import static io.github.educontessi.domain.helpers.util.FuncoesString.removeMascaraDeNumeros;
 
 /**
  * Entidade {@link ViaCepResposta} para retornar a responta ao endpoint de

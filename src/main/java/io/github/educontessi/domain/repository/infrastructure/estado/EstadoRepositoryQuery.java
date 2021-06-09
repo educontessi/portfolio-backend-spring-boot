@@ -1,10 +1,9 @@
 package io.github.educontessi.domain.repository.infrastructure.estado;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
 import io.github.educontessi.domain.filter.EstadoFilter;
 import io.github.educontessi.domain.model.Estado;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * Interface para filtros personalizados do cadastro de {@link Estado}
@@ -14,6 +13,6 @@ import io.github.educontessi.domain.model.Estado;
  */
 public interface EstadoRepositoryQuery {
 
-	public Page<Estado> search(EstadoFilter filter, Pageable pageable);
+	Page<Estado> search(EstadoFilter filter, Pageable pageable);
 
 }

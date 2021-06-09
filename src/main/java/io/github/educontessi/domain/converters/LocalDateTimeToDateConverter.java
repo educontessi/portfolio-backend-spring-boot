@@ -1,10 +1,9 @@
 package io.github.educontessi.domain.converters;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 /**
  * Converte o atributo da entidade {@link LocalDateTime} em registro de data e

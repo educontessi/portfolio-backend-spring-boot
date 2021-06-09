@@ -1,21 +1,13 @@
 package io.github.educontessi.domain.model;
 
-import static io.github.educontessi.domain.helpers.util.FuncoesString.formatarNome;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import static io.github.educontessi.domain.helpers.util.FuncoesString.formatarNome;
+
 /**
- * Entidade {@link Cidade} para manipiular tabela de cidades
+ * Entidade {@link Cidade} para manipular tabela de cidades
  * 
  * @author Eduardo Possamai Contessi
  *
@@ -24,17 +16,13 @@ import javax.validation.constraints.Size;
 @Table(name = "cidade_view")
 public class Cidade extends BaseEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
 	@NotNull
 	@Size(min = 3, max = 100)
 	@Column(name = "nome")
 	private String nome;
 
 	@NotNull
-	@Column(name = "estado_id", insertable = true, updatable = true)
+	@Column(name = "estado_id")
 	private Long estadoId;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -44,14 +32,6 @@ public class Cidade extends BaseEntity {
 	@NotNull
 	@Column(name = "ibge")
 	private Integer ibge;
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getNome() {
 		return nome;
@@ -75,7 +55,6 @@ public class Cidade extends BaseEntity {
 
 	public void setEstado(Estado estado) {
 		this.estado = estado;
-		this.estadoId = estado.getId();
 	}
 
 	public Integer getIbge() {

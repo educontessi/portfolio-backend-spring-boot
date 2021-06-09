@@ -1,12 +1,10 @@
 package io.github.educontessi.api.dataconverter;
 
-import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Component;
-
 import io.github.educontessi.api.dto.CidadeV1Dto;
-import io.github.educontessi.api.dto.EstadoV1Dto;
 import io.github.educontessi.domain.helpers.util.ExpandirUtil;
 import io.github.educontessi.domain.model.Cidade;
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Component;
 
 @Component
 public class CidadeV1DataConverter extends DataConverter<Cidade, CidadeV1Dto> {
@@ -14,7 +12,7 @@ public class CidadeV1DataConverter extends DataConverter<Cidade, CidadeV1Dto> {
 	@Override
 	public void copyToEntity(Cidade entity, CidadeV1Dto dto) {
 		BeanUtils.copyProperties(dto, entity, getIgnoreProperties());
-		entity.setEstadoId(getIdOrNull(dto.getEstado()));
+		entity.setEstadoId(getIdOrNull(dto.getEstado(), dto.getEstadoId()));
 		isValid(entity);
 	}
 
@@ -37,10 +35,9 @@ public class CidadeV1DataConverter extends DataConverter<Cidade, CidadeV1Dto> {
 		if (ExpandirUtil.contains("estado", expandir)) {
 			dto.setEstado(new EstadoV1DataConverter().convertToDto(entity.getEstado(),
 					ExpandirUtil.extrairSubExpadir("estado", expandir)));
+			dto.setEstadoId(null); // otimizar retorno json
 		} else {
-			EstadoV1Dto estado = new EstadoV1Dto();
-			estado.setId(entity.getEstadoId());
-			dto.setEstado(estado);
+			dto.setEstadoId(entity.getEstadoId());
 		}
 	}
 }

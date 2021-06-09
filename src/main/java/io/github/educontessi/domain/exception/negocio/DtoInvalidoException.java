@@ -9,7 +9,7 @@ public class DtoInvalidoException extends NegocioException {
 	}
 
 	public DtoInvalidoException(StringBuilder builder) {
-		this(builder.toString());
+		this(builder.toString().replaceFirst("\\|", ""));
 	}
 
 }

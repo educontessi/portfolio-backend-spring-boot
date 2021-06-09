@@ -1,9 +1,8 @@
 package io.github.educontessi.domain.exception.exceptionhandler;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
+import io.github.educontessi.domain.exception.negocio.DtoInvalidoException;
+import io.github.educontessi.domain.exception.negocio.EntidadeEmUsoException;
+import io.github.educontessi.domain.exception.negocio.EntidadeNaoEncontradaException;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -22,9 +21,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import io.github.educontessi.domain.exception.negocio.DtoInvalidoException;
-import io.github.educontessi.domain.exception.negocio.EntidadeEmUsoException;
-import io.github.educontessi.domain.exception.negocio.EntidadeNaoEncontradaException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Classe de tratamento de erros

@@ -1,9 +1,13 @@
 package io.github.educontessi.domain.service;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-
+import io.github.educontessi.domain.exception.negocio.EntidadeEmUsoException;
+import io.github.educontessi.domain.exception.negocio.EntidadeNaoEncontradaException;
+import io.github.educontessi.domain.filter.CidadeFilter;
+import io.github.educontessi.domain.model.Cidade;
+import io.github.educontessi.domain.parametros_do_sistema.Parametros;
+import io.github.educontessi.domain.repository.CidadeRepository;
+import io.github.educontessi.domain.service.validator.DeleteCidadeValidator;
+import io.github.educontessi.domain.service.validator.ValidatorExecutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -12,14 +16,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import io.github.educontessi.domain.exception.CidadeEmUsoException;
-import io.github.educontessi.domain.exception.CidadeNaoEncontradaException;
-import io.github.educontessi.domain.filter.CidadeFilter;
-import io.github.educontessi.domain.helpers.util.LoadProperties;
-import io.github.educontessi.domain.model.Cidade;
-import io.github.educontessi.domain.repository.CidadeRepository;
-import io.github.educontessi.domain.service.validator.DeleteCidadeValidator;
-import io.github.educontessi.domain.service.validator.ValidatorExecutor;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Service para {@link Cidade}
@@ -48,7 +47,7 @@ public class CidadeService {
 	public Cidade findById(Long id) {
 		Optional<Cidade> optionalSaved = repository.findById(id);
 		if (!optionalSaved.isPresent()) {
-			throw new CidadeNaoEncontradaException(id);
+			throw new EntidadeNaoEncontradaException(id);
 		}
 		return optionalSaved.get();
 	}
@@ -60,19 +59,18 @@ public class CidadeService {
 	public Cidade findByIbge(@PathVariable Integer ibge) {
 		Optional<Cidade> optionalSaved = repository.findByIbge(ibge);
 		if (!optionalSaved.isPresent()) {
-			throw new CidadeNaoEncontradaException(null, ibge);
+			throw new EntidadeNaoEncontradaException(String.format("Não existe uma cidade com código o código IBGE %d", ibge));
 		}
 		return optionalSaved.get();
 	}
 
 	public Cidade save(Cidade entity) {
-		Objects.requireNonNull(entity, "entity nao pode ser null");
+		Objects.requireNonNull(entity, "entity não pode ser null");
 		return repository.save(entity);
 	}
 
 	public void delete(Long id) {
-		boolean excluirDefinitivo = Boolean.valueOf(LoadProperties.getProperty("portifolio.excluir-definitivo"));
-		if (excluirDefinitivo) {
+		if (Parametros.EXCLUIR_DEFINITIVO) {
 			definitiveDelete(id);
 		} else {
 			paranoidDelete(id);
@@ -84,10 +82,10 @@ public class CidadeService {
 			repository.deleteById(id);
 			repository.flush();
 		} catch (EmptyResultDataAccessException e) {
-			throw new CidadeNaoEncontradaException(id);
+			throw new EntidadeNaoEncontradaException(id);
 
 		} catch (DataIntegrityViolationException e) {
-			throw new CidadeEmUsoException(id);
+			throw new EntidadeEmUsoException(id);
 		}
 	}
 
@@ -95,7 +93,7 @@ public class CidadeService {
 		Cidade saved = findById(id);
 		validarExclusao(saved);
 		saved.setDeleted(true);
-		save(saved);
+		repository.save(saved);
 	}
 
 	protected void validarExclusao(Cidade saved) {

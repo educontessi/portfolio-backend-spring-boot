@@ -1,9 +1,8 @@
 package io.github.educontessi.domain.annotations.cpfcnpj;
 
-import java.util.InputMismatchException;
-
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.util.InputMismatchException;
 
 public class CPFCNPJValidation implements ConstraintValidator<CPFCNPJ, String> {
 

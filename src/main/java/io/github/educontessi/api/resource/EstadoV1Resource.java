@@ -1,28 +1,5 @@
 package io.github.educontessi.api.resource;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-
 import io.github.educontessi.api.dataconverter.EstadoV1DataConverter;
 import io.github.educontessi.api.dto.EstadoV1Dto;
 import io.github.educontessi.domain.filter.EstadoFilter;
@@ -32,6 +9,18 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Endpoints para {@link Estado}
@@ -44,14 +33,11 @@ import io.swagger.annotations.ApiResponses;
 @Api(produces = "application/json", value = "EstadoV1Resource")
 public class EstadoV1Resource extends BaseResource {
 
+	@Autowired
 	private EstadoService service;
-	private EstadoV1DataConverter converter;
 
 	@Autowired
-	public EstadoV1Resource(EstadoService service, EstadoV1DataConverter converter) {
-		this.service = service;
-		this.converter = converter;
-	}
+	private EstadoV1DataConverter converter;
 
 	@GetMapping
 	@ApiOperation(value = "Busca todos", response = Iterable.class)
@@ -61,9 +47,7 @@ public class EstadoV1Resource extends BaseResource {
 			@ApiResponse(code = 500, message = "O aplicativo servidor falhou ao processar a solicitação") })
 	public List<EstadoV1Dto> findAll(String expandir) {
 		List<Estado> lista = service.findAll();
-		List<EstadoV1Dto> listaDto = new ArrayList<>();
-		listaDto.addAll(lista.stream().map(x -> converter.convertToDto(x, expandir)).collect(Collectors.toList()));
-		return listaDto;
+		return lista.stream().map(x -> converter.convertToDto(x, expandir)).collect(Collectors.toList());
 	}
 
 	@GetMapping("/pesquisar")
@@ -74,10 +58,9 @@ public class EstadoV1Resource extends BaseResource {
 			@ApiResponse(code = 500, message = "O aplicativo servidor falhou ao processar a solicitação") })
 	public Page<EstadoV1Dto> search(EstadoFilter filter, Pageable pageable, String expandir) {
 		Page<Estado> lista = service.search(filter, pageable);
-		Page<EstadoV1Dto> listaDto = new PageImpl<>(
+		return new PageImpl<>(
 				lista.getContent().stream().map(x -> converter.convertToDto(x, expandir)).collect(Collectors.toList()),
 				lista.getPageable(), lista.getTotalElements());
-		return listaDto;
 	}
 
 	@GetMapping("/pais/{paisId}")
@@ -89,9 +72,7 @@ public class EstadoV1Resource extends BaseResource {
 			@ApiResponse(code = 500, message = "O aplicativo servidor falhou ao processar a solicitação") })
 	public List<EstadoV1Dto> findByPaisId(@PathVariable Long paisId, String expandir) {
 		List<Estado> lista = service.findByPaisId(paisId);
-		List<EstadoV1Dto> listaDto = new ArrayList<>();
-		listaDto.addAll(lista.stream().map(x -> converter.convertToDto(x, expandir)).collect(Collectors.toList()));
-		return listaDto;
+		return lista.stream().map(x -> converter.convertToDto(x, expandir)).collect(Collectors.toList());
 	}
 
 	@GetMapping("/{id}")

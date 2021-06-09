@@ -1,13 +1,12 @@
 package io.github.educontessi.domain.repository;
 
-import java.util.List;
-import java.util.Optional;
-
+import io.github.educontessi.domain.model.Cidade;
+import io.github.educontessi.domain.repository.infrastructure.cidade.CidadeRepositoryQuery;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import io.github.educontessi.domain.model.Cidade;
-import io.github.educontessi.domain.repository.infrastructure.cidade.CidadeRepositoryQuery;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Repository para {@link Cidade}
@@ -18,8 +17,8 @@ import io.github.educontessi.domain.repository.infrastructure.cidade.CidadeRepos
 @Repository
 public interface CidadeRepository extends JpaRepository<Cidade, Long>, CidadeRepositoryQuery {
 
-	public Optional<Cidade> findByIbge(Integer ibge);
+	Optional<Cidade> findByIbge(Integer ibge);
 
-	public List<Cidade> findByEstadoId(Long estadoId);
+	List<Cidade> findByEstadoId(Long estadoId);
 
 }

@@ -1,13 +1,12 @@
 package io.github.educontessi.domain.repository;
 
-import java.util.List;
-import java.util.Optional;
-
+import io.github.educontessi.domain.model.Bairro;
+import io.github.educontessi.domain.repository.infrastructure.bairro.BairroRepositoryQuery;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import io.github.educontessi.domain.model.Bairro;
-import io.github.educontessi.domain.repository.infrastructure.bairro.BairroRepositoryQuery;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Repository para {@link Bairro}
@@ -18,8 +17,8 @@ import io.github.educontessi.domain.repository.infrastructure.bairro.BairroRepos
 @Repository
 public interface BairroRepository extends JpaRepository<Bairro, Long>, BairroRepositoryQuery {
 
-	public Optional<Bairro> findByNomeAndCidadeId(String nome, Long cidadeId);
+	Optional<Bairro> findByNomeAndCidadeId(String nome, Long cidadeId);
 
-	public List<Bairro> findByCidadeId(Long cidadeId);
+	List<Bairro> findByCidadeId(Long cidadeId);
 
 }

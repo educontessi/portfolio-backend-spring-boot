@@ -1,8 +1,8 @@
 package io.github.educontessi.domain.helpers.event;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.context.ApplicationEvent;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Classe usada para adicionar o header location nos recursos criados

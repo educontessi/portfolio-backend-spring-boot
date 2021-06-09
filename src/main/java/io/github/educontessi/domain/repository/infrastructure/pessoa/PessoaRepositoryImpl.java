@@ -1,7 +1,11 @@
 package io.github.educontessi.domain.repository.infrastructure.pessoa;
 
-import java.util.ArrayList;
-import java.util.List;
+import io.github.educontessi.domain.filter.PessoaFilter;
+import io.github.educontessi.domain.model.Pessoa;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -10,14 +14,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
-import org.springframework.util.StringUtils;
-
-import io.github.educontessi.domain.filter.PessoaFilter;
-import io.github.educontessi.domain.model.Pessoa;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Implementação da interface {@link PessoaRepositoryQuery}
@@ -49,16 +47,16 @@ public class PessoaRepositoryImpl implements PessoaRepositoryQuery {
 		List<Predicate> predicates = new ArrayList<>();
 
 		if (!StringUtils.isEmpty(filter.getNomeRazao())) {
-			predicates.add(builder.like(builder.lower(root.get(PessoaFilter.NOME_RAZAO)),
+			predicates.add(builder.like(builder.lower(root.get(PessoaFilter.COLUNA_NOME_RAZAO)),
 					"%" + filter.getNomeRazao().toLowerCase() + "%"));
 		}
 
 		if (filter.getDataNascimento() != null) {
-			predicates.add(builder.equal(root.get(PessoaFilter.DATA_NASCIMENTO), filter.getDataNascimento()));
+			predicates.add(builder.equal(root.get(PessoaFilter.COLUNA_DATA_NASCIMENTO), filter.getDataNascimento()));
 		}
 
 		if (filter.getCpfCnpj() != null) {
-			predicates.add(builder.equal(root.get(PessoaFilter.CPF_CNPJ), filter.getCpfCnpj()));
+			predicates.add(builder.equal(root.get(PessoaFilter.COLUNA_CPF_CNPJ), filter.getCpfCnpj()));
 		}
 
 		return predicates.toArray(new Predicate[predicates.size()]);

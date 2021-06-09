@@ -10,7 +10,7 @@ import io.github.educontessi.domain.model.Rua;
  */
 public class RuaFilter {
 
-	public static final String NOME = "nome";
+	public static final String COLUNA_NOME = "nome";
 
 	private String nome;
 

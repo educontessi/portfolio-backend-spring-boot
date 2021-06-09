@@ -1,10 +1,11 @@
 package io.github.educontessi.domain.helpers.util;
 
-import java.text.ParseException;
+import io.github.educontessi.domain.enums.TipoPessoa;
+import io.github.educontessi.domain.exception.negocio.NegocioException;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.swing.text.MaskFormatter;
-
-import org.apache.commons.lang3.StringUtils;
+import java.text.ParseException;
 
 /**
  * Classe para manipulação de String
@@ -14,8 +15,18 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class FuncoesString {
 
+	public static final String EMPTY = "";
+
+	private FuncoesString(){
+		throw new IllegalStateException("Utility class");
+	}
+
 	public static String adicionaMascara(TipoMascara mascara, Object value) {
 		return adicionaMascara(mascara.getMascara(), value);
+	}
+
+	public static String adicionaMascara(TipoPessoa tipoPessoa, Object value) {
+		return adicionaMascara(TipoMascara.getTipoMascara(tipoPessoa), value);
 	}
 
 	private static String adicionaMascara(String mascara, Object value) {
@@ -26,7 +37,7 @@ public class FuncoesString {
 			value = value == null ? "" : value;
 			return mask.valueToString(value);
 		} catch (ParseException e) {
-			throw new RuntimeException(e);
+			throw new NegocioException(e.getMessage());
 		}
 	}
 
@@ -61,20 +72,47 @@ public class FuncoesString {
 						builder.append(StringUtils.capitalize(palavrasDMudo[0])).append("'");
 						builder.append(StringUtils.capitalize(palavrasDMudo[1]));
 					} else {
-						throw new Exception("Nome Inválido");
+						throw new NegocioException("Nome Inválido");
 					}
 				}
 				return builder.toString().trim();
 			} catch (Exception e) {
-				throw new RuntimeException(e);
+				throw new NegocioException(e.getMessage());
 			}
 		}
 		return nome;
 	}
 
+	/**
+	 * Formatador de descrição
+	 * 
+	 * @param descricao = descrição
+	 * @return descricao formatada
+	 */
+	public static String formatarDescricao(String descricao) {
+		if (descricao != null) {
+			try {
+				descricao = descricao.trim();
+				descricao = descricao.replaceAll("\\s+", " ");
+				return descricao;
+			} catch (Exception e) {
+				throw new NegocioException(e.getMessage());
+			}
+		}
+		return descricao;
+	}
+
+	public static boolean nullOrEmpty(String expandir) {
+		return expandir == null || expandir.isEmpty();
+	}
+
+
+
 	private static boolean verificaPreposicaoNome(String palavra) {
 		String caracteres = "da|das|de|do|dos|e";
 		return caracteres.contains(palavra);
 	}
+
+
 
 }

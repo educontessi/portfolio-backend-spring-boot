@@ -1,8 +1,8 @@
 package io.github.educontessi.domain.model;
 
-import static io.github.educontessi.domain.helpers.util.FuncoesString.removeMascaraDeNumeros;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import static io.github.educontessi.domain.helpers.util.FuncoesString.removeMascaraDeNumeros;
 
 /**
  * Entidade {@link ViaCepJson} para obter resposta da API de consulta de CEP

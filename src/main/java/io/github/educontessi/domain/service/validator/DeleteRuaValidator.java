@@ -1,14 +1,13 @@
 package io.github.educontessi.domain.service.validator;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import io.github.educontessi.domain.exception.RuaEmUsoException;
+import io.github.educontessi.domain.exception.negocio.EntidadeEmUsoException;
 import io.github.educontessi.domain.model.Pessoa;
 import io.github.educontessi.domain.model.Rua;
 import io.github.educontessi.domain.repository.PessoaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class DeleteRuaValidator implements Validator {
@@ -21,8 +20,8 @@ public class DeleteRuaValidator implements Validator {
 	@Override
 	public void validate() {
 		List<Pessoa> pessoas = pessoaRepository.findByRuaId(rua.getId());
-		if (pessoas.size() > 0) {
-			throw new RuaEmUsoException(rua.getId());
+		if (!pessoas.isEmpty()) {
+			throw new EntidadeEmUsoException(rua.getId());
 		}
 	}
 

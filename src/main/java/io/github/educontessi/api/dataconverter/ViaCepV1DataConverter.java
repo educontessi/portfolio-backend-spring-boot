@@ -1,14 +1,9 @@
 package io.github.educontessi.api.dataconverter;
 
-import org.springframework.stereotype.Component;
-
-import io.github.educontessi.api.dto.BairroV1Dto;
-import io.github.educontessi.api.dto.CidadeV1Dto;
-import io.github.educontessi.api.dto.EstadoV1Dto;
-import io.github.educontessi.api.dto.RuaV1Dto;
-import io.github.educontessi.api.dto.ViaCepV1Dto;
+import io.github.educontessi.api.dto.*;
 import io.github.educontessi.domain.exception.negocio.NegocioException;
 import io.github.educontessi.domain.model.ViaCepResposta;
+import org.springframework.stereotype.Component;
 
 @Component
 public class ViaCepV1DataConverter extends DataConverter<ViaCepResposta, ViaCepV1Dto> {
